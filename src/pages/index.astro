@@ -1,11 +1,40 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero';
+import Skills from '../components/Skills';
+import About from '../components/About';
+import strapiClient from '../utils/strapi';
+
+// Obtener datos de Strapi
+const aboutData = await strapiClient.find('about', {
+	populate: ['image', 'socialLinks']
+});
+
+// Transformar los datos al formato esperado por el componente
+const formattedAboutData = {
+	title: aboutData.data.attributes.title,
+	description: aboutData.data.attributes.description,
+	secondaryDescription: aboutData.data.attributes.secondaryDescription,
+	education: aboutData.data.attributes.education,
+	location: aboutData.data.attributes.location,
+	cvUrl: aboutData.data.attributes.cvUrl,
+	cvButtonText: aboutData.data.attributes.cvButtonText,
+	image: {
+		url: aboutData.data.attributes.image.data.attributes.url,
+		alternativeText: aboutData.data.attributes.image.data.attributes.alternativeText
+	},
+	socialLinks: aboutData.data.attributes.socialLinks.map((link: { url: string; icon: string }) => ({
+		url: link.url,
+		icon: link.icon
+	}))
+};
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-	<Welcome />
+	<Hero client:load />
+	<About client:load aboutData={formattedAboutData} />
+	<Skills client:load />
 </Layout>
