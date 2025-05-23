@@ -1,8 +1,16 @@
-# Astro Starter Kit: Basics
+# Portfolio Monorepo
 
-```sh
-npm create astro@latest -- --template basics
-```
+Este repositorio contiene dos proyectos:
+
+- `frontend/`: Aplicación Astro (actual)
+- `backend/`: API Strapi (vacío, listo para inicializar)
+
+## Cómo empezar
+
+1. Entra a `frontend/` y ejecuta los comandos de Astro como de costumbre.
+2. Entra a `backend/` y ejecuta `npx create-strapi-app@latest .` para inicializar Strapi.
+
+Puedes agregar scripts globales en la raíz si lo deseas.
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
 [![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
@@ -18,13 +26,15 @@ Inside of your Astro project, you'll see the following folders and files:
 
 ```text
 /
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
+├── backend/
+├── frontend/
+│   ├── public/
+│   │   └── favicon.svg
+│   ├── src/
+│   │   ├── layouts/
+│   │   │   └── Layout.astro
+│   │   └── pages/
+│   │       └── index.astro
 └── package.json
 ```
 
