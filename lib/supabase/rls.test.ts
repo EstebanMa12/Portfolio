@@ -4,9 +4,15 @@ import type { Database } from "@/types/database";
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const hasRealSupabaseConfig =
+  Boolean(url && anonKey) &&
+  !anonKey!.includes("placeholder") &&
+  anonKey!.startsWith("eyJ");
 
-describe("RLS smoke (requires .env.local)", () => {
-  it.skipIf(!url || !anonKey)("anon can read published projects only", async () => {
+describe("RLS smoke (requires real Supabase anon key)", () => {
+  it.skipIf(!hasRealSupabaseConfig)(
+    "anon can read published projects only",
+    async () => {
     const supabase = createClient<Database>(url!, anonKey!);
 
     const { count: publishedCount } = await supabase
@@ -21,5 +27,6 @@ describe("RLS smoke (requires .env.local)", () => {
       .single();
 
     expect(settings?.site_name).toBe("Esteban Maya");
-  });
+    },
+  );
 });
