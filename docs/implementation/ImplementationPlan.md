@@ -9,7 +9,7 @@
 | **Fecha**                   | 18 de junio de 2026                                                                                                                |
 | **Autor**                   | Staff Engineer                                                                                                                     |
 | **Estado**                  | Ready for Execution                                                                                                                |
-| **Documentos relacionados** | [PRD.md](./PRD.md), [Architecture.md](./Architecture.md), [TechnicalDesign.md](./TechnicalDesign.md), [UXDesign.md](./UXDesign.md) |
+| **Documentos relacionados** | [PRD.md](../product/PRD.md), [Architecture.md](../architecture/Architecture.md), [TechnicalDesign.md](../engineering/TechnicalDesign.md), [UXDesign.md](../ux/UXDesign.md) |
 
 
 ---
