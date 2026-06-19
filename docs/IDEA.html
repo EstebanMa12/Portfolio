@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="description" content="Esteban Maya — Software Engineer especializado en backend y sistemas distribuidos. Formación en Bioingeniería."/>
+<title>Esteban Maya | Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        bg: "#0a0a0b",
+        surface: "#141416",
+        "surface-raised": "#1c1c1f",
+        border: "rgba(255,255,255,0.08)",
+        "text-primary": "#fafafa",
+        "text-secondary": "#a1a1aa",
+        "text-muted": "#71717a",
+        accent: "#c8bfff",
+        "accent-muted": "rgba(200,191,255,0.12)",
+        "metric-positive": "#34d399",
+        "metric-teal": "#2dd4bf",
+        "cta-bg": "#fafafa",
+        "cta-text": "#09090b",
+      },
+      fontFamily: {
+        sans: ["Inter", "system-ui", "sans-serif"],
+        display: ["Geist", "Inter", "system-ui", "sans-serif"],
+      },
+      spacing: {
+        gutter: "24px",
+        "section-gap": "96px",
+        "section-gap-mobile": "64px",
+      },
+      maxWidth: {
+        prose: "65ch",
+      },
+    },
+  },
+};
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  section[id] { scroll-margin-top: 80px; }
+
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .sr-only:focus {
+    position: fixed;
+    top: 12px; left: 12px;
+    width: auto; height: auto;
+    padding: 12px 16px;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    z-index: 100;
+    background: #fafafa;
+    color: #09090b;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  :focus-visible {
+    outline: 2px solid #c8bfff;
+    outline-offset: 2px;
+  }
+
+  .nav-link {
+    color: #a1a1aa;
+    transition: color 150ms ease;
+  }
+  .nav-link:hover { color: #fafafa; }
+  .nav-link.nav-active {
+    color: #fafafa;
+    box-shadow: inset 0 -2px 0 0 #c8bfff;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #a1a1aa;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 24px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    background: #fafafa;
+    color: #09090b;
+    transition: background 150ms ease, opacity 150ms ease;
+  }
+  .btn-primary:hover { background: #e4e4e7; }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 24px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    background: transparent;
+    color: #fafafa;
+    border: 1px solid rgba(255,255,255,0.12);
+    transition: background 150ms ease, border-color 150ms ease;
+  }
+  .btn-secondary:hover {
+    background: rgba(255,255,255,0.04);
+    border-color: rgba(255,255,255,0.2);
+  }
+
+  .section-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #a1a1aa;
+  }
+
+  .card {
+    background: #141416;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 24px;
+  }
+
+  @media (min-width: 768px) {
+    .card { padding: 32px; }
+  }
+
+  #mobile-menu:not(.open) { display: none; }
+
+  .metric-highlight {
+    border-left: 3px solid #34d399;
+    background: linear-gradient(90deg, rgba(52,211,153,0.06) 0%, transparent 60%);
+  }
+
+  .metric-value {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+
+  .radar-grid {
+    stroke: rgba(255,255,255,0.08);
+    fill: none;
+  }
+
+  .radar-axis {
+    stroke: rgba(255,255,255,0.06);
+  }
+
+  .radar-area {
+    fill: rgba(45,212,191,0.15);
+    stroke: #2dd4bf;
+    stroke-width: 1.5;
+  }
+
+  .radar-label {
+    font-size: 11px;
+    fill: #a1a1aa;
+    font-family: Inter, system-ui, sans-serif;
+  }
+
+  .side-dock {
+    background: rgba(20, 20, 22, 0.75);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 9999px;
+    padding: 8px;
+  }
+
+  .dock-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 9999px;
+    color: #a1a1aa;
+    transition: color 150ms ease, background 150ms ease;
+  }
+
+  .dock-link:hover,
+  .dock-link.dock-active {
+    color: #fafafa;
+    background: rgba(255,255,255,0.06);
+  }
+
+  .dock-link.dock-active {
+    color: #c8bfff;
+    background: rgba(200,191,255,0.1);
+  }
+
+  .dock-divider {
+    width: 20px;
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+    margin: 4px auto;
+  }
+
+  .bridge-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  .bridge-table th,
+  .bridge-table td {
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    font-size: 14px;
+  }
+
+  .bridge-table th {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #71717a;
+    background: rgba(255,255,255,0.02);
+  }
+
+  .bridge-table td:first-child {
+    color: #c8bfff;
+    font-weight: 500;
+    width: 38%;
+  }
+
+  .bridge-table td:last-child {
+    color: #a1a1aa;
+  }
+
+  .bridge-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .bridge-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #71717a;
+    padding: 0 4px;
+  }
+
+  .lab-card {
+    display: flex;
+    flex-direction: column;
+    transition: border-color 150ms ease;
+  }
+
+  .lab-card:hover {
+    border-color: rgba(200,191,255,0.25);
+  }
+
+  .lab-card time {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cert-stack-wrap {
+    overflow-x: auto;
+    overflow-y: visible;
+    padding: 8px 0 32px;
+    margin: 0 -24px;
+    padding-left: 24px;
+    padding-right: 48px;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.15) transparent;
+  }
+
+  .cert-stack {
+    display: flex;
+    align-items: stretch;
+    width: max-content;
+    min-height: 300px;
+  }
+
+  .cert-card {
+    --cert-overlap: 72px;
+    flex: 0 0 220px;
+    width: 220px;
+    height: 300px;
+    margin-left: calc(-1 * var(--cert-overlap));
+    padding: 22px 20px;
+    background: #f4f4f5;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.6);
+    box-shadow:
+      0 1px 2px rgba(0,0,0,0.06),
+      0 8px 32px rgba(0,0,0,0.35);
+    position: relative;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .cert-card:first-child {
+    margin-left: 0;
+  }
+
+  .cert-card:hover,
+  .cert-card:focus-within {
+    transform: translateY(-10px);
+    box-shadow:
+      0 2px 4px rgba(0,0,0,0.08),
+      0 16px 48px rgba(0,0,0,0.45);
+    z-index: 20 !important;
+  }
+
+  .cert-card-title {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.45;
+    color: #27272a;
+    max-width: 85%;
+  }
+
+  .cert-card-meta {
+    font-size: 11px;
+    color: #71717a;
+    margin-top: 6px;
+  }
+
+  .cert-badge {
+    align-self: flex-end;
+    width: 96px;
+    height: 96px;
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 768px) {
+    .cert-card {
+      flex: 0 0 240px;
+      width: 240px;
+      height: 320px;
+      --cert-overlap: 88px;
+    }
+
+    .cert-badge {
+      width: 108px;
+      height: 108px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .bridge-table thead { display: none; }
+    .bridge-table tr {
+      display: block;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .bridge-table td {
+      display: block;
+      border-bottom: none;
+      width: 100% !important;
+    }
+    .bridge-table td:first-child {
+      background: rgba(255,255,255,0.02);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body class="bg-bg text-text-primary min-h-screen font-sans antialiased overflow-x-hidden">
+
+<a class="sr-only" href="#main">Saltar al contenido</a>
+
+<!-- Header -->
+<header class="fixed top-0 w-full z-50 bg-bg/85 backdrop-blur-md border-b border-border">
+  <div class="max-w-6xl mx-auto px-gutter h-16 flex items-center justify-between gap-4">
+
+    <a href="#hero" class="font-display text-sm font-semibold tracking-tight text-text-primary shrink-0">
+      Esteban Maya
+    </a>
+
+    <nav aria-label="Principal" class="hidden md:flex items-center gap-8">
+      <a class="nav-link text-sm font-medium pb-1" href="#hero" data-nav="hero">Inicio</a>
+      <a class="nav-link text-sm font-medium pb-1" href="#about" data-nav="about">Sobre mí</a>
+      <a class="nav-link text-sm font-medium pb-1" href="#experience" data-nav="experience">Experiencia</a>
+      <a class="nav-link text-sm font-medium pb-1" href="#projects" data-nav="projects">Proyectos</a>
+      <a class="nav-link text-sm font-medium pb-1" href="#lab" data-nav="lab">The Lab</a>
+      <a class="nav-link text-sm font-medium pb-1" href="#contact" data-nav="contact">Contacto</a>
+    </nav>
+
+    <div class="hidden md:flex items-center gap-4">
+      <!-- PLACEHOLDER: actualizar URLs sociales -->
+      <a href="https://github.com/estebanmaya" target="_blank" rel="noopener noreferrer" class="text-text-secondary hover:text-text-primary transition-colors text-sm" aria-label="GitHub">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/></svg>
+      </a>
+      <a href="https://linkedin.com/in/estebanmaya" target="_blank" rel="noopener noreferrer" class="text-text-secondary hover:text-text-primary transition-colors text-sm" aria-label="LinkedIn">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 114.127 0 2.063 2.063 0 01-2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="#contact" class="btn-primary text-sm px-5">Contactar</a>
+    </div>
+
+    <button id="menu-toggle" type="button" class="md:hidden flex items-center justify-center w-11 h-11 rounded-lg border border-border text-text-primary" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menú de navegación">
+      <svg id="icon-menu" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <svg id="icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+  </div>
+
+  <nav id="mobile-menu" aria-label="Menú móvil" class="md:hidden border-t border-border bg-bg px-gutter py-4">
+    <ul class="flex flex-col gap-1">
+      <li><a class="nav-link block py-3 px-2 text-base font-medium" href="#hero" data-nav="hero">Inicio</a></li>
+      <li><a class="nav-link block py-3 px-2 text-base font-medium" href="#about" data-nav="about">Sobre mí</a></li>
+      <li><a class="nav-link block py-3 px-2 text-base font-medium" href="#experience" data-nav="experience">Experiencia</a></li>
+      <li><a class="nav-link block py-3 px-2 text-base font-medium" href="#projects" data-nav="projects">Proyectos</a></li>
+      <li><a class="nav-link block py-3 px-2 text-base font-medium" href="#lab" data-nav="lab">The Lab</a></li>
+      <li><a class="nav-link block py-3 px-2 text-base font-medium" href="#contact" data-nav="contact">Contacto</a></li>
+    </ul>
+    <div class="flex gap-4 mt-4 pt-4 border-t border-border">
+      <a href="https://github.com/estebanmaya" target="_blank" rel="noopener noreferrer" class="text-text-secondary hover:text-text-primary text-sm font-medium">GitHub</a>
+      <a href="https://linkedin.com/in/estebanmaya" target="_blank" rel="noopener noreferrer" class="text-text-secondary hover:text-text-primary text-sm font-medium">LinkedIn</a>
+    </div>
+  </nav>
+</header>
+
+<!-- Side dock: accesos rápidos (desktop ancho) -->
+<aside aria-label="Accesos rápidos" class="side-dock fixed left-5 top-1/2 -translate-y-1/2 z-40 hidden xl:flex flex-col items-center">
+  <nav aria-label="Navegación lateral">
+    <ul class="flex flex-col items-center gap-1" role="list">
+      <li>
+        <a href="#hero" class="dock-link" data-dock="hero" aria-label="Inicio" title="Inicio">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z"/></svg>
+        </a>
+      </li>
+      <li>
+        <a href="#projects" class="dock-link" data-dock="projects" aria-label="Proyectos" title="Proyectos">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+        </a>
+      </li>
+      <li>
+        <a href="#lab" class="dock-link" data-dock="lab" aria-label="The Lab" title="The Lab">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+        </a>
+      </li>
+      <li>
+        <a href="#skills" class="dock-link" data-dock="skills" aria-label="Skills" title="Skills">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        </a>
+      </li>
+      <li>
+        <a href="#contact" class="dock-link" data-dock="contact" aria-label="Contacto" title="Contacto">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="dock-divider" aria-hidden="true"></div>
+
+  <nav aria-label="Redes sociales">
+    <ul class="flex flex-col items-center gap-1" role="list">
+      <!-- PLACEHOLDER: actualizar URLs -->
+      <li>
+        <a href="https://github.com/estebanmaya" target="_blank" rel="noopener noreferrer" class="dock-link" aria-label="GitHub (abre en nueva pestaña)" title="GitHub">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/></svg>
+        </a>
+      </li>
+      <li>
+        <a href="https://linkedin.com/in/estebanmaya" target="_blank" rel="noopener noreferrer" class="dock-link" aria-label="LinkedIn (abre en nueva pestaña)" title="LinkedIn">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 114.127 0 2.063 2.063 0 01-2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+      </li>
+      <li>
+        <!-- PLACEHOLDER: reemplazar href con URL del CV -->
+        <a href="#" class="dock-link" aria-label="Descargar CV" title="Descargar CV">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</aside>
+
+<main id="main" class="max-w-6xl mx-auto px-gutter pt-28 pb-section-gap-mobile md:pb-section-gap">
+
+  <!-- Hero -->
+  <section id="hero" aria-labelledby="hero-heading" class="mb-section-gap-mobile md:mb-section-gap">
+    <div class="flex flex-col lg:flex-row items-start gap-12 lg:gap-16">
+      <div class="flex-1 space-y-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent-muted border border-border text-accent text-xs font-medium">
+          <span class="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden="true"></span>
+          Disponible para oportunidades · Software Engineer
+        </div>
+
+        <div>
+          <h1 id="hero-heading" class="font-display text-4xl md:text-5xl font-semibold tracking-tight text-text-primary leading-tight">
+            Esteban Maya
+          </h1>
+          <p class="mt-3 text-lg md:text-xl text-text-secondary font-medium">
+            Software Engineer · Backend &amp; Sistemas Distribuidos
+          </p>
+        </div>
+
+        <p class="text-text-secondary text-base md:text-lg leading-relaxed max-w-prose">
+          Ingeniero con formación en Bioingeniería. Diseño y construyo sistemas escalables con enfoque en calidad, observabilidad e impacto medible.
+        </p>
+
+        <!-- PLACEHOLDER: actualizar métricas con datos reales -->
+        <div class="space-y-3 pt-2" role="group" aria-label="Métricas de impacto profesional">
+          <article class="card metric-highlight py-5 px-6">
+            <p class="text-metric-positive text-xs font-semibold uppercase tracking-wide">Optimización de procesos</p>
+            <p class="metric-value font-display text-3xl md:text-4xl font-bold text-text-primary mt-1">60% de mejora</p>
+            <p class="text-text-secondary text-sm mt-2 leading-relaxed">Estandarización de creación de indicadores, reduciendo el tiempo de <span class="text-text-primary font-medium">50 min</span> a <span class="text-text-primary font-medium">10–30 min</span> por unidad.</p>
+          </article>
+          <dl class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="card py-4 px-5">
+              <dt class="text-text-muted text-xs font-medium uppercase tracking-wide">Latencia API</dt>
+              <dd class="metric-value mt-1 font-display text-2xl font-semibold text-metric-teal">−40%</dd>
+              <dd class="text-text-secondary text-xs mt-1">optimización de queries y caching con Redis</dd>
+            </div>
+            <div class="card py-4 px-5">
+              <dt class="text-text-muted text-xs font-medium uppercase tracking-wide">Tiempo de deploy</dt>
+              <dd class="metric-value mt-1 font-display text-2xl font-semibold text-text-primary">45 → 8 min</dd>
+              <dd class="text-text-secondary text-xs mt-1">pipeline IaC con Terraform y GitHub Actions</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="flex flex-wrap gap-3 pt-2">
+          <a href="#projects" class="btn-primary">Ver proyectos</a>
+          <!-- PLACEHOLDER: reemplazar href con URL del CV -->
+          <a href="#" class="btn-secondary">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            Descargar CV
+          </a>
+        </div>
+      </div>
+
+      <div class="w-full lg:w-80 xl:w-96 shrink-0">
+        <img
+          src="https://lh3.googleusercontent.com/aida/ADBb0uilf42INjBwYTstqP4QmeK4g1qRIbmexi9yYm_jcbgTqJIZp_qb3aLE3dZeD9sFQM4CVhDPHGUdIGUTBGXeMGhzcutlPcJFjXvJ45v_Pos7DWfvKJAliT-SxMbN9bAlznEAZgtuQ_ICD_7A84On_frp7atkOFBnQzonk9EtfVCD4nTY0KCxGzQoi3vLrlwzK2qOJ1OzCqIqHTKkzvRuO7d2htDsLKoDsJLftXPq6vdKLdiUjDmS5GgLtu8"
+          alt="Foto de perfil de Esteban Maya, Software Engineer"
+          class="w-full aspect-[4/5] object-cover rounded-xl border border-border"
+          loading="lazy"
+          width="384"
+          height="480"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Sobre mí -->
+  <section id="about" aria-labelledby="about-heading" class="mb-section-gap-mobile md:mb-section-gap">
+    <p class="section-label mb-3">Sobre mí</p>
+    <h2 id="about-heading" class="font-display text-2xl md:text-3xl font-semibold tracking-tight text-text-primary mb-10">
+      De la Bioingeniería al software de producción
+    </h2>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-16">
+      <div class="lg:col-span-2 space-y-5 text-text-secondary text-base leading-relaxed max-w-prose">
+        <p>
+          Mi carrera comenzó en Bioingeniería, donde aprendí a modelar sistemas complejos, procesar señales biológicas y aplicar rigor estadístico a problemas con datos ruidosos. Esa formación me enseñó que la precisión no es un lujo: es un requisito cuando los errores tienen consecuencias reales.
+        </p>
+        <p>
+          La transición al software fue natural. Los mismos principios —diseño modular, validación rigurosa, pensamiento sistémico— se aplican a arquitecturas distribuidas, APIs de alta carga y pipelines de datos. Hoy construyo sistemas backend y plataformas que escalan con el negocio, no contra él.
+        </p>
+        <p>
+          Busco roles en backend, platform engineering o arquitectura de sistemas donde el impacto sea medible y la calidad técnica sea prioridad.
+        </p>
+      </div>
+
+      <div>
+        <h3 class="text-sm font-semibold text-text-primary mb-4">Intereses</h3>
+        <ul class="flex flex-wrap gap-2" role="list">
+          <li><span class="badge">Inteligencia Artificial</span></li>
+          <li><span class="badge">Computación Cuántica</span></li>
+          <li><span class="badge">Neurociencia Computacional</span></li>
+          <li><span class="badge">Fitness</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Puente Bio ↔ Software -->
+  <section id="bio-bridge" aria-labelledby="bio-bridge-heading" class="mb-section-gap-mobile md:mb-section-gap">
+    <p class="section-label mb-3">Transferencia de skills</p>
+    <h2 id="bio-bridge-heading" class="font-display text-2xl md:text-3xl font-semibold tracking-tight text-text-primary mb-4">
+      Bioingeniería ↔ Software
+    </h2>
+    <p class="text-text-secondary text-base leading-relaxed max-w-prose mb-10">
+      Mi formación científica no quedó atrás: se traduce directamente en cómo diseño, valido y opero sistemas de software en producción.
+    </p>
+
+    <div class="card p-0 overflow-hidden">
+      <table class="bridge-table">
+        <thead>
+          <tr>
+            <th scope="col">Bioingeniería</th>
+            <th scope="col" class="hidden md:table-cell" aria-hidden="true"></th>
+            <th scope="col">Software</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Procesamiento de señales</td>
+            <td class="hidden md:table-cell bridge-arrow" aria-hidden="true">→</td>
+            <td>Pipelines de datos y event streams en tiempo real</td>
+          </tr>
+          <tr>
+            <td>Modelado de sistemas complejos</td>
+            <td class="hidden md:table-cell bridge-arrow" aria-hidden="true">→</td>
+            <td>Arquitectura de microservicios y diseño modular</td>
+          </tr>
+          <tr>
+            <td>Validación experimental</td>
+            <td class="hidden md:table-cell bridge-arrow" aria-hidden="true">→</td>
+            <td>Testing automatizado, CI/CD y entornos reproducibles</td>
+          </tr>
+          <tr>
+            <td>Análisis estadístico</td>
+            <td class="hidden md:table-cell bridge-arrow" aria-hidden="true">→</td>
+            <td>Observabilidad, métricas y análisis de rendimiento</td>
+          </tr>
+          <tr>
+            <td>Protocolos de laboratorio</td>
+            <td class="hidden md:table-cell bridge-arrow" aria-hidden="true">→</td>
+            <td>Contratos de API, OpenAPI y documentación técnica</td>
+          </tr>
+          <tr>
+            <td>Control de calidad</td>
+            <td class="hidden md:table-cell bridge-arrow" aria-hidden="true">→</td>
+            <td>Code review, estándares de producción y SLOs</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="text-text-muted text-sm mt-6 max-w-prose">
+      El mismo rigor que exige un experimento reproducible es el que aplico a un deploy en producción: hipótesis clara, medición constante, iteración basada en evidencia.
+    </p>
+  </section>
+
+  <!-- Experiencia -->
+  <section id="experience" aria-labelledby="experience-heading" class="mb-section-gap-mobile md:mb-section-gap">
+    <p class="section-label mb-3">Experiencia</p>
+    <h2 id="experience-heading" class="font-display text-2xl md:text-3xl font-semibold tracking-tight text-text-primary mb-10">
+      Trayectoria profesional
+    </h2>
+
+    <!-- PLACEHOLDER: actualizar con experiencia laboral real -->
+    <ol class="relative space-y-8 border-l border-border ml-3 pl-8">
+      <li class="relative">
+        <span class="absolute -left-[calc(2rem+5px)] top-1.5 w-2.5 h-2.5 rounded-full bg-accent border-2 border-bg" aria-hidden="true"></span>
+        <article class="card">
+          <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-3">
+            <time class="text-text-muted text-sm font-medium" datetime="2023">2023 — Presente</time>
+            <span class="text-text-muted text-sm" aria-hidden="true">·</span>
+            <span class="text-text-primary font-semibold">TechCorp SaaS</span>
+          </div>
+          <h3 class="text-lg font-medium text-text-primary mb-3">Senior Software Engineer</h3>
+          <ul class="space-y-2 text-text-secondary text-sm leading-relaxed mb-4 list-disc pl-4">
+            <li>Reducción del 40% en latencia de API mediante optimización de queries y caching estratégico con Redis.</li>
+            <li>Lideré la migración de monolito a microservicios, reduciendo tiempo de deploy de 2h a 15min.</li>
+            <li>Implementé observabilidad completa (métricas, traces, logs) con reducción del 60% en MTTR.</li>
+          </ul>
+          <div class="flex flex-wrap gap-2">
+            <span class="badge">Go</span>
+            <span class="badge">Kubernetes</span>
+            <span class="badge">PostgreSQL</span>
+            <span class="badge">Redis</span>
+            <span class="badge">AWS</span>
+          </div>
+        </article>
+      </li>
+
+      <li class="relative">
+        <span class="absolute -left-[calc(2rem+5px)] top-1.5 w-2.5 h-2.5 rounded-full bg-text-muted border-2 border-bg" aria-hidden="true"></span>
+        <article class="card">
+          <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-3">
+            <time class="text-text-muted text-sm font-medium" datetime="2021/2023">2021 — 2023</time>
+            <span class="text-text-muted text-sm" aria-hidden="true">·</span>
+            <span class="text-text-primary font-semibold">DataFlow Inc</span>
+          </div>
+          <h3 class="text-lg font-medium text-text-primary mb-3">Software Engineer</h3>
+          <ul class="space-y-2 text-text-secondary text-sm leading-relaxed mb-4 list-disc pl-4">
+            <li>Diseñé pipeline de eventos procesando 2M+ registros/día con latencia p99 &lt; 200ms.</li>
+            <li>Implementé CI/CD completo con GitHub Actions, eliminando deploys manuales.</li>
+            <li>Reducción del 30% en costos de infraestructura cloud mediante right-sizing y auto-scaling.</li>
+          </ul>
+          <div class="flex flex-wrap gap-2">
+            <span class="badge">Node.js</span>
+            <span class="badge">TypeScript</span>
+            <span class="badge">Kafka</span>
+            <span class="badge">Docker</span>
+            <span class="badge">Terraform</span>
+          </div>
+        </article>
+      </li>
+
+      <li class="relative">
+        <span class="absolute -left-[calc(2rem+5px)] top-1.5 w-2.5 h-2.5 rounded-full bg-text-muted border-2 border-bg" aria-hidden="true"></span>
+        <article class="card">
+          <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-3">
+            <time class="text-text-muted text-sm font-medium" datetime="2019/2021">2019 — 2021</time>
+            <span class="text-text-muted text-sm" aria-hidden="true">·</span>
+            <span class="text-text-primary font-semibold">BioSystems Lab</span>
+          </div>
+          <h3 class="text-lg font-medium text-text-primary mb-3">Junior Developer / Research Dev</h3>
+          <ul class="space-y-2 text-text-secondary text-sm leading-relaxed mb-4 list-disc pl-4">
+            <li>Desarrollé herramienta de análisis de señales biométricas usada por 3 equipos de investigación.</li>
+            <li>Automatización de pipelines de procesamiento, reduciendo tiempo de análisis de 8h a 45min.</li>
+            <li>Transición del stack científico (Python/MATLAB) a aplicaciones web en producción.</li>
+          </ul>
+          <div class="flex flex-wrap gap-2">
+            <span class="badge">Python</span>
+            <span class="badge">React</span>
+            <span class="badge">PostgreSQL</span>
+            <span class="badge">FastAPI</span>
+          </div>
+        </article>
+      </li>
+    </ol>
+  </section>
+
+  <!-- Proyectos -->
+  <section id="projects" aria-labelledby="projects-heading" class="mb-section-gap-mobile md:mb-section-gap">
+    <p class="section-label mb-3">Proyectos</p>
+    <h2 id="projects-heading" class="font-display text-2xl md:text-3xl font-semibold tracking-tight text-text-primary mb-10">
+      Trabajo seleccionado
+    </h2>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      <!-- PLACEHOLDER: actualizar con proyectos reales -->
+      <article class="card flex flex-col">
+        <p class="text-xs font-medium text-accent mb-2">Backend · API</p>
+        <h3 class="text-xl font-semibold text-text-primary mb-4">HealthMetrics API</h3>
+        <dl class="space-y-3 text-sm flex-1">
+          <div>
+            <dt class="text-text-muted font-medium mb-1">Problema</dt>
+            <dd class="text-text-secondary leading-relaxed">Los equipos clínicos necesitaban acceder a datos biométricos en tiempo real, pero el sistema legacy tenía latencias de 2s+ y sin documentación.</dd>
+          </div>
+          <div>
+            <dt class="text-text-muted font-medium mb-1">Solución</dt>
+            <dd class="text-text-secondary leading-relaxed">API REST con Go, caching Redis y documentación OpenAPI. Arquitectura hexagonal con tests de integración automatizados.</dd>
+          </div>
+          <div>
+            <dt class="text-text-muted font-medium mb-1">Stack</dt>
+            <dd class="flex flex-wrap gap-2 mt-1">
+              <span class="badge">Go</span>
+              <span class="badge">PostgreSQL</span>
+              <span class="badge">Redis</span>
+              <span class="badge">Docker</span>
+            </dd>
+          </div>
+          <div>
+            <dt class="text-text-muted font-medium mb-1">Resultado</dt>
+            <dd class="text-text-primary font-medium">−35% tiempo de respuesta · 99.95% uptime en 6 meses</dd>
+          </div>
+        </dl>
+        <div class="flex gap-4 mt-6 pt-4 border-t border-border">
+          <a href="https://github.com/estebanmaya" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm text-text-secondary hover:text-text-primary transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/></svg>
+            GitHub
+          </a>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm text-text-secondary hover:text-text-primary transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            Demo
+          </a>
+        </div>
+      </article>
+
+      <article class="card flex flex-col">
+        <p class="text-xs font-medium text-accent mb-2">Frontend · Real-time</p>
+        <h3 class="text-xl font-semibold text-text-primary mb-4">Dashboard Platform</h3>
+        <dl class="space-y-3 text-sm flex-1">
+          <div>
+            <dt class="text-text-muted font-medium mb-1">Problema</dt>
+            <dd class="text-text-secondary leading-relaxed">Operaciones carecía de visibilidad unificada sobre métricas de servicios distribuidos, con datos dispersos en 5 herramientas distintas.</dd>
+          </div>
+          <div>
+            <dt class="text-text-muted font-medium mb-1">Solución</dt>
+            <dd class="text-text-secondary leading-relaxed">Dashboard unificado con Next.js y WebSockets para actualizaciones en tiempo real. Componentes reutilizables y diseño responsive.</dd>
+          </div>
+          <div>
+            <dt class="text-text-muted font-medium mb-1">Stack</dt>
+            <dd class="flex flex-wrap gap-2 mt-1">
+              <span class="badge">Next.js</span>
+              <span class="badge">TypeScript</span>
+              <span class="badge">WebSockets</span>
+              <span class="badge">Tailwind CSS</span>
+            </dd>
+          </div>
+          <div>
+            <dt class="text-text-muted font-medium mb-1">Resultado</dt>
+            <dd class="text-text-primary font-medium">500+ usuarios internos · reducción 50% en tiempo de diagnóstico</dd>
+          </div>
+        </dl>
+        <div class="flex gap-4 mt-6 pt-4 border-t border-border">
+          <a href="https://github.com/estebanmaya" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm text-text-secondary hover:text-text-primary transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/></svg>
+            GitHub
+          </a>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm text-text-secondary hover:text-text-primary transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            Demo
+          </a>
+        </div>
+      </article>
+
+      <article class="card flex flex-col lg:col-span-2">
+        <p class="text-xs font-medium text-accent mb-2">DevOps · Infraestructura</p>
+        <h3 class="text-xl font-semibold text-text-primary mb-4">Infra Pipeline</h3>
+        <dl class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm flex-1">
+          <div>
+            <dt class="text-text-muted font-medium mb-1">Problema</dt>
+            <dd class="text-text-secondary leading-relaxed">Deploys manuales tardaban 45min, con errores frecuentes por configuración inconsistente entre entornos.</dd>
+          </div>
+          <div>
+            <dt class="text-text-muted font-medium mb-1">Solución</dt>
+            <dd class="text-text-secondary leading-relaxed">Pipeline IaC con Terraform y GitHub Actions. Entornos idénticos, rollback automático y notificaciones en Slack.</dd>
+          </div>
+          <div>
+            <dt class="text-text-muted font-medium mb-1">Stack</dt>
+            <dd class="flex flex-wrap gap-2 mt-1">
+              <span class="badge">Terraform</span>
+              <span class="badge">GitHub Actions</span>
+              <span class="badge">AWS</span>
+              <span class="badge">Docker</span>
+            </dd>
+          </div>
+          <div>
+            <dt class="text-text-muted font-medium mb-1">Resultado</dt>
+            <dd class="text-text-primary font-medium">Deploys de 45min → 8min · zero-downtime releases</dd>
+          </div>
+        </dl>
+        <div class="flex gap-4 mt-6 pt-4 border-t border-border">
+          <a href="https://github.com/estebanmaya" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm text-text-secondary hover:text-text-primary transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/></svg>
+            GitHub
+          </a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- The Lab -->
+  <section id="lab" aria-labelledby="lab-heading" class="mb-section-gap-mobile md:mb-section-gap">
+    <p class="section-label mb-3">The Lab</p>
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+      <div>
+        <h2 id="lab-heading" class="font-display text-2xl md:text-3xl font-semibold tracking-tight text-text-primary">
+          Notas técnicas y exploración
+        </h2>
+        <p class="text-text-secondary text-base mt-2 max-w-prose">
+          Reflexiones sobre arquitectura, sistemas y la intersección entre ciencia y código. Aprendizaje continuo, documentado.
+        </p>
+      </div>
+    </div>
+
+    <!-- PLACEHOLDER: reemplazar con artículos reales y URLs -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <article class="card lab-card">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="badge">Arquitectura</span>
+          <time class="text-text-muted text-xs" datetime="2026-03">Mar 2026</time>
+        </div>
+        <h3 class="text-lg font-semibold text-text-primary mb-2 leading-snug">
+          Hexagonal architecture en APIs de salud
+        </h3>
+        <p class="text-text-secondary text-sm leading-relaxed flex-1">
+          Cómo separar dominio clínico de infraestructura permitió iterar reglas de negocio sin tocar la capa de persistencia — y reducir bugs en producción un 35%.
+        </p>
+        <a href="#" class="inline-flex items-center gap-1.5 text-sm text-accent hover:text-text-primary transition-colors mt-4 pt-4 border-t border-border">
+          Leer nota
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </article>
+
+      <article class="card lab-card">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="badge">Sistemas</span>
+          <time class="text-text-muted text-xs" datetime="2026-02">Feb 2026</time>
+        </div>
+        <h3 class="text-lg font-semibold text-text-primary mb-2 leading-snug">
+          Señales biológicas vs. event streams
+        </h3>
+        <p class="text-text-secondary text-sm leading-relaxed flex-1">
+          Paralelos entre filtrado de ruido en señales ECG y deduplicación de eventos en Kafka: mismos principios, distinto dominio.
+        </p>
+        <a href="#" class="inline-flex items-center gap-1.5 text-sm text-accent hover:text-text-primary transition-colors mt-4 pt-4 border-t border-border">
+          Leer nota
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </article>
+
+      <article class="card lab-card md:col-span-2 lg:col-span-1">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="badge">DevOps</span>
+          <time class="text-text-muted text-xs" datetime="2026-01">Ene 2026</time>
+        </div>
+        <h3 class="text-lg font-semibold text-text-primary mb-2 leading-snug">
+          Observabilidad: del laboratorio al datacenter
+        </h3>
+        <p class="text-text-secondary text-sm leading-relaxed flex-1">
+          De registrar variables controladas en un experimento a definir SLIs y alertas accionables: una guía práctica para equipos que vienen del mundo científico.
+        </p>
+        <a href="#" class="inline-flex items-center gap-1.5 text-sm text-accent hover:text-text-primary transition-colors mt-4 pt-4 border-t border-border">
+          Leer nota
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- Skills & Dashboard -->
+  <section id="skills" aria-labelledby="skills-heading" class="mb-section-gap-mobile md:mb-section-gap">
+    <p class="section-label mb-3">Skills</p>
+    <h2 id="skills-heading" class="font-display text-2xl md:text-3xl font-semibold tracking-tight text-text-primary mb-10">
+      Stack tecnológico e impacto
+    </h2>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-10">
+
+      <!-- Métricas de impacto -->
+      <div class="lg:col-span-4 space-y-4">
+        <article class="card metric-highlight">
+          <p class="text-metric-positive text-xs font-semibold uppercase tracking-wide">Hard metric</p>
+          <p class="metric-value font-display text-3xl font-bold text-text-primary mt-1">60% de mejora</p>
+          <p class="text-text-secondary text-sm mt-2 leading-relaxed">Optimización de procesos: estandarización de indicadores, de 50 min a 10–30 min por unidad.</p>
+        </article>
+        <article class="card">
+          <p class="text-text-muted text-xs font-medium uppercase tracking-wide">Pipeline de datos</p>
+          <p class="metric-value font-display text-2xl font-semibold text-metric-teal mt-1">2M+ eventos/día</p>
+          <p class="text-text-secondary text-xs mt-1">latencia p99 &lt; 200ms</p>
+        </article>
+        <article class="card">
+          <p class="text-text-muted text-xs font-medium uppercase tracking-wide">Observabilidad</p>
+          <p class="metric-value font-display text-2xl font-semibold text-text-primary mt-1">−60% MTTR</p>
+          <p class="text-text-secondary text-xs mt-1">métricas, traces y logs unificados</p>
+        </article>
+      </div>
+
+      <!-- Radar chart -->
+      <div class="lg:col-span-5 card flex flex-col">
+        <h3 class="text-sm font-semibold text-text-primary mb-1">Matriz de habilidades</h3>
+        <p class="text-text-muted text-xs mb-4">Profundidad técnica por dominio</p>
+        <div class="flex-1 flex items-center justify-center">
+          <svg viewBox="0 0 400 400" class="w-full max-w-[320px]" role="img" aria-labelledby="radar-title radar-desc">
+            <title id="radar-title">Matriz de habilidades técnicas</title>
+            <desc id="radar-desc">Frontend 88%, Backend 92%, Bases de datos 78%, Infra/CI 85%, Seguridad 72%, Arquitectura 80%</desc>
+            <!-- Grid rings -->
+            <polygon class="radar-grid" points="200,80 303.9,140 303.9,260 200,320 96.1,260 96.1,140"/>
+            <polygon class="radar-grid" points="200,110 272.9,155 272.9,245 200,290 127.1,245 127.1,155"/>
+            <polygon class="radar-grid" points="200,140 241.9,170 241.9,230 200,260 158.1,230 158.1,170"/>
+            <polygon class="radar-grid" points="200,170 210.9,185 210.9,215 200,230 189.1,215 189.1,185"/>
+            <!-- Axes -->
+            <line class="radar-axis" x1="200" y1="200" x2="200" y2="80"/>
+            <line class="radar-axis" x1="200" y1="200" x2="303.9" y2="140"/>
+            <line class="radar-axis" x1="200" y1="200" x2="303.9" y2="260"/>
+            <line class="radar-axis" x1="200" y1="200" x2="200" y2="320"/>
+            <line class="radar-axis" x1="200" y1="200" x2="96.1" y2="260"/>
+            <line class="radar-axis" x1="200" y1="200" x2="96.1" y2="140"/>
+            <!-- Data: Frontend 0.88, Backend 0.92, DB 0.78, Infra 0.85, Security 0.72, Arch 0.80 -->
+            <polygon class="radar-area" points="200,94.4 295.6,144.8 281.1,246.8 200,302 106.5,243.2 96.1,140"/>
+            <!-- Labels -->
+            <text class="radar-label" x="200" y="68" text-anchor="middle">Frontend</text>
+            <text class="radar-label" x="318" y="138" text-anchor="start">Backend</text>
+            <text class="radar-label" x="318" y="268" text-anchor="start">Bases de datos</text>
+            <text class="radar-label" x="200" y="338" text-anchor="middle">Infra / CI</text>
+            <text class="radar-label" x="82" y="268" text-anchor="end">Seguridad</text>
+            <text class="radar-label" x="82" y="138" text-anchor="end">Arquitectura</text>
+          </svg>
+        </div>
+        <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-border">
+          <span class="badge">React</span>
+          <span class="badge">Go</span>
+          <span class="badge">Python</span>
+          <span class="badge">Docker</span>
+          <span class="badge">PostgreSQL</span>
+          <span class="badge">TypeScript</span>
+        </div>
+      </div>
+
+      <!-- Soft skills -->
+      <div class="lg:col-span-3 space-y-4">
+        <div class="card">
+          <h3 class="text-sm font-semibold text-text-primary mb-4">Soft skills</h3>
+          <ul class="space-y-3" role="list">
+            <li class="flex items-start gap-3">
+              <span class="w-1.5 h-1.5 rounded-full bg-metric-teal mt-1.5 shrink-0" aria-hidden="true"></span>
+              <span class="text-sm text-text-secondary">Pensamiento analítico</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-1.5 h-1.5 rounded-full bg-metric-teal mt-1.5 shrink-0" aria-hidden="true"></span>
+              <span class="text-sm text-text-secondary">Resolución de problemas</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-1.5 h-1.5 rounded-full bg-metric-teal mt-1.5 shrink-0" aria-hidden="true"></span>
+              <span class="text-sm text-text-secondary">Aprendizaje continuo</span>
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 class="text-sm font-semibold text-text-primary mb-4">Exploración</h3>
+          <ul class="space-y-2" role="list">
+            <li><span class="badge">Computación Cuántica</span></li>
+            <li><span class="badge">Inteligencia Artificial</span></li>
+            <li><span class="badge">Neurociencia Computacional</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stack por categoría -->
+    <h3 class="text-sm font-semibold text-text-primary mb-4">Stack por categoría</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="card py-5 px-6">
+        <h4 class="text-xs font-semibold text-text-muted uppercase tracking-wide mb-3">Backend</h4>
+        <div class="flex flex-wrap gap-2">
+          <span class="badge">Go</span>
+          <span class="badge">Node.js</span>
+          <span class="badge">Python</span>
+          <span class="badge">REST</span>
+          <span class="badge">gRPC</span>
+        </div>
+      </div>
+      <div class="card py-5 px-6">
+        <h4 class="text-xs font-semibold text-text-muted uppercase tracking-wide mb-3">Frontend</h4>
+        <div class="flex flex-wrap gap-2">
+          <span class="badge">React</span>
+          <span class="badge">Next.js</span>
+          <span class="badge">TypeScript</span>
+          <span class="badge">Tailwind CSS</span>
+        </div>
+      </div>
+      <div class="card py-5 px-6">
+        <h4 class="text-xs font-semibold text-text-muted uppercase tracking-wide mb-3">Cloud</h4>
+        <div class="flex flex-wrap gap-2">
+          <span class="badge">AWS ECS</span>
+          <span class="badge">Lambda</span>
+          <span class="badge">S3</span>
+          <span class="badge">GCP</span>
+        </div>
+      </div>
+      <div class="card py-5 px-6">
+        <h4 class="text-xs font-semibold text-text-muted uppercase tracking-wide mb-3">DevOps</h4>
+        <div class="flex flex-wrap gap-2">
+          <span class="badge">Docker</span>
+          <span class="badge">Kubernetes</span>
+          <span class="badge">Terraform</span>
+          <span class="badge">GitHub Actions</span>
+        </div>
+      </div>
+      <div class="card py-5 px-6">
+        <h4 class="text-xs font-semibold text-text-muted uppercase tracking-wide mb-3">Bases de datos</h4>
+        <div class="flex flex-wrap gap-2">
+          <span class="badge">PostgreSQL</span>
+          <span class="badge">Redis</span>
+          <span class="badge">MongoDB</span>
+        </div>
+      </div>
+      <div class="card py-5 px-6">
+        <h4 class="text-xs font-semibold text-text-muted uppercase tracking-wide mb-3">Arquitectura</h4>
+        <div class="flex flex-wrap gap-2">
+          <span class="badge">Microservicios</span>
+          <span class="badge">Event-driven</span>
+          <span class="badge">DDD</span>
+          <span class="badge">Clean Architecture</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certificaciones y logros -->
+  <section id="achievements" aria-labelledby="achievements-heading" class="mb-section-gap-mobile md:mb-section-gap">
+    <p class="section-label mb-3">Credenciales</p>
+    <h2 id="achievements-heading" class="font-display text-2xl md:text-3xl font-semibold tracking-tight text-text-primary mb-10">
+      Certificaciones y logros
+    </h2>
+
+    <!-- PLACEHOLDER: actualizar títulos, fechas y URLs de verificación (Credly, etc.) -->
+    <div class="cert-stack-wrap" tabindex="0" aria-label="Carrusel de certificaciones. Desliza horizontalmente para ver más.">
+      <ul class="cert-stack" role="list">
+        <li style="z-index: 1">
+          <article class="cert-card">
+            <div>
+              <h3 class="cert-card-title">B.S. Bioingeniería</h3>
+              <p class="cert-card-meta">Universidad · 2018</p>
+            </div>
+            <svg class="cert-badge" viewBox="0 0 96 96" aria-hidden="true">
+              <circle cx="48" cy="48" r="44" fill="#e4e4e7"/>
+              <circle cx="48" cy="48" r="36" fill="none" stroke="#c8bfff" stroke-width="2"/>
+              <text x="48" y="52" text-anchor="middle" fill="#52525b" font-size="11" font-weight="600" font-family="Inter,sans-serif">B.S.</text>
+            </svg>
+          </article>
+        </li>
+        <li style="z-index: 2">
+          <a href="#" class="cert-card block no-underline" target="_blank" rel="noopener noreferrer" aria-label="AWS Solutions Architect Associate — ver credencial">
+            <div>
+              <h3 class="cert-card-title">AWS Solutions Architect Associate</h3>
+              <p class="cert-card-meta">Amazon Web Services · 2024</p>
+            </div>
+            <svg class="cert-badge" viewBox="0 0 96 96" aria-hidden="true">
+              <rect x="8" y="8" width="80" height="80" rx="8" fill="#232f3e"/>
+              <text x="48" y="44" text-anchor="middle" fill="#ff9900" font-size="22" font-weight="700" font-family="Inter,sans-serif">AWS</text>
+              <text x="48" y="62" text-anchor="middle" fill="#fafafa" font-size="9" font-family="Inter,sans-serif">Solutions</text>
+            </svg>
+          </a>
+        </li>
+        <li style="z-index: 3">
+          <a href="#" class="cert-card block no-underline" target="_blank" rel="noopener noreferrer" aria-label="HashiCorp Terraform Associate — ver credencial">
+            <div>
+              <h3 class="cert-card-title">Terraform Certified Associate</h3>
+              <p class="cert-card-meta">HashiCorp · 2024</p>
+            </div>
+            <svg class="cert-badge" viewBox="0 0 96 96" aria-hidden="true">
+              <path d="M48 6 L88 28 L88 68 L48 90 L8 68 L8 28 Z" fill="#1a1a1c"/>
+              <text x="48" y="50" text-anchor="middle" fill="#fafafa" font-size="10" font-weight="600" font-family="Inter,sans-serif">TF</text>
+              <text x="48" y="64" text-anchor="middle" fill="#7c3aed" font-size="8" font-family="Inter,sans-serif">ASSOCIATE</text>
+            </svg>
+          </a>
+        </li>
+        <li style="z-index: 4">
+          <a href="#" class="cert-card block no-underline" target="_blank" rel="noopener noreferrer" aria-label="Certified Kubernetes Administrator — ver credencial">
+            <div>
+              <h3 class="cert-card-title">Certified Kubernetes Administrator</h3>
+              <p class="cert-card-meta">CNCF · 2023</p>
+            </div>
+            <svg class="cert-badge" viewBox="0 0 96 96" aria-hidden="true">
+              <circle cx="48" cy="48" r="40" fill="#326ce5"/>
+              <polygon points="48,22 62,38 48,54 34,38" fill="#fafafa" opacity="0.9"/>
+              <polygon points="48,42 62,58 48,74 34,58" fill="#fafafa" opacity="0.7"/>
+            </svg>
+          </a>
+        </li>
+        <li style="z-index: 5">
+          <article class="cert-card">
+            <div>
+              <h3 class="cert-card-title">Premio Mejor Tesis</h3>
+              <p class="cert-card-meta">Bioingeniería · 2018</p>
+            </div>
+            <svg class="cert-badge" viewBox="0 0 96 96" aria-hidden="true">
+              <circle cx="48" cy="40" r="28" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+              <path d="M48 68 L42 82 L48 78 L54 82 Z" fill="#f59e0b"/>
+              <text x="48" y="46" text-anchor="middle" fill="#b45309" font-size="20" font-family="Inter,sans-serif">★</text>
+            </svg>
+          </article>
+        </li>
+        <li style="z-index: 6">
+          <article class="cert-card">
+            <div>
+              <h3 class="cert-card-title">Speaker · Microservicios en producción</h3>
+              <p class="cert-card-meta">Meetup local · 2025</p>
+            </div>
+            <svg class="cert-badge" viewBox="0 0 96 96" aria-hidden="true">
+              <rect x="12" y="20" width="72" height="56" rx="6" fill="#e4e4e7"/>
+              <circle cx="48" cy="44" r="14" fill="#c8bfff"/>
+              <rect x="28" y="62" width="40" height="4" rx="2" fill="#a1a1aa"/>
+            </svg>
+          </article>
+        </li>
+        <li style="z-index: 7">
+          <a href="https://github.com/estebanmaya" class="cert-card block no-underline" target="_blank" rel="noopener noreferrer" aria-label="Contribuidor open source — ver GitHub">
+            <div>
+              <h3 class="cert-card-title">Open Source Contributor</h3>
+              <p class="cert-card-meta">Go · DevOps tools</p>
+            </div>
+            <svg class="cert-badge" viewBox="0 0 96 96" aria-hidden="true">
+              <circle cx="48" cy="48" r="40" fill="#27272a"/>
+              <path fill="#fafafa" d="M48 28c-11 0-20 9-20 20 0 8.8 5.7 16.3 13.6 19 .99.18 1.35-.43 1.35-.95 0-.47-.02-1.7-.03-3.34-5.55 1.2-6.72-2.67-6.72-2.67-.91-2.3-2.22-2.91-2.22-2.91-1.82-1.24.14-1.22.14-1.22 2 .14 3.06 2.06 3.06 2.06 1.78 3.05 4.67 2.17 5.81 1.66.18-1.29.7-2.17 1.27-2.67-4.43-.5-9.09-2.22-9.09-9.88 0-2.18.78-3.97 2.06-5.37-.21-.5-.89-2.54.2-5.29 0 0 1.68-.54 5.5 2.05a19.1 19.1 0 0110 0c3.82-2.59 5.5-2.05 5.5-2.05 1.09 2.75.41 4.79.2 5.29 1.28 1.4 2.06 3.19 2.06 5.37 0 7.68-4.67 9.37-9.12 9.86.72.62 1.35 1.83 1.35 3.69 0 2.67-.02 4.82-.02 5.48 0 .53.36 1.14 1.37.95A20 20 0 0068 48c0-11-9-20-20-20z"/>
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <p class="text-text-muted text-xs mt-2">Desliza horizontalmente para explorar · Hover para destacar</p>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contact" aria-labelledby="contact-heading" class="mb-16">
+    <div class="card text-center py-12 md:py-16 px-6">
+      <h2 id="contact-heading" class="font-display text-2xl md:text-3xl font-semibold tracking-tight text-text-primary mb-4">
+        ¿Trabajamos juntos?
+      </h2>
+      <p class="text-text-secondary text-base max-w-prose mx-auto mb-8 leading-relaxed">
+        Estoy abierto a oportunidades en backend, platform engineering y arquitectura de sistemas. Escríbeme o conectemos en redes.
+      </p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <!-- PLACEHOLDER: actualizar email -->
+        <a href="mailto:esteban.maya@email.com" class="btn-primary">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          Email
+        </a>
+        <a href="https://linkedin.com/in/estebanmaya" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 114.127 0 2.063 2.063 0 01-2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/estebanmaya" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="border-t border-border py-10">
+  <div class="max-w-6xl mx-auto px-gutter flex flex-col md:flex-row justify-between items-center gap-6">
+    <p class="text-sm text-text-muted">© 2026 Esteban Maya. Software Engineer.</p>
+    <nav aria-label="Redes sociales" class="flex items-center gap-6">
+      <a href="https://github.com/estebanmaya" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-text-primary transition-colors">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/></svg>
+        GitHub
+      </a>
+      <a href="https://linkedin.com/in/estebanmaya" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-text-primary transition-colors">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 114.127 0 2.063 2.063 0 01-2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a href="mailto:esteban.maya@email.com" class="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-text-primary transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        Email
+      </a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const iconMenu = document.getElementById('icon-menu');
+  const iconClose = document.getElementById('icon-close');
+
+  function setMenuOpen(open) {
+    menuToggle.setAttribute('aria-expanded', String(open));
+    menuToggle.setAttribute('aria-label', open ? 'Cerrar menú de navegación' : 'Abrir menú de navegación');
+    mobileMenu.classList.toggle('open', open);
+    if (open) {
+      mobileMenu.style.display = 'block';
+      iconMenu.classList.add('hidden');
+      iconClose.classList.remove('hidden');
+    } else {
+      mobileMenu.style.display = '';
+      iconMenu.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+    }
+  }
+
+  menuToggle.addEventListener('click', function () {
+    setMenuOpen(menuToggle.getAttribute('aria-expanded') !== 'true');
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') {
+      setMenuOpen(false);
+      menuToggle.focus();
+    }
+  });
+
+  mobileMenu.querySelectorAll('a[href^="#"]').forEach(function (link) {
+    link.addEventListener('click', function () { setMenuOpen(false); });
+  });
+
+  const sections = ['hero', 'about', 'bio-bridge', 'experience', 'projects', 'lab', 'skills', 'contact'];
+  const navLinks = document.querySelectorAll('[data-nav]');
+  const dockLinks = document.querySelectorAll('[data-dock]');
+
+  function setActiveSection(id) {
+    navLinks.forEach(function (link) {
+      link.classList.toggle('nav-active', link.dataset.nav === id);
+    });
+    dockLinks.forEach(function (link) {
+      link.classList.toggle('dock-active', link.dataset.dock === id);
+    });
+  }
+
+  const observer = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    },
+    { rootMargin: '-40% 0px -55% 0px', threshold: 0 }
+  );
+
+  sections.forEach(function (id) {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+
+  navLinks.forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+        history.replaceState(null, '', href);
+      }
+    });
+  });
+
+  dockLinks.forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+        history.replaceState(null, '', href);
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
