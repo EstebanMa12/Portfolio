@@ -12,22 +12,22 @@ Portafolio profesional (Next.js 15 + Supabase). Epic 1: foundation listo.
 ```bash
 cp .env.local.example .env.local
 # Completar credenciales de portfolio-staging
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 Scripts útiles:
 
 | Script | Descripción |
 |--------|-------------|
-| `npm run dev` | Servidor de desarrollo |
-| `npm run lint` | ESLint |
-| `npm run typecheck` | TypeScript strict |
-| `npm run test` | Vitest (incluye smoke RLS con `.env.local`) |
-| `npm run build` | Build de producción |
-| `npm run db:types` | Regenerar `types/database.ts` (requiere `supabase link`) |
-| `npm run db:push` | Aplicar migraciones al proyecto linked |
-| `npm run db:seed` | Seed en entorno local/linked (no prod) |
+| `pnpm run dev` | Servidor de desarrollo |
+| `pnpm run lint` | ESLint |
+| `pnpm run typecheck` | TypeScript strict |
+| `pnpm run test` | Vitest (incluye smoke RLS con `.env.local`) |
+| `pnpm run build` | Build de producción |
+| `pnpm run db:types` | Regenerar `types/database.ts` (requiere `supabase link`) |
+| `pnpm run db:push` | Aplicar migraciones al proyecto linked |
+| `pnpm run db:seed` | Seed en entorno local/linked (no prod) |
 
 ## Supabase
 
