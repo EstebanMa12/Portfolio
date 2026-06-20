@@ -19,7 +19,7 @@ INSERT INTO page_content (id, data) VALUES
     "subheadline": "Disponible para oportunidades · Software Engineer",
     "bio": "Ingeniero con formación en Bioingeniería. Diseño y construyo sistemas escalables con enfoque en calidad, observabilidad e impacto medible.",
     "availability": { "label": "Disponible para oportunidades", "visible": true },
-    "photoUrl": "https://lh3.googleusercontent.com/aida/ADBb0uilf42INjBwYTstqP4QmeK4g1qRIbmexi9yYm_jcbgTqJIZp_qb3aLE3dZeD9sFQM4CVhDPHGUdIGUTBGXeMGhzcutlPcJFjXvJ45v_Pos7DWfvKJAliT-SxMbN9bAlznEAZgtuQ_ICD_7A84On_frp7atkOFBnQzonk9EtfVCD4nTY0KCxGzQoi3vLrlwzK2qOJ1OzCqIqHTKkzvRuO7d2htDsLKoDsJLftXPq6vdKLdiUjDmS5GgLtu8",
+    "photoUrl": "https://cvvimcxjkdbzqtncflro.supabase.co/storage/v1/object/public/media/WhatsApp%20Image%202026-06-20%20at%206.22.56%20PM%20(1).jpeg",
     "cvUrl": "",
     "socialLinks": {
       "github": "https://github.com/EstebanMa12",
