@@ -32,6 +32,13 @@ export function getExperienceStartYear(startDate: string): number {
   return parseDate(startDate).getFullYear();
 }
 
+export function getCurrentExperience(
+  experiences: ExperienceWithTechnologies[],
+): ExperienceWithTechnologies | null {
+  if (experiences.length === 0) return null;
+  return experiences.find((experience) => !experience.endDate) ?? experiences[0]!;
+}
+
 export function getCareerSummary(experiences: ExperienceWithTechnologies[]) {
   if (experiences.length === 0) {
     return { spanYears: 0, roleCount: 0, techCount: 0 };

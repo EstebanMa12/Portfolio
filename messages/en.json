@@ -4,13 +4,14 @@
     "about": "About",
     "experience": "Experience",
     "projects": "Projects",
-    "blog": "Blog",
+    "blog": "The Lab",
     "contact": "Contact",
     "contactCta": "Get in touch"
   },
   "dock": {
     "home": "Home",
     "projects": "Projects",
+    "experience": "Experience",
     "lab": "The Lab",
     "skills": "Skills",
     "contact": "Contact",
@@ -52,6 +53,10 @@
     "labTitle": "Technical notes and exploration",
     "labDescription": "Reflections on architecture, systems, and the intersection of science and code.",
     "labLink": "View blog →",
+    "experienceLabel": "Experience",
+    "experienceTitle": "Professional trajectory",
+    "experienceDescription": "Current role and recent career highlights.",
+    "experienceLink": "View full experience →",
     "seeAll": "View all →"
   },
   "cta": {
@@ -61,10 +66,12 @@
     "viewProjects": "View projects"
   },
   "hero": {
-    "profilePhotoAlt": "Profile photo of {name}, {role}"
+    "profilePhotoAlt": "Profile photo of {name}, {role}",
+    "viewExperience": "View experience"
   },
   "footer": {
     "tagline": "Software Engineer",
+    "internalNav": "Navigation",
     "socialNav": "Social links"
   },
   "skills": {
