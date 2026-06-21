@@ -19,12 +19,12 @@ INSERT INTO page_content (id, data) VALUES
     "subheadline": "Disponible para oportunidades · Software Engineer",
     "bio": "Ingeniero con formación en Bioingeniería. Diseño y construyo sistemas escalables con enfoque en calidad, observabilidad e impacto medible.",
     "availability": { "label": "Disponible para oportunidades", "visible": true },
-    "photoUrl": "https://cvvimcxjkdbzqtncflro.supabase.co/storage/v1/object/public/media/WhatsApp%20Image%202026-06-20%20at%206.22.56%20PM%20(1).jpeg",
+    "photoUrl": "https://cvvimcxjkdbzqtncflro.supabase.co/storage/v1/object/public/media/HeroImage.png",
     "cvUrl": "",
     "socialLinks": {
       "github": "https://github.com/EstebanMa12",
-      "linkedin": "https://linkedin.com/in/estebanmaya",
-      "email": "hello@estebanmaya.dev"
+      "linkedin": "https://www.linkedin.com/in/estebanmaya-bioengineer",
+      "email": "daesmapo@gmail.com"
     },
     "metrics": [
       {
@@ -79,8 +79,8 @@ INSERT INTO page_content (id, data) VALUES
   '{
     "title": "¿Trabajamos juntos?",
     "description": "Abierto a oportunidades en backend, platform engineering y arquitectura de sistemas.",
-    "email": "hello@estebanmaya.dev",
-    "linkedin": "https://linkedin.com/in/estebanmaya",
+    "email": "daesmapo@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/estebanmaya-bioengineer",
     "github": "https://github.com/EstebanMa12"
   }'::jsonb
 ),
@@ -236,6 +236,23 @@ INSERT INTO project_technologies (project_id, technology_id) VALUES
   ('33333333-3333-3333-3333-333333333303', '11111111-1111-1111-1111-111111111110'),
   ('33333333-3333-3333-3333-333333333303', '11111111-1111-1111-1111-111111111109'),
   ('33333333-3333-3333-3333-333333333303', '11111111-1111-1111-1111-111111111105');
+
+UPDATE projects SET cover_image_url = 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1280&h=720&fit=crop'
+WHERE id = '33333333-3333-3333-3333-333333333301';
+UPDATE projects SET cover_image_url = 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1280&h=720&fit=crop'
+WHERE id = '33333333-3333-3333-3333-333333333302';
+UPDATE projects SET cover_image_url = 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1280&h=720&fit=crop'
+WHERE id = '33333333-3333-3333-3333-333333333303';
+
+INSERT INTO project_images (project_id, image_url, alt_text, sort_order) VALUES
+  ('33333333-3333-3333-3333-333333333301', 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1280&h=720&fit=crop', 'Dashboard de métricas clínicas', 0),
+  ('33333333-3333-3333-3333-333333333301', 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1280&h=720&fit=crop', 'Arquitectura de microservicios', 1),
+  ('33333333-3333-3333-3333-333333333301', 'https://images.unsplash.com/photo-1511171637578-41c2ffb122fb?w=1280&h=720&fit=crop', 'Monitor de latencia API', 2),
+  ('33333333-3333-3333-3333-333333333302', 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1280&h=720&fit=crop', 'Panel de observabilidad', 0),
+  ('33333333-3333-3333-3333-333333333302', 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1280&h=720&fit=crop', 'Gráficos en tiempo real', 1),
+  ('33333333-3333-3333-3333-333333333303', 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1280&h=720&fit=crop', 'Pipeline CI/CD', 0),
+  ('33333333-3333-3333-3333-333333333303', 'https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1280&h=720&fit=crop', 'Infraestructura como código', 1),
+  ('33333333-3333-3333-3333-333333333303', 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1280&h=720&fit=crop', 'Despliegue automatizado', 2);
 
 INSERT INTO articles (id, title, slug, excerpt, content, tags, status, published_at, reading_time_min) VALUES
 (

@@ -34,7 +34,7 @@ export async function Header({ siteName = SITE_NAME }: HeaderProps) {
         <div className="hidden md:flex items-center gap-3">
           <LocaleSwitcher />
           <ThemeToggle />
-          <Link
+          <a
             href={SOCIAL_LINKS.github}
             target="_blank"
             rel="noopener noreferrer"
@@ -42,8 +42,8 @@ export async function Header({ siteName = SITE_NAME }: HeaderProps) {
             aria-label="GitHub"
           >
             <GitHubIcon />
-          </Link>
-          <Link
+          </a>
+          <a
             href={SOCIAL_LINKS.linkedin}
             target="_blank"
             rel="noopener noreferrer"
@@ -51,7 +51,7 @@ export async function Header({ siteName = SITE_NAME }: HeaderProps) {
             aria-label="LinkedIn"
           >
             <LinkedInIcon />
-          </Link>
+          </a>
           <Button href="/contact" className="text-sm px-5">
             {t("contactCta")}
           </Button>

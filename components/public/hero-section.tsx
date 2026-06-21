@@ -8,7 +8,7 @@ type HeroSectionProps = {
   hero: HeroContent;
 };
 
-export function HeroSection({ hero }: HeroSectionProps) {
+export function HeroSection({ hero }: Readonly<HeroSectionProps>) {
   const hasCv = hero.cvUrl.trim().length > 0;
 
   return (
@@ -91,7 +91,7 @@ export function HeroSection({ hero }: HeroSectionProps) {
   );
 }
 
-function DownloadIcon({ className }: { className?: string }) {
+function DownloadIcon({ className }: Readonly<{ className?: string }>) {
   return (
     <svg
       className={className}

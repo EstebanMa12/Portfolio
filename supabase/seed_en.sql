@@ -21,12 +21,12 @@ INSERT INTO page_content (id, locale, data) VALUES
     "subheadline": "Open to opportunities · Software Engineer",
     "bio": "Engineer with a Bioengineering background. I design and build scalable systems with a focus on quality, observability, and measurable impact.",
     "availability": { "label": "Open to opportunities", "visible": true },
-    "photoUrl": "https://cvvimcxjkdbzqtncflro.supabase.co/storage/v1/object/public/media/WhatsApp%20Image%202026-06-20%20at%206.22.56%20PM%20(1).jpeg",
+    "photoUrl": "https://cvvimcxjkdbzqtncflro.supabase.co/storage/v1/object/public/media/HeroImage.png",
     "cvUrl": "",
     "socialLinks": {
       "github": "https://github.com/EstebanMa12",
-      "linkedin": "https://linkedin.com/in/estebanmaya",
-      "email": "hello@estebanmaya.dev"
+      "linkedin": "https://www.linkedin.com/in/estebanmaya-bioengineer",
+      "email": "daesmapo@gmail.com"
     },
     "metrics": [
       {
@@ -204,6 +204,23 @@ INSERT INTO project_technologies (project_id, technology_id) VALUES
   ('33333333-3333-3333-3333-333333333313', '11111111-1111-1111-1111-111111111110'),
   ('33333333-3333-3333-3333-333333333313', '11111111-1111-1111-1111-111111111109'),
   ('33333333-3333-3333-3333-333333333313', '11111111-1111-1111-1111-111111111105');
+
+UPDATE projects SET cover_image_url = 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1280&h=720&fit=crop'
+WHERE id = '33333333-3333-3333-3333-333333333311';
+UPDATE projects SET cover_image_url = 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1280&h=720&fit=crop'
+WHERE id = '33333333-3333-3333-3333-333333333312';
+UPDATE projects SET cover_image_url = 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1280&h=720&fit=crop'
+WHERE id = '33333333-3333-3333-3333-333333333313';
+
+INSERT INTO project_images (project_id, image_url, alt_text, sort_order) VALUES
+  ('33333333-3333-3333-3333-333333333311', 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1280&h=720&fit=crop', 'Clinical metrics dashboard', 0),
+  ('33333333-3333-3333-3333-333333333311', 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1280&h=720&fit=crop', 'Microservices architecture', 1),
+  ('33333333-3333-3333-3333-333333333311', 'https://images.unsplash.com/photo-1511171637578-41c2ffb122fb?w=1280&h=720&fit=crop', 'API latency monitor', 2),
+  ('33333333-3333-3333-3333-333333333312', 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1280&h=720&fit=crop', 'Observability panel', 0),
+  ('33333333-3333-3333-3333-333333333312', 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1280&h=720&fit=crop', 'Real-time charts', 1),
+  ('33333333-3333-3333-3333-333333333313', 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1280&h=720&fit=crop', 'CI/CD pipeline', 0),
+  ('33333333-3333-3333-3333-333333333313', 'https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1280&h=720&fit=crop', 'Infrastructure as code', 1),
+  ('33333333-3333-3333-3333-333333333313', 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1280&h=720&fit=crop', 'Automated deployment', 2);
 
 INSERT INTO articles (id, locale, title, slug, excerpt, content, tags, status, published_at, reading_time_min) VALUES
 (

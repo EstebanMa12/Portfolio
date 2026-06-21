@@ -213,6 +213,41 @@ export type Database = {
         };
         Relationships: [];
       };
+      project_images: {
+        Row: {
+          alt_text: string;
+          created_at: string;
+          id: string;
+          image_url: string;
+          project_id: string;
+          sort_order: number;
+        };
+        Insert: {
+          alt_text?: string;
+          created_at?: string;
+          id?: string;
+          image_url: string;
+          project_id: string;
+          sort_order?: number;
+        };
+        Update: {
+          alt_text?: string;
+          created_at?: string;
+          id?: string;
+          image_url?: string;
+          project_id?: string;
+          sort_order?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "project_images_project_id_fkey";
+            columns: ["project_id"];
+            isOneToOne: false;
+            referencedRelation: "projects";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       project_technologies: {
         Row: {
           project_id: string;

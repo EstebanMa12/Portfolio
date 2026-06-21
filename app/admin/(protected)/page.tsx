@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SectionLabel } from "@/components/public/section-label";
 import { requireAdmin } from "@/lib/auth/require-admin";
 
@@ -14,20 +15,20 @@ export default async function AdminDashboardPage() {
         Dashboard
       </h1>
       <p className="mt-3 text-text-secondary max-w-prose">
-        Bienvenido, {admin.email}. El CMS estará disponible en los próximos
-        epics (Experience, Projects, Blog, Pages, SEO).
+        Bienvenido, {admin.email}. Gestiona el contenido del portfolio desde
+        aquí.
       </p>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {[
           { label: "Experiencia", href: "/admin/experience", status: "Próximamente" },
-          { label: "Proyectos", href: "/admin/projects", status: "Próximamente" },
+          { label: "Proyectos", href: "/admin/projects", status: "Disponible" },
           { label: "Artículos", href: "/admin/articles", status: "Próximamente" },
         ].map((item) => (
-          <article key={item.label} className="card">
+          <Link key={item.label} href={item.href} className="card block no-underline">
             <h2 className="font-medium text-text-primary">{item.label}</h2>
             <p className="mt-2 text-sm text-text-muted">{item.status}</p>
-          </article>
+          </Link>
         ))}
       </div>
     </section>

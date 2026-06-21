@@ -94,7 +94,10 @@
     "empty": "No published projects yet.",
     "viewCase": "View case study",
     "github": "GitHub",
-    "demo": "Demo"
+    "demo": "Demo",
+    "carouselPrev": "Previous image",
+    "carouselNext": "Next image",
+    "carouselSlideOf": "Image {current} of {total}"
   },
   "experience": {
     "title": "Experience",

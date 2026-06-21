@@ -57,7 +57,7 @@ export function getAchievementsContent(locale: Locale = defaultLocale) {
 export function getFeaturedProjects(locale: Locale = defaultLocale) {
   return unstable_cache(
     () => projectRepo.getFeatured(3, locale),
-    ["public-featured-projects", locale],
+    ["public-featured-projects-v2", locale],
     {
       tags: [CACHE_TAGS.projects, CACHE_TAGS.home],
       revalidate: REVALIDATE_SECONDS,
@@ -90,7 +90,7 @@ export function getAllExperiences(locale: Locale = defaultLocale) {
 export function getPublishedProjects(locale: Locale = defaultLocale) {
   return unstable_cache(
     () => projectRepo.getPublished(locale),
-    ["public-projects", locale],
+    ["public-projects-v2", locale],
     {
       tags: [CACHE_TAGS.projects],
       revalidate: REVALIDATE_SECONDS,

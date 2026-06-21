@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
+import { getLocale } from "next-intl/server";
 import { ThemeProvider } from "@wrksz/themes/next";
 import "./globals.css";
 
@@ -16,14 +17,16 @@ export const metadata: Metadata = {
   ),
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+
   return (
     <html
-      lang="es"
+      lang={locale}
       suppressHydrationWarning
       className={`h-full antialiased ${inter.variable} ${GeistSans.variable}`}
     >

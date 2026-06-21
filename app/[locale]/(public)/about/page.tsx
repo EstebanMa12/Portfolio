@@ -68,8 +68,8 @@ export default async function AboutPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-16 mb-section-gap-mobile md:mb-section-gap">
           <RevealOnScroll className="lg:col-span-2" delay={80}>
             <div className="space-y-5 text-text-secondary text-base leading-relaxed max-w-prose">
-              {about.paragraphs.map((paragraph) => (
-                <p key={paragraph.slice(0, 32)}>{paragraph}</p>
+              {about.paragraphs.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
               ))}
             </div>
           </RevealOnScroll>

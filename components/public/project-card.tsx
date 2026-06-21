@@ -3,6 +3,7 @@ import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
 import { Badge } from "@/components/public/badge";
 import { Card } from "@/components/public/card";
 import { GitHubIcon } from "@/components/public/icons";
+import { ProjectImageCarousel } from "@/components/public/project-image-carousel";
 import { SectionHeader } from "@/components/public/section-header";
 import type { ProjectWithTechnologies } from "@/lib/schemas/project";
 
@@ -25,6 +26,13 @@ export function ProjectCard({
       interactive
       className={`flex flex-col ${featured ? "" : "h-full"}`}
     >
+      <ProjectImageCarousel
+        images={(project.images ?? []).map((image) => ({
+          url: image.imageUrl,
+          alt: image.altText,
+        }))}
+        title={project.title}
+      />
       <p className="text-xs font-medium text-accent mb-2">{project.category}</p>
       <h3 className="text-xl font-semibold text-text-primary mb-4">
         {project.title}
@@ -43,7 +51,7 @@ export function ProjectCard({
             {project.solution}
           </dd>
         </div>
-        {project.technologies.length > 0 ? (
+        {project.technologies?.length ? (
           <div>
             <dt className="text-text-muted font-medium mb-1">Stack</dt>
             <dd className="flex flex-wrap gap-2 mt-1">

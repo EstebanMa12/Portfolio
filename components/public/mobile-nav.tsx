@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/lib/i18n/navigation";
 import { LocaleSwitcher } from "@/components/i18n/locale-switcher";
 import { SOCIAL_LINKS } from "@/lib/config/site";
 import { Button } from "./button";
@@ -93,7 +92,7 @@ export function MobileNav() {
             <ThemeToggle />
           </div>
           <div className="flex gap-4 mt-4 pt-4 border-t border-border">
-            <Link
+            <a
               href={SOCIAL_LINKS.github}
               target="_blank"
               rel="noopener noreferrer"
@@ -101,8 +100,8 @@ export function MobileNav() {
               onClick={closeMenu}
             >
               GitHub
-            </Link>
-            <Link
+            </a>
+            <a
               href={SOCIAL_LINKS.linkedin}
               target="_blank"
               rel="noopener noreferrer"
@@ -110,7 +109,7 @@ export function MobileNav() {
               onClick={closeMenu}
             >
               LinkedIn
-            </Link>
+            </a>
           </div>
           <div className="mt-4">
             <Button

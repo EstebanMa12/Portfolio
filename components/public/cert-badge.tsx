@@ -147,5 +147,22 @@ export function CertBadge({ variant, className = "cert-badge" }: CertBadgeProps)
           />
         </svg>
       );
+    default:
+      return (
+        <svg className={className} viewBox="0 0 96 96" aria-hidden="true">
+          <circle cx="48" cy="48" r="40" fill="#e4e4e7" />
+          <text
+            x="48"
+            y="52"
+            textAnchor="middle"
+            fill="#52525b"
+            fontSize="11"
+            fontWeight="600"
+            fontFamily="var(--font-sans), Inter, sans-serif"
+          >
+            ?
+          </text>
+        </svg>
+      );
   }
 }

@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/lib/i18n/navigation";
+import { stripLocaleFromPathname } from "@/lib/i18n/paths";
 import { useEffect, useState, type MouseEvent, type ReactNode } from "react";
 import { GitHubIcon, LinkedInIcon } from "@/components/public/icons";
 import { cn } from "@/lib/utils/cn";
@@ -157,19 +158,20 @@ function getInitialScrollSection(): DockSection {
 }
 
 function isHomePath(pathname: string): boolean {
-  return pathname === "/" || pathname === "/en";
+  return stripLocaleFromPathname(pathname).pathname === "/";
 }
 
 export function SideDock({ cvUrl, github, linkedin }: SideDockProps) {
   const pathname = usePathname();
+  const canonicalPathname = stripLocaleFromPathname(pathname ?? "/").pathname;
   const t = useTranslations("dock");
   const [scrollActive, setScrollActive] = useState<DockSection>(
     getInitialScrollSection,
   );
   const hasCv = Boolean(cvUrl?.trim());
-  const activeSection = isHomePath(pathname)
+  const activeSection = isHomePath(canonicalPathname)
     ? scrollActive
-    : (PATH_SECTION_MAP[pathname] ?? null);
+    : (PATH_SECTION_MAP[canonicalPathname] ?? null);
 
   const navItems: DockNavItem[] = [
     { id: "hero", labelKey: "home", href: "/#hero", icon: <HomeIcon className="w-5 h-5" /> },
@@ -180,7 +182,7 @@ export function SideDock({ cvUrl, github, linkedin }: SideDockProps) {
   ];
 
   useEffect(() => {
-    if (!isHomePath(pathname)) return;
+    if (!isHomePath(canonicalPathname)) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -199,16 +201,16 @@ export function SideDock({ cvUrl, github, linkedin }: SideDockProps) {
     });
 
     return () => observer.disconnect();
-  }, [pathname]);
+  }, [canonicalPathname]);
 
   useEffect(() => {
-    if (!isHomePath(pathname)) return;
+    if (!isHomePath(canonicalPathname)) return;
     const hash = window.location.hash.slice(1);
     if (!DOCK_SECTIONS.includes(hash as DockSection)) return;
 
     const timer = window.setTimeout(() => scrollToSection(hash), 120);
     return () => window.clearTimeout(timer);
-  }, [pathname]);
+  }, [canonicalPathname]);
 
   return (
     <aside

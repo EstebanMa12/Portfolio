@@ -11,7 +11,7 @@ const slugCheckers: Record<
   SlugEntity,
   (slug: string, excludeId?: string) => Promise<boolean>
 > = {
-  project: projectRepo.slugExists,
+  project: (slug, excludeId) => projectRepo.slugExists(slug, { excludeId }),
   article: articleRepo.slugExists,
   technology: technologyRepo.slugExists,
 };

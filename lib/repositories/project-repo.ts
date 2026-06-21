@@ -6,6 +6,7 @@ import type { Locale } from "@/lib/i18n/config";
 import { defaultLocale } from "@/lib/i18n/config";
 import type {
   Project,
+  ProjectImageInput,
   ProjectInsert,
   ProjectWithTechnologies,
 } from "@/lib/schemas/project";
@@ -16,6 +17,12 @@ const WITH_TECH = `
   *,
   project_technologies (
     technologies (*)
+  ),
+  project_images (
+    id,
+    image_url,
+    alt_text,
+    sort_order
   )
 `;
 
@@ -161,15 +168,51 @@ async function syncTechnologies(
   );
 }
 
+export async function syncProjectImages(
+  projectId: string,
+  images: ProjectImageInput[],
+): Promise<void> {
+  const supabase = await createClient();
+
+  unwrap(
+    await supabase.from("project_images").delete().eq("project_id", projectId),
+  );
+
+  if (images.length > 0) {
+    unwrap(
+      await supabase.from("project_images").insert(
+        images.map((image, index) => ({
+          project_id: projectId,
+          image_url: image.imageUrl,
+          alt_text: image.altText,
+          sort_order: image.sortOrder ?? index,
+        })),
+      ),
+    );
+  }
+
+  const coverImageUrl = images[0]?.imageUrl ?? null;
+  unwrap(
+    await supabase
+      .from("projects")
+      .update({ cover_image_url: coverImageUrl })
+      .eq("id", projectId),
+  );
+}
+
 export async function create(
   input: ProjectInsert,
 ): Promise<ProjectWithTechnologies> {
   const supabase = await createClient();
+  const coverImageUrl =
+    input.coverImageUrl ?? input.images[0]?.imageUrl ?? null;
+
   const { data, error } = await supabase
     .from("projects")
     .insert({
       title: input.title,
       slug: input.slug,
+      locale: input.locale,
       category: input.category,
       problem: input.problem,
       solution: input.solution,
@@ -177,7 +220,7 @@ export async function create(
       content: input.content ?? null,
       github_url: input.githubUrl ?? null,
       demo_url: input.demoUrl ?? null,
-      cover_image_url: input.coverImageUrl ?? null,
+      cover_image_url: coverImageUrl,
       featured: input.featured,
       status: input.status,
       sort_order: input.sortOrder,
@@ -194,6 +237,10 @@ export async function create(
   }
 
   await syncTechnologies(data.id, input.technologyIds);
+  if (input.images.length > 0) {
+    await syncProjectImages(data.id, input.images);
+  }
+
   const created = await fetchById(data.id, true);
   if (!created) throw new Error("Failed to load created project");
   return created;
@@ -213,6 +260,7 @@ export async function update(
   const patch: Database["public"]["Tables"]["projects"]["Update"] = {};
   if (input.title !== undefined) patch.title = input.title;
   if (input.slug !== undefined) patch.slug = input.slug;
+  if (input.locale !== undefined) patch.locale = input.locale;
   if (input.category !== undefined) patch.category = input.category;
   if (input.problem !== undefined) patch.problem = input.problem;
   if (input.solution !== undefined) patch.solution = input.solution;
@@ -238,6 +286,10 @@ export async function update(
     await syncTechnologies(id, input.technologyIds);
   }
 
+  if (input.images !== undefined) {
+    await syncProjectImages(id, input.images);
+  }
+
   const updated = await fetchById(id, true);
   if (!updated) throw new Error("Failed to load updated project");
   return updated;
@@ -248,16 +300,25 @@ export async function remove(id: string): Promise<void> {
   assertNoError(await supabase.from("projects").delete().eq("id", id));
 }
 
-export async function slugExists(slug: string, excludeId?: string): Promise<boolean> {
+export async function slugExists(
+  slug: string,
+  options: { locale?: Locale; excludeId?: string } = {},
+): Promise<boolean> {
+  const locale = options.locale ?? defaultLocale;
   const supabase = await createClient();
-  let query = supabase.from("projects").select("id").eq("slug", slug);
-  if (excludeId) query = query.neq("id", excludeId);
+  let query = supabase
+    .from("projects")
+    .select("id")
+    .eq("slug", slug)
+    .eq("locale", locale);
+  if (options.excludeId) query = query.neq("id", options.excludeId);
   const { data } = await query.maybeSingle();
   return data !== null;
 }
 
 export function toProject(entity: ProjectWithTechnologies): Project {
-  const { technologies, ...project } = entity;
+  const { technologies, images, ...project } = entity;
   void technologies;
+  void images;
   return projectSchema.parse(project);
 }

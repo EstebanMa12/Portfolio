@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/auth/require-admin";
 import { signOut } from "@/app/admin/login/actions";
+import { AdminNav } from "@/components/admin/admin-nav";
 
 export default async function AdminProtectedLayout({
   children,
@@ -35,6 +36,7 @@ export default async function AdminProtectedLayout({
         </div>
       </header>
       <main className="flex-1 max-w-6xl mx-auto w-full px-gutter py-8">
+        <AdminNav />
         {children}
       </main>
     </div>
