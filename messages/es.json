@@ -107,7 +107,16 @@
     "title": "Experiencia",
     "description": "Timeline profesional, roles y tecnologías.",
     "present": "Presente",
-    "empty": "No hay experiencias registradas."
+    "empty": "No hay experiencias registradas.",
+    "currentRole": "Rol actual",
+    "stack": "Stack",
+    "summaryLabel": "Resumen de trayectoria",
+    "yearsInIndustry": "Años en la industria",
+    "roles": "Roles",
+    "technologiesUsed": "Tecnologías",
+    "durationYears": "{count, plural, one {# año} other {# años}}",
+    "durationMonths": "{count, plural, one {# mes} other {# meses}}",
+    "durationMixed": "{years} · {months}"
   },
   "about": {
     "title": "Sobre mí",

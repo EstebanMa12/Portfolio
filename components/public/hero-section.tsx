@@ -77,14 +77,17 @@ export function HeroSection({ hero }: Readonly<HeroSectionProps>) {
           direction="right"
           delay={120}
         >
-          <Image
-            src={hero.photoUrl}
-            alt={`Foto de perfil de ${hero.name}, Software Engineer`}
-            width={384}
-            height={480}
-            className="w-full aspect-[4/5] object-cover rounded-xl border border-border shadow-[0_24px_64px_rgba(0,0,0,0.45)]"
-            priority
-          />
+          <div className="hero-photo-frame">
+            <Image
+              src={hero.photoUrl}
+              alt={`Foto de perfil de ${hero.name}, Software Engineer`}
+              width={384}
+              height={480}
+              className="hero-photo"
+              priority
+              unoptimized
+            />
+          </div>
         </RevealOnScroll>
       </div>
     </section>
