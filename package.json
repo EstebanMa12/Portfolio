@@ -12,7 +12,8 @@
     "test:watch": "vitest",
     "db:types": "supabase gen types typescript --linked > types/database.ts",
     "db:push": "supabase db push",
-    "db:seed": "supabase db seed"
+    "db:reset": "supabase db reset",
+    "db:seed": "supabase db reset"
   },
   "dependencies": {
     "@supabase/ssr": "^0.9.0",
