@@ -5,6 +5,7 @@ import { FeaturedProjects } from "@/components/public/project-card";
 import { HeroSection } from "@/components/public/hero-section";
 import { LatestArticles } from "@/components/public/article-card";
 import { ContactCard } from "@/components/public/contact-card";
+import { ExperienceTeaser } from "@/components/public/experience-teaser";
 import { SkillsDashboard } from "@/components/public/skills-dashboard";
 import { AchievementsCarousel } from "@/components/public/achievements-carousel";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
@@ -13,6 +14,7 @@ import {
   getAboutContent,
   getAchievementsContent,
   getContactContent,
+  getAllExperiences,
   getFeaturedProjects,
   getHeroContent,
   getLatestArticles,
@@ -43,11 +45,12 @@ export default async function HomePage() {
   const locale = (await getLocale()) as Locale;
   const t = await getTranslations({ locale, namespace: "a11y" });
 
-  const [hero, featuredProjects, latestArticles, about, achievements, contact, technologies, settings] =
+  const [hero, featuredProjects, latestArticles, experiences, about, achievements, contact, technologies, settings] =
     await Promise.all([
       getHeroContent(locale),
       getFeaturedProjects(locale),
       getLatestArticles(locale),
+      getAllExperiences(locale),
       getAboutContent(locale),
       getAchievementsContent(locale),
       getContactContent(locale),
@@ -86,6 +89,7 @@ export default async function HomePage() {
       />
       <HeroSection hero={hero} />
       <FeaturedProjects projects={featuredProjects} />
+      <ExperienceTeaser experiences={experiences} />
       <LatestArticles articles={latestArticles} />
       <SkillsDashboard
         metrics={hero.metrics}

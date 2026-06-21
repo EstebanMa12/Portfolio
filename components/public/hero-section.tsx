@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
+import { Link } from "@/lib/i18n/navigation";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
 import { Button } from "@/components/public/button";
 import { ImpactMetrics } from "@/components/public/impact-metrics";
@@ -73,6 +74,12 @@ export async function HeroSection({ hero }: Readonly<HeroSectionProps>) {
                 </Button>
               )}
             </div>
+            <Link
+              href="/experience"
+              className="inline-block mt-4 text-sm font-medium text-accent hover:text-text-primary transition-colors"
+            >
+              {tHero("viewExperience")} →
+            </Link>
           </RevealOnScroll>
         </div>
 

@@ -7,16 +7,15 @@ import { useEffect, useState, type MouseEvent, type ReactNode } from "react";
 import { GitHubIcon, LinkedInIcon } from "@/components/public/icons";
 import { cn } from "@/lib/utils/cn";
 
-const DOCK_SECTIONS = ["hero", "projects", "lab", "skills", "contact"] as const;
+const DOCK_SECTIONS = [
+  "hero",
+  "projects",
+  "experience",
+  "lab",
+  "skills",
+  "contact",
+] as const;
 type DockSection = (typeof DOCK_SECTIONS)[number];
-
-const PATH_SECTION_MAP: Partial<Record<string, DockSection>> = {
-  "/": "hero",
-  "/projects": "projects",
-  "/blog": "lab",
-  "/about": "skills",
-  "/contact": "contact",
-};
 
 type SideDockProps = {
   cvUrl?: string;
@@ -26,8 +25,14 @@ type SideDockProps = {
 
 type DockNavItem = {
   id: DockSection;
-  labelKey: "home" | "projects" | "lab" | "skills" | "contact";
-  href: "/#hero" | "/#projects" | "/#lab" | "/#skills" | "/#contact";
+  labelKey: "home" | "projects" | "experience" | "lab" | "skills" | "contact";
+  href:
+    | "/#hero"
+    | "/#projects"
+    | "/#experience"
+    | "/#lab"
+    | "/#skills"
+    | "/#contact";
   icon: ReactNode;
 };
 
@@ -117,6 +122,14 @@ function ProjectsIcon({ className }: { className?: string }) {
   );
 }
 
+function ExperienceIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+    </svg>
+  );
+}
+
 function LabIcon({ className }: { className?: string }) {
   return (
     <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -157,23 +170,21 @@ export function SideDock({ cvUrl, github, linkedin }: SideDockProps) {
   const pathname = usePathname();
   const canonicalPathname = stripLocaleFromPathname(pathname ?? "/").pathname;
   const t = useTranslations("dock");
-  // SSR has no access to hash/scroll; always match server default, sync after mount.
   const [scrollActive, setScrollActive] = useState<DockSection>("hero");
   const hasCv = Boolean(cvUrl?.trim());
-  const activeSection = isHomePath(canonicalPathname)
-    ? scrollActive
-    : (PATH_SECTION_MAP[canonicalPathname] ?? null);
+  const isHome = isHomePath(canonicalPathname);
 
   const navItems: DockNavItem[] = [
     { id: "hero", labelKey: "home", href: "/#hero", icon: <HomeIcon className="w-5 h-5" /> },
     { id: "projects", labelKey: "projects", href: "/#projects", icon: <ProjectsIcon className="w-5 h-5" /> },
+    { id: "experience", labelKey: "experience", href: "/#experience", icon: <ExperienceIcon className="w-5 h-5" /> },
     { id: "lab", labelKey: "lab", href: "/#lab", icon: <LabIcon className="w-5 h-5" /> },
     { id: "skills", labelKey: "skills", href: "/#skills", icon: <SkillsIcon className="w-5 h-5" /> },
     { id: "contact", labelKey: "contact", href: "/#contact", icon: <ContactIcon className="w-5 h-5" /> },
   ];
 
   useEffect(() => {
-    if (!isHomePath(canonicalPathname)) return;
+    if (!isHome) return;
 
     const hash = window.location.hash.slice(1);
     if (DOCK_SECTIONS.includes(hash as DockSection)) {
@@ -197,17 +208,22 @@ export function SideDock({ cvUrl, github, linkedin }: SideDockProps) {
     });
 
     return () => observer.disconnect();
-  }, [canonicalPathname]);
+  }, [canonicalPathname, isHome]);
 
   useEffect(() => {
-    if (!isHomePath(canonicalPathname)) return;
+    if (!isHome) return;
+
     const hash = window.location.hash.slice(1);
     if (!DOCK_SECTIONS.includes(hash as DockSection)) return;
 
     setScrollActive(hash as DockSection);
     const timer = window.setTimeout(() => scrollToSection(hash), 120);
     return () => window.clearTimeout(timer);
-  }, [canonicalPathname]);
+  }, [canonicalPathname, isHome]);
+
+  if (!isHome) {
+    return null;
+  }
 
   return (
     <aside
@@ -221,7 +237,7 @@ export function SideDock({ cvUrl, github, linkedin }: SideDockProps) {
               <DockLink
                 href={item.href}
                 label={t(item.labelKey)}
-                active={activeSection === item.id}
+                active={scrollActive === item.id}
                 onClick={(event) => handleHashClick(event, item.href)}
               >
                 {item.icon}
