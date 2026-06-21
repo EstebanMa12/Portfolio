@@ -76,6 +76,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const { slug, locale: localeParam } = await params;
   const locale = localeParam as Locale;
   const t = await getTranslations({ locale, namespace: "nav" });
+  const tA11y = await getTranslations({ locale, namespace: "a11y" });
+  const tBlog = await getTranslations({ locale, namespace: "blog" });
 
   const [article, hero, settings] = await Promise.all([
     getArticleBySlug(slug, locale),
@@ -87,7 +89,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     notFound();
   }
 
-  const { label, datetime } = formatArticleDate(article.publishedAt);
+  const { label, datetime } = formatArticleDate(
+    article.publishedAt,
+    locale,
+    tBlog("noDate"),
+  );
   const articlePath = localizedPath(`/blog/${article.slug}`, locale);
 
   return (
@@ -111,6 +117,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
       <RevealOnScroll direction="none">
         <Breadcrumbs
+          ariaLabel={tA11y("breadcrumb")}
           items={[
             { label: t("home"), href: "/" },
             { label: t("blog"), href: "/blog" },
@@ -132,7 +139,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             ) : null}
             {article.readingTimeMin ? (
               <span className="text-text-muted text-sm">
-                · {article.readingTimeMin} min
+                · {tBlog("readingTime", { minutes: article.readingTimeMin })}
               </span>
             ) : null}
           </div>

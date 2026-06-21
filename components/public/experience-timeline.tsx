@@ -55,6 +55,7 @@ function ExperienceCard({
   const period = formatExperiencePeriod(
     experience.startDate,
     experience.endDate,
+    presentLabel,
   );
   const startYear = getExperienceStartYear(experience.startDate);
   const initials = getCompanyInitials(experience.company);
@@ -63,7 +64,7 @@ function ExperienceCard({
   return (
     <article
       className={cn(
-        "experience-card card card-interactive group",
+        "experience-card card group",
         isCurrent && "experience-card--current",
       )}
     >
@@ -119,7 +120,7 @@ function ExperienceCard({
       {experience.bullets.length > 0 ? (
         <ul className="experience-bullets mb-5">
           {experience.bullets.map((bullet, bulletIndex) => (
-            <li key={bullet}>
+            <li key={`${experience.id}-${bulletIndex}`}>
               <span className="experience-bullet-index" aria-hidden="true">
                 {String(bulletIndex + 1).padStart(2, "0")}
               </span>
@@ -185,28 +186,32 @@ export async function ExperienceTimeline({
   return (
     <div className="experience-timeline">
       <RevealOnScroll>
-        <dl className="experience-summary" aria-label={t("summaryLabel")}>
+        <div
+          className="experience-summary"
+          role="group"
+          aria-label={t("summaryLabel")}
+        >
           <div className="experience-summary-stat">
-            <dt className="experience-summary-label">{t("yearsInIndustry")}</dt>
-            <dd className="experience-summary-value font-display">
+            <p className="experience-summary-label">{t("yearsInIndustry")}</p>
+            <p className="experience-summary-value font-display">
               {summary.spanYears}+
-            </dd>
+            </p>
           </div>
           <div className="experience-summary-divider" aria-hidden="true" />
           <div className="experience-summary-stat">
-            <dt className="experience-summary-label">{t("roles")}</dt>
-            <dd className="experience-summary-value font-display">
+            <p className="experience-summary-label">{t("roles")}</p>
+            <p className="experience-summary-value font-display">
               {summary.roleCount}
-            </dd>
+            </p>
           </div>
           <div className="experience-summary-divider" aria-hidden="true" />
           <div className="experience-summary-stat">
-            <dt className="experience-summary-label">{t("technologiesUsed")}</dt>
-            <dd className="experience-summary-value font-display">
+            <p className="experience-summary-label">{t("technologiesUsed")}</p>
+            <p className="experience-summary-value font-display">
               {summary.techCount}
-            </dd>
+            </p>
           </div>
-        </dl>
+        </div>
       </RevealOnScroll>
 
       <div className="experience-spine-wrap">
@@ -216,7 +221,7 @@ export async function ExperienceTimeline({
 
         <ol className="experience-entries">
           {experiences.map((experience, index) => {
-            const isCurrent = index === 0 && !experience.endDate;
+            const isCurrent = !experience.endDate;
             const durationMonths = getExperienceDurationMonths(
               experience.startDate,
               experience.endDate,

@@ -58,8 +58,6 @@ export default async function HomePage() {
   if (!hero || !about || !contact) {
     notFound();
   }
-  
-  console.log(achievements);
 
   const siteUrl = settings.siteUrl;
 

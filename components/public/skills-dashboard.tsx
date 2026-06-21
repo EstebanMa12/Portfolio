@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { Badge } from "@/components/public/badge";
 import { Card } from "@/components/public/card";
 import { MetricHighlight } from "@/components/public/metric-highlight";
@@ -18,23 +19,19 @@ import {
   getRadarAxisEnd,
 } from "@/lib/utils/radar-chart";
 
-const SOFT_SKILLS = [
-  "Pensamiento analítico",
-  "Resolución de problemas",
-  "Aprendizaje continuo",
-];
-
 type SkillsDashboardProps = {
   metrics: HeroContent["metrics"];
   about: AboutContent;
   technologies: Technology[];
 };
 
-export function SkillsDashboard({
+export async function SkillsDashboard({
   metrics,
   about,
   technologies,
-}: SkillsDashboardProps) {
+}: Readonly<SkillsDashboardProps>) {
+  const t = await getTranslations("skills");
+  const softSkills = t.raw("softSkills") as string[];
   const radarSkills =
     about.skills && about.skills.length >= 3
       ? about.skills
@@ -60,12 +57,12 @@ export function SkillsDashboard({
       className="mb-section-gap-mobile md:mb-section-gap scroll-mt-28"
     >
       <RevealOnScroll>
-        <SectionLabel className="mb-3">Skills</SectionLabel>
+        <SectionLabel className="mb-3">{t("sectionLabel")}</SectionLabel>
         <h2
           id="skills-heading"
           className="font-display text-2xl md:text-3xl font-semibold tracking-tight text-text-primary mb-10"
         >
-          Stack tecnológico e impacto
+          {t("sectionTitle")}
         </h2>
       </RevealOnScroll>
 
@@ -99,10 +96,10 @@ export function SkillsDashboard({
         <RevealOnScroll className="lg:col-span-5" delay={120}>
           <Card className="flex flex-col h-full">
             <h3 className="text-sm font-semibold text-text-primary mb-1">
-              Matriz de habilidades
+              {t("radarTitle")}
             </h3>
             <p className="text-text-muted text-xs mb-4">
-              Profundidad técnica por dominio
+              {t("radarDescription")}
             </p>
             <div className="flex-1 flex items-center justify-center">
               <svg
@@ -111,7 +108,7 @@ export function SkillsDashboard({
                 role="img"
                 aria-labelledby="radar-title radar-desc"
               >
-                <title id="radar-title">Matriz de habilidades técnicas</title>
+                <title id="radar-title">{t("radarImageTitle")}</title>
                 <desc id="radar-desc">{radarDescription}</desc>
                 {getRadarGridLevels().map((level) => (
                   <polygon
@@ -162,10 +159,10 @@ export function SkillsDashboard({
           <RevealOnScroll delay={160}>
             <Card>
               <h3 className="text-sm font-semibold text-text-primary mb-4">
-                Soft skills
+                {t("softSkillsTitle")}
               </h3>
-              <ul className="space-y-3" role="list">
-                {SOFT_SKILLS.map((skill) => (
+              <ul className="space-y-3">
+                {softSkills.map((skill) => (
                   <li key={skill} className="flex items-start gap-3">
                     <span
                       className="w-1.5 h-1.5 rounded-full bg-metric-teal mt-1.5 shrink-0"
@@ -182,9 +179,9 @@ export function SkillsDashboard({
             <RevealOnScroll delay={240}>
               <Card>
                 <h3 className="text-sm font-semibold text-text-primary mb-4">
-                  Exploración
+                  {t("explorationTitle")}
                 </h3>
-                <ul className="space-y-2" role="list">
+                <ul className="space-y-2">
                   {about.interests.map((interest) => (
                     <li key={interest}>
                       <Badge>{interest}</Badge>

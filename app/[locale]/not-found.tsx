@@ -11,9 +11,18 @@ export default async function LocaleNotFound() {
         {t("title")}
       </h1>
       <p className="mt-4 max-w-md text-text-secondary">{t("description")}</p>
-      <Button href="/" variant="secondary" className="mt-8">
-        {t("backHome")}
-      </Button>
+      <div className="mt-8 flex flex-col sm:flex-row flex-wrap justify-center gap-3">
+        <Button href="/" variant="secondary">
+          {t("backHome")}
+        </Button>
+        <Button href="/projects" variant="secondary">
+          {t("exploreProjects")}
+        </Button>
+        <Button href="/blog" variant="secondary">
+          {t("exploreBlog")}
+        </Button>
+        <Button href="/contact">{t("getInTouch")}</Button>
+      </div>
     </main>
   );
 }

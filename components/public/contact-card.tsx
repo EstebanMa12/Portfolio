@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { Button } from "@/components/public/button";
 import { GitHubIcon, LinkedInIcon, EmailIcon } from "@/components/public/icons";
 import type { ContactContent } from "@/lib/schemas/page-content";
@@ -6,9 +7,11 @@ type ContactCardProps = {
   contact: ContactContent;
 };
 
-export function ContactCard({ contact }: ContactCardProps) {
+export async function ContactCard({ contact }: Readonly<ContactCardProps>) {
+  const t = await getTranslations("contact");
+
   return (
-    <div className="card card-interactive text-center py-12 md:py-16 px-6 max-w-2xl mx-auto">
+    <div className="card text-center py-12 md:py-16 px-6 max-w-2xl mx-auto">
       <h1 className="font-display text-2xl md:text-3xl font-semibold tracking-tight text-text-primary mb-4">
         {contact.title}
       </h1>
@@ -18,15 +21,15 @@ export function ContactCard({ contact }: ContactCardProps) {
       <div className="flex flex-wrap justify-center gap-3">
         <Button href={`mailto:${contact.email}`}>
           <EmailIcon className="w-4 h-4" />
-          Email
+          {t("email")}
         </Button>
         <Button href={contact.linkedin} variant="secondary">
           <LinkedInIcon className="w-4 h-4" />
-          LinkedIn
+          {t("linkedin")}
         </Button>
         <Button href={contact.github} variant="secondary">
           <GitHubIcon className="w-4 h-4" />
-          GitHub
+          {t("github")}
         </Button>
       </div>
     </div>

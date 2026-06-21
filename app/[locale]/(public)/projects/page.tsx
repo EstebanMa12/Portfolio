@@ -28,15 +28,19 @@ export default async function ProjectsPage() {
         <SectionLabel className="mb-3">{t("title")}</SectionLabel>
         <h1
           id="projects-heading"
-          className="font-display text-3xl md:text-4xl font-semibold tracking-tight text-text-primary mb-10"
+          className="font-display text-3xl md:text-4xl font-semibold tracking-tight text-text-primary"
         >
           {t("title")}
         </h1>
+        <p className="mt-3 text-text-secondary max-w-prose leading-relaxed mb-10">
+          {t("description")}
+        </p>
       </RevealOnScroll>
 
       <ProjectGrid projects={projects} />
 
       <PageCta
+        title={tCta("nextStep")}
         description={tCta("defaultDescription")}
         primaryHref="/contact"
         primaryLabel={tCta("contact")}

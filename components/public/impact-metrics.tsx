@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { Card } from "@/components/public/card";
 import { MetricHighlight } from "@/components/public/metric-highlight";
 import type { HeroContent } from "@/lib/schemas/page-content";
@@ -6,7 +7,9 @@ type ImpactMetricsProps = {
   metrics: HeroContent["metrics"];
 };
 
-export function ImpactMetrics({ metrics }: ImpactMetricsProps) {
+export async function ImpactMetrics({ metrics }: Readonly<ImpactMetricsProps>) {
+  const t = await getTranslations("a11y");
+
   if (metrics.length === 0) return null;
 
   const [highlight, ...rest] = metrics;
@@ -15,7 +18,7 @@ export function ImpactMetrics({ metrics }: ImpactMetricsProps) {
     <div
       className="space-y-3 pt-2"
       role="group"
-      aria-label="Métricas de impacto profesional"
+      aria-label={t("impactMetrics")}
     >
       {highlight ? (
         <MetricHighlight

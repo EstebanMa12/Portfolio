@@ -2,9 +2,15 @@ import type { AboutContent } from "@/lib/schemas/page-content";
 
 type BioBridgeTableProps = {
   rows: AboutContent["bioBridge"];
+  fromLabel: string;
+  toLabel: string;
 };
 
-export function BioBridgeTable({ rows }: BioBridgeTableProps) {
+export function BioBridgeTable({
+  rows,
+  fromLabel,
+  toLabel,
+}: Readonly<BioBridgeTableProps>) {
   if (rows.length === 0) return null;
 
   return (
@@ -13,9 +19,9 @@ export function BioBridgeTable({ rows }: BioBridgeTableProps) {
         <table className="bridge-table w-full">
           <thead>
             <tr>
-              <th scope="col">Bioingeniería</th>
+              <th scope="col">{fromLabel}</th>
               <th scope="col" className="w-12" aria-hidden="true" />
-              <th scope="col">Software</th>
+              <th scope="col">{toLabel}</th>
             </tr>
           </thead>
           <tbody>

@@ -12,6 +12,10 @@ type ProjectCardProps = {
   featured?: boolean;
   githubLabel: string;
   demoLabel: string;
+  problemLabel: string;
+  solutionLabel: string;
+  stackLabel: string;
+  resultLabel: string;
 };
 
 export function ProjectCard({
@@ -19,11 +23,14 @@ export function ProjectCard({
   featured = false,
   githubLabel,
   demoLabel,
-}: ProjectCardProps) {
+  problemLabel,
+  solutionLabel,
+  stackLabel,
+  resultLabel,
+}: Readonly<ProjectCardProps>) {
   return (
     <Card
       as="article"
-      interactive
       className={`flex flex-col ${featured ? "" : "h-full"}`}
     >
       <ProjectImageCarousel
@@ -40,20 +47,20 @@ export function ProjectCard({
 
       <dl className="space-y-3 text-sm flex-1">
         <div>
-          <dt className="text-text-muted font-medium mb-1">Problema</dt>
+          <dt className="text-text-muted font-medium mb-1">{problemLabel}</dt>
           <dd className="text-text-secondary leading-relaxed">
             {project.problem}
           </dd>
         </div>
         <div>
-          <dt className="text-text-muted font-medium mb-1">Solución</dt>
+          <dt className="text-text-muted font-medium mb-1">{solutionLabel}</dt>
           <dd className="text-text-secondary leading-relaxed">
             {project.solution}
           </dd>
         </div>
         {project.technologies?.length ? (
           <div>
-            <dt className="text-text-muted font-medium mb-1">Stack</dt>
+            <dt className="text-text-muted font-medium mb-1">{stackLabel}</dt>
             <dd className="flex flex-wrap gap-2 mt-1">
               {project.technologies.map((tech) => (
                 <Badge key={tech.id}>{tech.name}</Badge>
@@ -62,7 +69,7 @@ export function ProjectCard({
           </div>
         ) : null}
         <div>
-          <dt className="text-text-muted font-medium mb-1">Resultado</dt>
+          <dt className="text-text-muted font-medium mb-1">{resultLabel}</dt>
           <dd className="text-text-primary font-medium">{project.result}</dd>
         </div>
       </dl>
@@ -115,6 +122,10 @@ export async function ProjectGrid({ projects }: ProjectGridProps) {
             project={project}
             githubLabel={t("github")}
             demoLabel={t("demo")}
+            problemLabel={t("problem")}
+            solutionLabel={t("solution")}
+            stackLabel={t("stack")}
+            resultLabel={t("result")}
           />
         </RevealOnScroll>
       ))}

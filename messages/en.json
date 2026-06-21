@@ -55,9 +55,17 @@
     "seeAll": "View all →"
   },
   "cta": {
+    "nextStep": "What's next?",
     "defaultDescription": "Explore more content or get in touch.",
     "contact": "Get in touch",
     "viewProjects": "View projects"
+  },
+  "hero": {
+    "profilePhotoAlt": "Profile photo of {name}, {role}"
+  },
+  "footer": {
+    "tagline": "Software Engineer",
+    "socialNav": "Social links"
   },
   "skills": {
     "categories": {
@@ -80,7 +88,12 @@
     "stackByCategoryDescription": "Browse technologies grouped by domain.",
     "technologiesCount": "{count} technologies",
     "categoryTechCount": "{count, plural, one {# technology} other {# technologies}}",
-    "softSkillsTitle": "Soft skills"
+    "softSkillsTitle": "Soft skills",
+    "sectionLabel": "Skills",
+    "sectionTitle": "Tech stack and impact",
+    "radarDescription": "Technical depth by domain",
+    "radarImageTitle": "Technical skills matrix",
+    "explorationTitle": "Exploration"
   },
   "blog": {
     "title": "The Lab",
@@ -90,13 +103,20 @@
     "backToBlog": "← Back to blog",
     "paginationPrev": "Previous",
     "paginationNext": "Next",
-    "pageOf": "Page {page} of {total}"
+    "pageOf": "Page {page} of {total}",
+    "readingTime": "{minutes} min",
+    "noDate": "No date",
+    "paginationAria": "Blog pagination"
   },
   "projects": {
     "title": "Projects",
     "description": "Case studies in backend, distributed systems, and infrastructure.",
     "empty": "No published projects yet.",
     "viewCase": "View case study",
+    "problem": "Problem",
+    "solution": "Solution",
+    "stack": "Stack",
+    "result": "Result",
     "github": "GitHub",
     "demo": "Demo",
     "carouselPrev": "Previous image",
@@ -120,17 +140,32 @@
   },
   "about": {
     "title": "About",
-    "description": "Learn about my background in Bioengineering and systems-focused engineering."
+    "description": "Learn about my background in Bioengineering and systems-focused engineering.",
+    "interests": "Interests",
+    "bioBridgeLabel": "Skill transfer",
+    "bioBridgeTitle": "Bioengineering ↔ Software",
+    "bioBridgeDescription": "My scientific background directly shapes how I design, validate, and operate software systems in production.",
+    "bioBridgeFrom": "Bioengineering",
+    "bioBridgeTo": "Software"
   },
   "contact": {
     "title": "Contact",
     "description": "Reach out for professional opportunities.",
     "email": "Email",
+    "linkedin": "LinkedIn",
+    "github": "GitHub",
     "copyEmail": "Copy email",
     "copied": "Copied"
   },
   "author": {
-    "bio": "Software Engineer focused on backend and distributed systems."
+    "label": "Author",
+    "bio": "Software Engineer focused on backend and distributed systems.",
+    "about": "About me",
+    "contact": "Get in touch"
+  },
+  "achievements": {
+    "carouselHint": "Swipe horizontally to explore · Hover to highlight",
+    "viewCredential": "View credential"
   },
   "home": {
     "title": "Home",
@@ -139,7 +174,10 @@
   "notFound": {
     "title": "Page not found",
     "description": "The page you're looking for doesn't exist.",
-    "backHome": "Back to home"
+    "backHome": "Back to home",
+    "exploreProjects": "View projects",
+    "exploreBlog": "Go to blog",
+    "getInTouch": "Get in touch"
   },
   "error": {
     "label": "Error",
