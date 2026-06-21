@@ -83,8 +83,8 @@ INSERT INTO page_content (id, locale, data) VALUES
   '{
     "title": "Let''s work together",
     "description": "Open to opportunities in backend, platform engineering, and systems architecture.",
-    "email": "hello@estebanmaya.dev",
-    "linkedin": "https://linkedin.com/in/estebanmaya",
+    "email": "daesmapo@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/estebanmaya-bioengineer",
     "github": "https://github.com/EstebanMa12"
   }'::jsonb
 ),

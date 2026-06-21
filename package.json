@@ -13,7 +13,8 @@
     "db:types": "supabase gen types typescript --linked > types/database.ts",
     "db:push": "supabase db push",
     "db:reset": "supabase db reset",
-    "db:seed": "supabase db reset"
+    "db:seed:local": "supabase db reset",
+    "db:seed:remote": "supabase db query --linked --yes -f supabase/seed_truncate.sql && supabase db query --linked --yes -f supabase/seed.sql && supabase db query --linked --yes -f supabase/seed_en.sql"
   },
   "dependencies": {
     "@supabase/ssr": "^0.9.0",

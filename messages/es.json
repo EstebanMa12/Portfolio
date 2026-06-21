@@ -76,6 +76,10 @@
     ],
     "radarTitle": "Perfil técnico",
     "stackTitle": "Stack principal",
+    "stackByCategoryTitle": "Stack por categoría",
+    "stackByCategoryDescription": "Explora las tecnologías agrupadas por dominio.",
+    "technologiesCount": "{count} tecnologías",
+    "categoryTechCount": "{count, plural, one {# tecnología} other {# tecnologías}}",
     "softSkillsTitle": "Soft skills"
   },
   "blog": {

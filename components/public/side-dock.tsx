@@ -149,14 +149,6 @@ function DownloadIcon({ className }: { className?: string }) {
   );
 }
 
-function getInitialScrollSection(): DockSection {
-  if (typeof window === "undefined") return "hero";
-  const hash = window.location.hash.slice(1);
-  return DOCK_SECTIONS.includes(hash as DockSection)
-    ? (hash as DockSection)
-    : "hero";
-}
-
 function isHomePath(pathname: string): boolean {
   return stripLocaleFromPathname(pathname).pathname === "/";
 }
@@ -165,9 +157,8 @@ export function SideDock({ cvUrl, github, linkedin }: SideDockProps) {
   const pathname = usePathname();
   const canonicalPathname = stripLocaleFromPathname(pathname ?? "/").pathname;
   const t = useTranslations("dock");
-  const [scrollActive, setScrollActive] = useState<DockSection>(
-    getInitialScrollSection,
-  );
+  // SSR has no access to hash/scroll; always match server default, sync after mount.
+  const [scrollActive, setScrollActive] = useState<DockSection>("hero");
   const hasCv = Boolean(cvUrl?.trim());
   const activeSection = isHomePath(canonicalPathname)
     ? scrollActive
@@ -183,6 +174,11 @@ export function SideDock({ cvUrl, github, linkedin }: SideDockProps) {
 
   useEffect(() => {
     if (!isHomePath(canonicalPathname)) return;
+
+    const hash = window.location.hash.slice(1);
+    if (DOCK_SECTIONS.includes(hash as DockSection)) {
+      setScrollActive(hash as DockSection);
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -208,6 +204,7 @@ export function SideDock({ cvUrl, github, linkedin }: SideDockProps) {
     const hash = window.location.hash.slice(1);
     if (!DOCK_SECTIONS.includes(hash as DockSection)) return;
 
+    setScrollActive(hash as DockSection);
     const timer = window.setTimeout(() => scrollToSection(hash), 120);
     return () => window.clearTimeout(timer);
   }, [canonicalPathname]);

@@ -12,7 +12,7 @@ export const PRIMARY_NAV = [
 export type NavKey = (typeof PRIMARY_NAV)[number]["key"];
 
 export const SOCIAL_LINKS = {
-  github: "https://github.com/estebanmaya",
-  linkedin: "https://linkedin.com/in/estebanmaya",
-  email: "mailto:esteban.maya@email.com",
+  github: "https://github.com/EstebanMa12",
+  linkedin: "https://www.linkedin.com/in/estebanmaya-bioengineer",
+  email: "mailto:daesmapo@gmail.com",
 } as const;

@@ -2,10 +2,12 @@ import { Badge } from "@/components/public/badge";
 import { Card } from "@/components/public/card";
 import { MetricHighlight } from "@/components/public/metric-highlight";
 import { SectionLabel } from "@/components/public/section-label";
+import { TechStackExplorer } from "@/components/public/tech-stack-explorer";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
 import type { AboutContent, HeroContent } from "@/lib/schemas/page-content";
 import type { Technology } from "@/lib/schemas/technology";
 import type { TechCategory } from "@/lib/schemas/common";
+import { getOrderedStackCategories } from "@/lib/utils/tech-categories";
 import {
   DEFAULT_RADAR_SKILLS,
   getRadarDescription,
@@ -15,14 +17,6 @@ import {
   getRadarPolygonPoints,
   getRadarAxisEnd,
 } from "@/lib/utils/radar-chart";
-
-const CATEGORY_LABELS: Record<TechCategory, string> = {
-  language: "Backend",
-  framework: "Frontend",
-  infra: "Infra / DevOps",
-  database: "Bases de datos",
-  tool: "Herramientas",
-};
 
 const SOFT_SKILLS = [
   "Pensamiento analítico",
@@ -56,6 +50,8 @@ export function SkillsDashboard({
     groups[tech.category] = list;
     return groups;
   }, {});
+
+  const stackCategories = getOrderedStackCategories(technologiesByCategory);
 
   return (
     <section
@@ -201,34 +197,12 @@ export function SkillsDashboard({
         </div>
       </div>
 
-      {technologies.length > 0 ? (
+      {stackCategories.length > 0 ? (
         <RevealOnScroll>
-          <h3 className="text-sm font-semibold text-text-primary mb-4">
-            Stack por categoría
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {(Object.keys(CATEGORY_LABELS) as TechCategory[]).map(
-              (category, index) => {
-                const items = technologiesByCategory[category];
-                if (!items?.length) return null;
-
-                return (
-                  <RevealOnScroll key={category} delay={index * 70}>
-                    <Card className="py-5 px-6">
-                      <h4 className="text-xs font-semibold text-text-muted uppercase tracking-wide mb-3">
-                        {CATEGORY_LABELS[category]}
-                      </h4>
-                      <div className="flex flex-wrap gap-2">
-                        {items.map((tech) => (
-                          <Badge key={tech.id}>{tech.name}</Badge>
-                        ))}
-                      </div>
-                    </Card>
-                  </RevealOnScroll>
-                );
-              },
-            )}
-          </div>
+          <TechStackExplorer
+            technologiesByCategory={technologiesByCategory}
+            categories={stackCategories}
+          />
         </RevealOnScroll>
       ) : null}
     </section>
