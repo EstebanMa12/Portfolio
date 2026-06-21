@@ -1,7 +1,7 @@
 # Supabase project refs
 #
 # staging: cvvimcxjkdbzqtncflro (portfolio-staging)
-# prod:    njslzlfijpciuwxebkkf (portfolio-prod)
+# prod:    portfolio-prod (ref in GitHub secret SUPABASE_PROD_PROJECT_REF)
 #
 # Link local CLI to staging:
 #   supabase login
@@ -55,5 +55,5 @@ pnpm db:seed:remote   # sincronizar contenido con seed.sql
 
 ### Producción
 
-- Migraciones: workflow `Migrate Production DB` o `supabase link --project-ref njslzlfijpciuwxebkkf && pnpm db:push`
+- Migraciones: workflow `Migrate Production DB` (manual) o `supabase link --project-ref <prod-ref> && pnpm db:push`
 - **No** ejecutar `db:seed:remote` en prod salvo reset controlado — editar filas vía SQL Editor o admin CMS.

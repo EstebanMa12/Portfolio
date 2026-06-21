@@ -35,7 +35,7 @@ Scripts útiles:
 | Entorno | Proyecto | Ref |
 |---------|----------|-----|
 | Staging | portfolio-staging | `cvvimcxjkdbzqtncflro` |
-| Prod | portfolio-prod | `njslzlfijpciuwxebkkf` |
+| Prod | portfolio-prod | GitHub secret `SUPABASE_PROD_PROJECT_REF` |
 
 Ver [`supabase/README.md`](supabase/README.md) para link del CLI.
 
