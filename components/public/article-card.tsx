@@ -1,19 +1,33 @@
 import { Link } from "@/lib/i18n/navigation";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
 import { Badge } from "@/components/public/badge";
 import { Card } from "@/components/public/card";
 import { SectionHeader } from "@/components/public/section-header";
 import type { Article } from "@/lib/schemas/article";
+import type { Locale } from "@/lib/i18n/config";
 import { formatArticleDate } from "@/lib/utils/format-date";
 
 type ArticleCardProps = {
   article: Article;
   readMoreLabel: string;
+  locale: Locale;
+  noDateLabel: string;
+  readingTimeLabel?: string;
 };
 
-export function ArticleCard({ article, readMoreLabel }: ArticleCardProps) {
-  const { label, datetime } = formatArticleDate(article.publishedAt);
+export function ArticleCard({
+  article,
+  readMoreLabel,
+  locale,
+  noDateLabel,
+  readingTimeLabel,
+}: Readonly<ArticleCardProps>) {
+  const { label, datetime } = formatArticleDate(
+    article.publishedAt,
+    locale,
+    noDateLabel,
+  );
   const primaryTag = article.tags[0];
 
   return (
@@ -25,10 +39,8 @@ export function ArticleCard({ article, readMoreLabel }: ArticleCardProps) {
             {label}
           </time>
         ) : null}
-        {article.readingTimeMin ? (
-          <span className="text-text-muted text-xs">
-            · {article.readingTimeMin} min
-          </span>
+        {readingTimeLabel ? (
+          <span className="text-text-muted text-xs">· {readingTimeLabel}</span>
         ) : null}
       </div>
 
@@ -61,6 +73,7 @@ type LatestArticlesProps = {
 };
 
 export async function LatestArticles({ articles }: LatestArticlesProps) {
+  const locale = (await getLocale()) as Locale;
   const t = await getTranslations("sections");
   const tBlog = await getTranslations("blog");
 
@@ -92,6 +105,13 @@ export async function LatestArticles({ articles }: LatestArticlesProps) {
               <ArticleCard
                 article={article}
                 readMoreLabel={tBlog("readMore")}
+                locale={locale}
+                noDateLabel={tBlog("noDate")}
+                readingTimeLabel={
+                  article.readingTimeMin
+                    ? tBlog("readingTime", { minutes: article.readingTimeMin })
+                    : undefined
+                }
               />
             </RevealOnScroll>
           ))}

@@ -55,9 +55,17 @@
     "seeAll": "Ver todos →"
   },
   "cta": {
+    "nextStep": "¿Siguiente paso?",
     "defaultDescription": "Explora más contenido o ponte en contacto.",
     "contact": "Contactar",
     "viewProjects": "Ver proyectos"
+  },
+  "hero": {
+    "profilePhotoAlt": "Foto de perfil de {name}, {role}"
+  },
+  "footer": {
+    "tagline": "Software Engineer",
+    "socialNav": "Redes sociales"
   },
   "skills": {
     "categories": {
@@ -76,7 +84,16 @@
     ],
     "radarTitle": "Perfil técnico",
     "stackTitle": "Stack principal",
-    "softSkillsTitle": "Soft skills"
+    "stackByCategoryTitle": "Stack por categoría",
+    "stackByCategoryDescription": "Explora las tecnologías agrupadas por dominio.",
+    "technologiesCount": "{count} tecnologías",
+    "categoryTechCount": "{count, plural, one {# tecnología} other {# tecnologías}}",
+    "softSkillsTitle": "Soft skills",
+    "sectionLabel": "Skills",
+    "sectionTitle": "Stack tecnológico e impacto",
+    "radarDescription": "Profundidad técnica por dominio",
+    "radarImageTitle": "Matriz de habilidades técnicas",
+    "explorationTitle": "Exploración"
   },
   "blog": {
     "title": "The Lab",
@@ -86,13 +103,20 @@
     "backToBlog": "← Volver al blog",
     "paginationPrev": "Anterior",
     "paginationNext": "Siguiente",
-    "pageOf": "Página {page} de {total}"
+    "pageOf": "Página {page} de {total}",
+    "readingTime": "{minutes} min",
+    "noDate": "Sin fecha",
+    "paginationAria": "Paginación del blog"
   },
   "projects": {
     "title": "Proyectos",
     "description": "Case studies de backend, sistemas distribuidos e infraestructura.",
     "empty": "No hay proyectos publicados todavía.",
     "viewCase": "Ver case study",
+    "problem": "Problema",
+    "solution": "Solución",
+    "stack": "Stack",
+    "result": "Resultado",
     "github": "GitHub",
     "demo": "Demo",
     "carouselPrev": "Imagen anterior",
@@ -103,21 +127,45 @@
     "title": "Experiencia",
     "description": "Timeline profesional, roles y tecnologías.",
     "present": "Presente",
-    "empty": "No hay experiencias registradas."
+    "empty": "No hay experiencias registradas.",
+    "currentRole": "Rol actual",
+    "stack": "Stack",
+    "summaryLabel": "Resumen de trayectoria",
+    "yearsInIndustry": "Años en la industria",
+    "roles": "Roles",
+    "technologiesUsed": "Tecnologías",
+    "durationYears": "{count, plural, one {# año} other {# años}}",
+    "durationMonths": "{count, plural, one {# mes} other {# meses}}",
+    "durationMixed": "{years} · {months}"
   },
   "about": {
     "title": "Sobre mí",
-    "description": "Conoce mi trayectoria, formación en Bioingeniería y enfoque en sistemas."
+    "description": "Conoce mi trayectoria, formación en Bioingeniería y enfoque en sistemas.",
+    "interests": "Intereses",
+    "bioBridgeLabel": "Transferencia de skills",
+    "bioBridgeTitle": "Bioingeniería ↔ Software",
+    "bioBridgeDescription": "Mi formación científica se traduce directamente en cómo diseño, valido y opero sistemas de software en producción.",
+    "bioBridgeFrom": "Bioingeniería",
+    "bioBridgeTo": "Software"
   },
   "contact": {
     "title": "Contacto",
     "description": "Ponte en contacto para oportunidades profesionales.",
     "email": "Email",
+    "linkedin": "LinkedIn",
+    "github": "GitHub",
     "copyEmail": "Copiar email",
     "copied": "Copiado"
   },
   "author": {
-    "bio": "Software Engineer especializado en backend y sistemas distribuidos."
+    "label": "Autor",
+    "bio": "Software Engineer especializado en backend y sistemas distribuidos.",
+    "about": "Sobre mí",
+    "contact": "Contactar"
+  },
+  "achievements": {
+    "carouselHint": "Desliza horizontalmente para explorar · Hover para destacar",
+    "viewCredential": "Ver credencial"
   },
   "home": {
     "title": "Inicio",
@@ -126,7 +174,10 @@
   "notFound": {
     "title": "Página no encontrada",
     "description": "La página que buscas no existe.",
-    "backHome": "Volver al inicio"
+    "backHome": "Volver al inicio",
+    "exploreProjects": "Ver proyectos",
+    "exploreBlog": "Ir al blog",
+    "getInTouch": "Contactar"
   },
   "error": {
     "label": "Error",

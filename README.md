@@ -27,14 +27,15 @@ Scripts útiles:
 | `pnpm run build` | Build de producción |
 | `pnpm run db:types` | Regenerar `types/database.ts` (requiere `supabase link`) |
 | `pnpm run db:push` | Aplicar migraciones al proyecto linked |
-| `pnpm run db:seed` | Seed en entorno local/linked (no prod) |
+| `pnpm run db:seed:local` | Reset local: migraciones + seeds |
+| `pnpm run db:seed:remote` | Sincronizar seeds al proyecto Supabase linked (staging) |
 
 ## Supabase
 
 | Entorno | Proyecto | Ref |
 |---------|----------|-----|
 | Staging | portfolio-staging | `cvvimcxjkdbzqtncflro` |
-| Prod | portfolio-prod | `njslzlfijpciuwxebkkf` |
+| Prod | portfolio-prod | GitHub secret `SUPABASE_PROD_PROJECT_REF` |
 
 Ver [`supabase/README.md`](supabase/README.md) para link del CLI.
 

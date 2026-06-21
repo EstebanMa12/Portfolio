@@ -10,20 +10,21 @@ export function CertBadge({ variant, className = "cert-badge" }: CertBadgeProps)
     case "degree":
       return (
         <svg className={className} viewBox="0 0 96 96" aria-hidden="true">
-          <circle cx="48" cy="48" r="44" fill="#e4e4e7" />
+          <circle cx="48" cy="48" r="44" fill="var(--color-surface-raised)" />
           <circle
             cx="48"
             cy="48"
             r="36"
             fill="none"
-            stroke="#c8bfff"
+            stroke="var(--color-accent)"
             strokeWidth="2"
+            opacity="0.65"
           />
           <text
             x="48"
             y="52"
             textAnchor="middle"
-            fill="#52525b"
+            fill="var(--color-text-secondary)"
             fontSize="11"
             fontWeight="600"
             fontFamily="var(--font-sans), Inter, sans-serif"
@@ -132,9 +133,9 @@ export function CertBadge({ variant, className = "cert-badge" }: CertBadgeProps)
     case "speaker":
       return (
         <svg className={className} viewBox="0 0 96 96" aria-hidden="true">
-          <rect x="12" y="20" width="72" height="56" rx="6" fill="#e4e4e7" />
-          <circle cx="48" cy="44" r="14" fill="#c8bfff" />
-          <rect x="28" y="62" width="40" height="4" rx="2" fill="#a1a1aa" />
+          <rect x="12" y="20" width="72" height="56" rx="6" fill="var(--color-surface-raised)" />
+          <circle cx="48" cy="44" r="14" fill="var(--color-accent)" opacity="0.35" />
+          <rect x="28" y="62" width="40" height="4" rx="2" fill="var(--color-text-muted)" opacity="0.5" />
         </svg>
       );
     case "opensource":
@@ -150,12 +151,12 @@ export function CertBadge({ variant, className = "cert-badge" }: CertBadgeProps)
     default:
       return (
         <svg className={className} viewBox="0 0 96 96" aria-hidden="true">
-          <circle cx="48" cy="48" r="40" fill="#e4e4e7" />
+          <circle cx="48" cy="48" r="40" fill="var(--color-surface-raised)" />
           <text
             x="48"
             y="52"
             textAnchor="middle"
-            fill="#52525b"
+            fill="var(--color-text-secondary)"
             fontSize="11"
             fontWeight="600"
             fontFamily="var(--font-sans), Inter, sans-serif"

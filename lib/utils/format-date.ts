@@ -1,7 +1,9 @@
-const monthYear = new Intl.DateTimeFormat("es-ES", {
-  month: "short",
-  year: "numeric",
-});
+import type { Locale } from "@/lib/i18n/config";
+
+const LOCALE_TAGS: Record<Locale, string> = {
+  es: "es-ES",
+  en: "en-US",
+};
 
 function yearFromDate(dateStr: string): number {
   const year = dateStr.slice(0, 4);
@@ -15,12 +17,13 @@ function yearFromDate(dateStr: string): number {
 export function formatExperiencePeriod(
   startDate: string,
   endDate: string | null,
+  presentLabel: string,
 ): { label: string; datetime: string } {
   const startYear = yearFromDate(startDate);
 
   if (!endDate) {
     return {
-      label: `${startYear} — Presente`,
+      label: `${startYear} — ${presentLabel}`,
       datetime: String(startYear),
     };
   }
@@ -33,17 +36,23 @@ export function formatExperiencePeriod(
   };
 }
 
-export function formatArticleDate(isoDate: string | null): {
-  label: string;
-  datetime: string;
-} {
+export function formatArticleDate(
+  isoDate: string | null,
+  locale: Locale,
+  noDateLabel: string,
+): { label: string; datetime: string } {
   if (!isoDate) {
-    return { label: "Sin fecha", datetime: "" };
+    return { label: noDateLabel, datetime: "" };
   }
 
+  const formatter = new Intl.DateTimeFormat(LOCALE_TAGS[locale], {
+    month: "short",
+    year: "numeric",
+  });
   const date = new Date(isoDate);
+
   return {
-    label: monthYear.format(date),
+    label: formatter.format(date),
     datetime: isoDate.slice(0, 10),
   };
 }

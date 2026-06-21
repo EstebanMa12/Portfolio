@@ -2,29 +2,29 @@ import { Button } from "@/components/public/button";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
 
 type PageCtaProps = {
-  title?: string;
-  description?: string;
-  primaryHref?: string;
-  primaryLabel?: string;
-  secondaryHref?: string;
-  secondaryLabel?: string;
+  title: string;
+  description: string;
+  primaryHref: string;
+  primaryLabel: string;
+  secondaryHref: string;
+  secondaryLabel: string;
 };
 
 export function PageCta({
-  title = "¿Siguiente paso?",
-  description = "Explora más contenido o ponte en contacto.",
-  primaryHref = "/contact",
-  primaryLabel = "Contactar",
-  secondaryHref = "/projects",
-  secondaryLabel = "Ver proyectos",
-}: PageCtaProps) {
+  title,
+  description,
+  primaryHref,
+  primaryLabel,
+  secondaryHref,
+  secondaryLabel,
+}: Readonly<PageCtaProps>) {
   return (
     <RevealOnScroll>
       <section
         aria-labelledby="page-cta-heading"
         className="mt-section-gap-mobile md:mt-section-gap"
       >
-        <div className="card card-interactive text-center py-10 px-6">
+        <div className="card text-center py-10 px-6">
           <h2
             id="page-cta-heading"
             className="font-display text-xl md:text-2xl font-semibold text-text-primary mb-3"

@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/lib/i18n/navigation";
 import { CertBadge } from "@/components/public/cert-badge";
 import { SectionLabel } from "@/components/public/section-label";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
@@ -11,7 +12,13 @@ type AchievementsCarouselProps = {
   content: AchievementsContent;
 };
 
-function CertCardBody({ item }: { item: AchievementItem }) {
+type CertCardProps = {
+  item: AchievementItem;
+  index: number;
+  viewCredentialLabel: string;
+};
+
+function CertCardBody({ item }: Readonly<{ item: AchievementItem }>) {
   return (
     <>
       <div>
@@ -23,12 +30,12 @@ function CertCardBody({ item }: { item: AchievementItem }) {
   );
 }
 
-function CertCard({ item, index }: { item: AchievementItem; index: number }) {
+function CertCard({ item, index, viewCredentialLabel }: Readonly<CertCardProps>) {
   const style = { zIndex: index + 1 } as const;
+  const ariaLabel = `${item.title} — ${viewCredentialLabel}`;
 
   if (item.url) {
     const isExternal = item.url.startsWith("http");
-    const ariaLabel = `${item.title} — ver credencial`;
 
     if (isExternal) {
       return (
@@ -64,7 +71,12 @@ function CertCard({ item, index }: { item: AchievementItem; index: number }) {
   );
 }
 
-export function AchievementsCarousel({ content }: AchievementsCarouselProps) {
+export async function AchievementsCarousel({
+  content,
+}: Readonly<AchievementsCarouselProps>) {
+  const t = await getTranslations("achievements");
+  const tA11y = await getTranslations("a11y");
+
   if (content.items.length === 0) return null;
 
   return (
@@ -86,18 +98,21 @@ export function AchievementsCarousel({ content }: AchievementsCarouselProps) {
       <div
         className="cert-stack-wrap"
         tabIndex={0}
-        aria-label="Carrusel de certificaciones. Desliza horizontalmente para ver más."
+        aria-label={tA11y("certCarousel")}
       >
-        <ul className="cert-stack" role="list">
+        <ul className="cert-stack">
           {content.items.map((item, index) => (
-            <CertCard key={`${item.title}-${item.meta}`} item={item} index={index} />
+            <CertCard
+              key={`${item.title}-${item.meta}`}
+              item={item}
+              index={index}
+              viewCredentialLabel={t("viewCredential")}
+            />
           ))}
         </ul>
       </div>
 
-      <p className="text-text-muted text-xs mt-2">
-        Desliza horizontalmente para explorar · Hover para destacar
-      </p>
+      <p className="text-text-muted text-xs mt-2">{t("carouselHint")}</p>
     </section>
   );
 }

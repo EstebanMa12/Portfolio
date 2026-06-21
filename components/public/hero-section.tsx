@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
 import { Button } from "@/components/public/button";
 import { ImpactMetrics } from "@/components/public/impact-metrics";
@@ -8,7 +9,10 @@ type HeroSectionProps = {
   hero: HeroContent;
 };
 
-export function HeroSection({ hero }: Readonly<HeroSectionProps>) {
+export async function HeroSection({ hero }: Readonly<HeroSectionProps>) {
+  const t = await getTranslations("cta");
+  const tDock = await getTranslations("dock");
+  const tHero = await getTranslations("hero");
   const hasCv = hero.cvUrl.trim().length > 0;
 
   return (
@@ -57,15 +61,15 @@ export function HeroSection({ hero }: Readonly<HeroSectionProps>) {
 
           <RevealOnScroll delay={320}>
             <div className="flex flex-wrap gap-3 pt-2">
-              <Button href="/projects">Ver proyectos</Button>
+              <Button href="/projects">{t("viewProjects")}</Button>
               {hasCv ? (
                 <Button href={hero.cvUrl} variant="secondary">
                   <DownloadIcon className="w-4 h-4" />
-                  Descargar CV
+                  {tDock("downloadCv")}
                 </Button>
               ) : (
                 <Button href="/contact" variant="secondary">
-                  Contactar
+                  {t("contact")}
                 </Button>
               )}
             </div>
@@ -77,14 +81,20 @@ export function HeroSection({ hero }: Readonly<HeroSectionProps>) {
           direction="right"
           delay={120}
         >
-          <Image
-            src={hero.photoUrl}
-            alt={`Foto de perfil de ${hero.name}, Software Engineer`}
-            width={384}
-            height={480}
-            className="w-full aspect-[4/5] object-cover rounded-xl border border-border shadow-[0_24px_64px_rgba(0,0,0,0.45)]"
-            priority
-          />
+          <div className="hero-photo-frame">
+            <Image
+              src={hero.photoUrl}
+              alt={tHero("profilePhotoAlt", {
+                name: hero.name,
+                role: hero.headline,
+              })}
+              width={384}
+              height={480}
+              className="hero-photo"
+              priority
+              unoptimized
+            />
+          </div>
         </RevealOnScroll>
       </div>
     </section>

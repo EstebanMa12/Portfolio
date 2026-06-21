@@ -78,7 +78,7 @@ export default async function AboutPage() {
             <RevealOnScroll delay={160}>
               <div>
                 <h2 className="text-sm font-semibold text-text-primary mb-4">
-                  Intereses
+                  {t("interests")}
                 </h2>
                 <ul className="flex flex-wrap gap-2" role="list">
                   {about.interests.map((interest) => (
@@ -94,20 +94,23 @@ export default async function AboutPage() {
 
         <section aria-labelledby="bio-bridge-heading">
           <RevealOnScroll>
-            <SectionLabel className="mb-3">Transferencia de skills</SectionLabel>
+            <SectionLabel className="mb-3">{t("bioBridgeLabel")}</SectionLabel>
             <h2
               id="bio-bridge-heading"
               className="font-display text-2xl md:text-3xl font-semibold tracking-tight text-text-primary mb-4"
             >
-              Bioingeniería ↔ Software
+              {t("bioBridgeTitle")}
             </h2>
             <p className="text-text-secondary text-base leading-relaxed max-w-prose mb-10">
-              Mi formación científica se traduce directamente en cómo diseño,
-              valido y opero sistemas de software en producción.
+              {t("bioBridgeDescription")}
             </p>
           </RevealOnScroll>
           <RevealOnScroll delay={120}>
-            <BioBridgeTable rows={about.bioBridge} />
+            <BioBridgeTable
+              rows={about.bioBridge}
+              fromLabel={t("bioBridgeFrom")}
+              toLabel={t("bioBridgeTo")}
+            />
           </RevealOnScroll>
         </section>
       </section>
