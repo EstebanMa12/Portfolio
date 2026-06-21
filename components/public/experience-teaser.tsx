@@ -1,13 +1,13 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import { Badge } from "@/components/public/badge";
 import { SectionHeader } from "@/components/public/section-header";
+import { ExperienceBullet } from "@/components/public/experience-bullet";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
 import type { ExperienceWithTechnologies } from "@/lib/schemas/experience";
 import type { Locale } from "@/lib/i18n/config";
 import {
   getCompanyInitials,
   getCurrentExperience,
-  splitBulletMetrics,
 } from "@/lib/utils/experience-timeline";
 import { formatExperiencePeriod } from "@/lib/utils/format-date";
 import { cn } from "@/lib/utils/cn";
@@ -15,27 +15,6 @@ import { cn } from "@/lib/utils/cn";
 type ExperienceTeaserProps = {
   experiences: ExperienceWithTechnologies[];
 };
-
-function TeaserBullet({ text }: Readonly<{ text: string }>) {
-  const parts = splitBulletMetrics(text);
-
-  return (
-    <span>
-      {parts.map((part, partIndex) =>
-        part.metric ? (
-          <span
-            key={`${partIndex}-${part.text}`}
-            className="font-medium text-metric-teal"
-          >
-            {part.text}
-          </span>
-        ) : (
-          <span key={`${partIndex}-${part.text}`}>{part.text}</span>
-        ),
-      )}
-    </span>
-  );
-}
 
 export async function ExperienceTeaser({
   experiences,
@@ -119,7 +98,7 @@ export async function ExperienceTeaser({
                       <span className="text-accent shrink-0" aria-hidden="true">
                         ·
                       </span>
-                      <TeaserBullet text={bullet} />
+                      <ExperienceBullet text={bullet} />
                     </li>
                   ))}
                 </ul>

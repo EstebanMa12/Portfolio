@@ -32,6 +32,33 @@ export function getExperienceStartYear(startDate: string): number {
   return parseDate(startDate).getFullYear();
 }
 
+type ExperienceDurationLabels = {
+  durationYears: (count: number) => string;
+  durationMonths: (count: number) => string;
+  durationMixed: (years: string, months: string) => string;
+};
+
+export function formatExperienceDuration(
+  months: number,
+  labels: ExperienceDurationLabels,
+): string {
+  const years = Math.floor(months / 12);
+  const remainingMonths = months % 12;
+
+  if (years > 0 && remainingMonths > 0) {
+    return labels.durationMixed(
+      labels.durationYears(years),
+      labels.durationMonths(remainingMonths),
+    );
+  }
+
+  if (years > 0) {
+    return labels.durationYears(years);
+  }
+
+  return labels.durationMonths(remainingMonths || months);
+}
+
 export function getCurrentExperience(
   experiences: ExperienceWithTechnologies[],
 ): ExperienceWithTechnologies | null {

@@ -1,4 +1,4 @@
-import { Button } from "@/components/public/button";
+import { CtaButton } from "@/components/analytics/cta-button";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
 
 type PageCtaProps = {
@@ -34,11 +34,13 @@ export function PageCta({
           <p className="text-text-secondary text-sm max-w-prose mx-auto mb-6">
             {description}
           </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <Button href={primaryHref}>{primaryLabel}</Button>
-            <Button href={secondaryHref} variant="secondary">
+          <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3">
+            <CtaButton href={primaryHref} eventType="primary">
+              {primaryLabel}
+            </CtaButton>
+            <CtaButton href={secondaryHref} variant="secondary" eventType="secondary">
               {secondaryLabel}
-            </Button>
+            </CtaButton>
           </div>
         </div>
       </section>

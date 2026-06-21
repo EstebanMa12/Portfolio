@@ -31,6 +31,9 @@
   --theme-cert-shadow: rgba(0, 0, 0, 0.12);
   --theme-cert-hover-shadow: rgba(0, 0, 0, 0.18);
   --theme-prose-invert: 0;
+  --theme-card-hover-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+  --theme-dock-tooltip-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --theme-btn-secondary-hover-bg: rgba(0, 0, 0, 0.04);
 }
 
 .dark {
@@ -61,6 +64,9 @@
   --theme-cert-shadow: rgba(0, 0, 0, 0.35);
   --theme-cert-hover-shadow: rgba(200, 191, 255, 0.14);
   --theme-prose-invert: 1;
+  --theme-card-hover-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  --theme-dock-tooltip-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --theme-btn-secondary-hover-bg: rgba(255, 255, 255, 0.04);
 }
 
 @theme inline {
@@ -190,7 +196,7 @@ body {
 .card-interactive:hover {
   transform: translateY(-3px);
   border-color: rgba(200, 191, 255, 0.22);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  box-shadow: var(--theme-card-hover-shadow);
 }
 
 @media (min-width: 768px) {
@@ -230,13 +236,13 @@ body {
   border-radius: 8px;
   background: transparent;
   color: var(--color-text-primary);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--color-border);
   transition: background 150ms ease, border-color 150ms ease;
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: var(--theme-btn-secondary-hover-bg);
+  border-color: var(--color-text-muted);
 }
 
 .metric-highlight {
@@ -379,9 +385,9 @@ body {
   line-height: 1;
   white-space: nowrap;
   color: var(--color-text-primary);
-  background: rgba(28, 28, 31, 0.96);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--theme-dock-tooltip-shadow);
   opacity: 0;
   pointer-events: none;
   transform: translateY(-50%) translateX(-6px);
@@ -396,7 +402,7 @@ body {
   right: 100%;
   top: 50%;
   border: 5px solid transparent;
-  border-right-color: rgba(28, 28, 31, 0.96);
+  border-right-color: var(--color-surface);
   transform: translateY(-50%);
 }
 
@@ -764,6 +770,15 @@ body {
   font-weight: 500;
   color: var(--color-text-primary);
   line-height: 1.2;
+}
+
+.tech-badge-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  shrink: 0;
 }
 
 .radar-label {
@@ -1320,8 +1335,19 @@ body {
 
 .experience-node-column {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
   padding-top: 1.75rem;
+}
+
+.experience-node-year {
+  font-family: var(--font-display);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  line-height: 1;
 }
 
 .experience-node {
@@ -1335,11 +1361,18 @@ body {
   box-shadow: 0 0 0 1px var(--color-border);
 }
 
-.experience-node--active {
+.experience-node--current {
   background: var(--color-accent);
   box-shadow:
     0 0 0 1px color-mix(in srgb, var(--color-accent) 35%, transparent),
     0 0 16px color-mix(in srgb, var(--color-accent) 45%, transparent);
+}
+
+.experience-node--active {
+  background: var(--color-accent);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--color-accent) 35%, transparent),
+    0 0 10px color-mix(in srgb, var(--color-accent) 35%, transparent);
 }
 
 .experience-card {
@@ -1376,6 +1409,100 @@ body {
       transparent 55%
     ),
     var(--color-surface);
+}
+
+.experience-card--active {
+  border-color: color-mix(in srgb, var(--color-accent) 22%, var(--color-border));
+}
+
+.experience-card--collapsed {
+  padding-bottom: 1.25rem;
+}
+
+.experience-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  transition: color 150ms ease;
+}
+
+.experience-toggle:hover {
+  color: var(--color-text-primary);
+}
+
+.experience-role-nav {
+  display: flex;
+  gap: 0.625rem;
+  overflow-x: auto;
+  padding-bottom: 0.35rem;
+  margin-bottom: 1.75rem;
+  scrollbar-width: thin;
+}
+
+.experience-role-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+  min-width: 8.5rem;
+  max-width: 12rem;
+  padding: 0.7rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  text-align: left;
+  transition:
+    border-color 150ms ease,
+    background 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.experience-role-chip:hover {
+  border-color: color-mix(in srgb, var(--color-accent) 25%, var(--color-border));
+}
+
+.experience-role-chip.is-active {
+  border-color: color-mix(in srgb, var(--color-accent) 35%, var(--color-border));
+  background: color-mix(in srgb, var(--color-accent) 8%, var(--color-surface));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-accent) 12%, transparent);
+}
+
+.experience-role-chip.is-current .experience-role-chip-meta {
+  color: var(--color-accent);
+}
+
+.experience-role-chip-company {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.experience-role-chip-meta {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.experience-entry--active .experience-node:not(.experience-node--current) {
+  transform: scale(1.15);
+}
+
+.experience-card-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .experience-company-badge {
@@ -1423,8 +1550,35 @@ body {
 }
 
 .experience-period-block {
-  padding-left: 1rem;
-  border-left: 1px solid var(--color-border);
+  flex-shrink: 0;
+  min-width: 7.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-surface-raised) 70%, transparent);
+  text-align: right;
+}
+
+.experience-period-year {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1;
+  color: color-mix(in srgb, var(--color-text-primary) 55%, transparent);
+}
+
+.experience-period-range {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.experience-period-duration {
+  margin-top: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-accent);
 }
 
 .experience-bullets {
@@ -1439,8 +1593,8 @@ body {
   align-items: start;
   padding: 0.85rem 1rem;
   border-radius: 10px;
-  background: color-mix(in srgb, var(--color-surface-raised) 72%, transparent);
-  border: 1px solid color-mix(in srgb, var(--color-border) 80%, transparent);
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
   font-size: 0.875rem;
   line-height: 1.6;
   color: var(--color-text-secondary);
@@ -1481,26 +1635,42 @@ body {
 
   .experience-period-block {
     width: 100%;
-    padding-left: 0;
-    padding-top: 0.75rem;
-    margin-top: 0.25rem;
-    border-left: 0;
-    border-top: 1px solid var(--color-border);
     text-align: left;
   }
 
-  .experience-card header {
+  .experience-node-year {
+    display: none;
+  }
+
+  .experience-card-header {
     flex-direction: column;
   }
 }
 
 @media (min-width: 768px) {
-  .experience-entry:nth-child(even) .experience-card {
-    transform: translateX(4px);
+  .experience-entry {
+    position: relative;
   }
 
-  .experience-entry:nth-child(even) .experience-card:hover {
-    transform: translateX(4px) translateY(-3px);
+  .experience-entry::after {
+    content: "";
+    position: absolute;
+    top: 2.125rem;
+    left: 1.45rem;
+    width: 0.75rem;
+    height: 1px;
+    background: color-mix(in srgb, var(--color-border) 85%, var(--color-accent));
+  }
+
+  .experience-card {
+    transition:
+      border-color 200ms ease,
+      transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .experience-card:hover {
+    transform: translateY(-2px);
   }
 }
 

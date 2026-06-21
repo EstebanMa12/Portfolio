@@ -1,10 +1,10 @@
 import { getTranslations } from "next-intl/server";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
-import { Badge } from "@/components/public/badge";
 import { Card } from "@/components/public/card";
 import { GitHubIcon } from "@/components/public/icons";
 import { ProjectImageCarousel } from "@/components/public/project-image-carousel";
 import { SectionHeader } from "@/components/public/section-header";
+import { TechnologyBadge } from "@/components/public/technology-badge";
 import type { ProjectWithTechnologies } from "@/lib/schemas/project";
 
 type ProjectCardProps = {
@@ -63,7 +63,7 @@ export function ProjectCard({
             <dt className="text-text-muted font-medium mb-1">{stackLabel}</dt>
             <dd className="flex flex-wrap gap-2 mt-1">
               {project.technologies.map((tech) => (
-                <Badge key={tech.id}>{tech.name}</Badge>
+                <TechnologyBadge key={tech.id} tech={tech} />
               ))}
             </dd>
           </div>

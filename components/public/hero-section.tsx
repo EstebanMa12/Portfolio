@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-import { Link } from "@/lib/i18n/navigation";
+import { CtaButton } from "@/components/analytics/cta-button";
+import { TrackedLink } from "@/components/analytics/tracked-link";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
-import { Button } from "@/components/public/button";
 import { ImpactMetrics } from "@/components/public/impact-metrics";
 import type { HeroContent } from "@/lib/schemas/page-content";
 
@@ -51,35 +51,52 @@ export async function HeroSection({ hero }: Readonly<HeroSectionProps>) {
           </RevealOnScroll>
 
           <RevealOnScroll delay={160}>
+            <ImpactMetrics metrics={hero.metrics} />
+          </RevealOnScroll>
+
+          <RevealOnScroll delay={240}>
             <p className="text-text-secondary text-base md:text-lg leading-relaxed max-w-prose">
               {hero.bio}
             </p>
           </RevealOnScroll>
 
-          <RevealOnScroll delay={240}>
-            <ImpactMetrics metrics={hero.metrics} />
-          </RevealOnScroll>
-
           <RevealOnScroll delay={320}>
-            <div className="flex flex-wrap gap-3 pt-2">
-              <Button href="/projects">{t("viewProjects")}</Button>
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3 pt-2 w-full sm:w-auto">
+              <CtaButton
+                href="/projects"
+                eventType="projects"
+                className="w-full sm:w-auto"
+              >
+                {t("viewProjects")}
+              </CtaButton>
               {hasCv ? (
-                <Button href={hero.cvUrl} variant="secondary">
+                <CtaButton
+                  href={hero.cvUrl}
+                  variant="secondary"
+                  eventType="cv"
+                  className="w-full sm:w-auto"
+                >
                   <DownloadIcon className="w-4 h-4" />
                   {tDock("downloadCv")}
-                </Button>
+                </CtaButton>
               ) : (
-                <Button href="/contact" variant="secondary">
+                <CtaButton
+                  href="/contact"
+                  variant="secondary"
+                  eventType="contact"
+                  className="w-full sm:w-auto"
+                >
                   {t("contact")}
-                </Button>
+                </CtaButton>
               )}
             </div>
-            <Link
+            <TrackedLink
               href="/experience"
+              eventType="experience"
               className="inline-block mt-4 text-sm font-medium text-accent hover:text-text-primary transition-colors"
             >
               {tHero("viewExperience")} →
-            </Link>
+            </TrackedLink>
           </RevealOnScroll>
         </div>
 

@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import { Button } from "@/components/public/button";
+import { CtaButton } from "@/components/analytics/cta-button";
 import { GitHubIcon, LinkedInIcon, EmailIcon } from "@/components/public/icons";
 import type { ContactContent } from "@/lib/schemas/page-content";
 
@@ -18,19 +18,19 @@ export async function ContactCard({ contact }: Readonly<ContactCardProps>) {
       <p className="text-text-secondary text-base max-w-prose mx-auto mb-8 leading-relaxed">
         {contact.description}
       </p>
-      <div className="flex flex-wrap justify-center gap-3">
-        <Button href={`mailto:${contact.email}`}>
+      <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3">
+        <CtaButton href={`mailto:${contact.email}`} eventType="email">
           <EmailIcon className="w-4 h-4" />
           {t("email")}
-        </Button>
-        <Button href={contact.linkedin} variant="secondary">
+        </CtaButton>
+        <CtaButton href={contact.linkedin} variant="secondary" eventType="linkedin">
           <LinkedInIcon className="w-4 h-4" />
           {t("linkedin")}
-        </Button>
-        <Button href={contact.github} variant="secondary">
+        </CtaButton>
+        <CtaButton href={contact.github} variant="secondary" eventType="github">
           <GitHubIcon className="w-4 h-4" />
           {t("github")}
-        </Button>
+        </CtaButton>
       </div>
     </div>
   );

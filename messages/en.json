@@ -143,7 +143,13 @@
     "technologiesUsed": "Technologies",
     "durationYears": "{count, plural, one {# year} other {# years}}",
     "durationMonths": "{count, plural, one {# month} other {# months}}",
-    "durationMixed": "{years} · {months}"
+    "durationMixed": "{years} · {months}",
+    "timelineLabel": "Professional timeline",
+    "moreTechnologies": "+{count} more",
+    "roleNavLabel": "Jump to role",
+    "expandRole": "View details",
+    "collapseRole": "Hide details",
+    "showLessTech": "Show fewer technologies"
   },
   "about": {
     "title": "About",

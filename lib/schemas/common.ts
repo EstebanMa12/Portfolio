@@ -1,4 +1,18 @@
 import { z } from "zod";
+import { normalizeHttpUrl } from "@/lib/utils/normalize-url";
+
+export const httpUrlSchema = z.preprocess(
+  (value) => (typeof value === "string" ? normalizeHttpUrl(value) : value),
+  z.string().url(),
+);
+
+export const optionalHttpUrlSchema = z.preprocess(
+  (value) =>
+    typeof value === "string" && value.trim() !== ""
+      ? normalizeHttpUrl(value)
+      : value,
+  z.string().url().optional(),
+);
 
 export const contentStatusSchema = z.enum(["draft", "published"]);
 

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { getLocale } from "next-intl/server";
 import { ThemeProvider } from "@wrksz/themes/next";
 import "./globals.css";
@@ -40,6 +42,8 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Analytics />
+          <SpeedInsights />
         </ThemeProvider>
       </body>
     </html>

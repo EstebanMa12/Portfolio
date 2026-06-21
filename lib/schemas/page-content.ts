@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { httpUrlSchema, optionalHttpUrlSchema } from "@/lib/schemas/common";
 
 const metricSchema = z.object({
   label: z.string().min(1),
@@ -16,11 +17,11 @@ export const heroContentSchema = z.object({
     label: z.string(),
     visible: z.boolean(),
   }),
-  photoUrl: z.string().url(),
+  photoUrl: httpUrlSchema,
   cvUrl: z.string(),
   socialLinks: z.object({
-    github: z.string().url(),
-    linkedin: z.string().url(),
+    github: httpUrlSchema,
+    linkedin: httpUrlSchema,
     email: z.string().email(),
   }),
   metrics: z.array(metricSchema),
@@ -50,8 +51,8 @@ export const contactContentSchema = z.object({
   title: z.string().min(1),
   description: z.string(),
   email: z.string().email(),
-  linkedin: z.string().url(),
-  github: z.string().url(),
+  linkedin: httpUrlSchema,
+  github: httpUrlSchema,
 });
 
 export const achievementBadgeSchema = z.enum([
@@ -68,7 +69,7 @@ export const achievementItemSchema = z.object({
   title: z.string().min(1),
   meta: z.string().min(1),
   badge: achievementBadgeSchema,
-  url: z.string().url().optional(),
+  url: optionalHttpUrlSchema,
 });
 
 export const achievementsContentSchema = z.object({

@@ -143,7 +143,13 @@
     "technologiesUsed": "Tecnologías",
     "durationYears": "{count, plural, one {# año} other {# años}}",
     "durationMonths": "{count, plural, one {# mes} other {# meses}}",
-    "durationMixed": "{years} · {months}"
+    "durationMixed": "{years} · {months}",
+    "timelineLabel": "Trayectoria profesional",
+    "moreTechnologies": "+{count} más",
+    "roleNavLabel": "Saltar a rol",
+    "expandRole": "Ver detalle",
+    "collapseRole": "Ocultar detalle",
+    "showLessTech": "Ver menos tecnologías"
   },
   "about": {
     "title": "Sobre mí",
