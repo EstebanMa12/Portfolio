@@ -1,41 +1,47 @@
 import type { Metadata } from "next";
+import { getLocale, getTranslations } from "next-intl/server";
 import { ExperienceTimeline } from "@/components/public/experience-timeline";
 import { PageCta } from "@/components/public/page-cta";
 import { SectionLabel } from "@/components/public/section-label";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
 import { getAllExperiences } from "@/lib/cache/public-queries";
 import { createPageMetadata } from "@/lib/domain/seo/create-page-metadata";
+import type { Locale } from "@/lib/i18n/config";
 
 export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
-  return createPageMetadata("/experience");
+  const locale = (await getLocale()) as Locale;
+  return createPageMetadata(locale, "/experience");
 }
 
 export default async function ExperiencePage() {
-  const experiences = await getAllExperiences();
+  const locale = (await getLocale()) as Locale;
+  const t = await getTranslations({ locale, namespace: "experience" });
+  const tCta = await getTranslations({ locale, namespace: "cta" });
+  const experiences = await getAllExperiences(locale);
 
   return (
     <section aria-labelledby="experience-heading" className="py-8">
       <RevealOnScroll>
-        <SectionLabel className="mb-3">Experiencia</SectionLabel>
+        <SectionLabel className="mb-3">{t("title")}</SectionLabel>
         <h1
           id="experience-heading"
           className="font-display text-3xl md:text-4xl font-semibold tracking-tight text-text-primary mb-10"
         >
-          Trayectoria profesional
+          {t("title")}
         </h1>
       </RevealOnScroll>
 
       <ExperienceTimeline experiences={experiences} />
 
       <PageCta
-        title="¿Quieres ver el impacto en proyectos?"
-        description="Explora case studies con problema, solución y resultados medibles."
+        title={t("title")}
+        description={t("description")}
         primaryHref="/projects"
-        primaryLabel="Ver proyectos"
+        primaryLabel={tCta("viewProjects")}
         secondaryHref="/contact"
-        secondaryLabel="Contactar"
+        secondaryLabel={tCta("contact")}
       />
     </section>
   );

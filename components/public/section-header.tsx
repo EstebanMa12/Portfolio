@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
 import { SectionLabel } from "@/components/public/section-label";
 import { cn } from "@/lib/utils/cn";
 

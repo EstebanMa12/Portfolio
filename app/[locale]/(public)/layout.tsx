@@ -1,3 +1,4 @@
+import { getLocale } from "next-intl/server";
 import { Footer } from "@/components/public/footer";
 import { Header } from "@/components/public/header";
 import { SideDock } from "@/components/public/side-dock";
@@ -7,13 +8,18 @@ import { ScrollProgress } from "@/components/motion/scroll-progress";
 import { SOCIAL_LINKS } from "@/lib/config/site";
 import { getHeroContent } from "@/lib/cache/public-queries";
 import { getSettings } from "@/lib/repositories/seo-repo";
+import type { Locale } from "@/lib/i18n/config";
 
 export default async function PublicLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [settings, hero] = await Promise.all([getSettings(), getHeroContent()]);
+  const locale = (await getLocale()) as Locale;
+  const [settings, hero] = await Promise.all([
+    getSettings(locale),
+    getHeroContent(locale),
+  ]);
 
   return (
     <>

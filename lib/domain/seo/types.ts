@@ -35,4 +35,5 @@ export type ResolvedSeo = {
     images: string[];
     creator?: string;
   };
+  languages?: Record<string, string>;
 };

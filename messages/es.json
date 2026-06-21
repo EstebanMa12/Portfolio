@@ -1,0 +1,156 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "about": "Sobre mí",
+    "experience": "Experiencia",
+    "projects": "Proyectos",
+    "blog": "Blog",
+    "contact": "Contacto",
+    "contactCta": "Contactar"
+  },
+  "dock": {
+    "home": "Inicio",
+    "projects": "Proyectos",
+    "lab": "The Lab",
+    "skills": "Skills",
+    "contact": "Contacto",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "downloadCv": "Descargar CV",
+    "quickAccess": "Accesos rápidos",
+    "sideNav": "Navegación lateral",
+    "socialNav": "Redes sociales"
+  },
+  "theme": {
+    "toggle": "Cambiar tema",
+    "system": "Tema: sistema",
+    "dark": "Tema: oscuro",
+    "light": "Tema: claro"
+  },
+  "locale": {
+    "switchToEn": "English",
+    "switchToEs": "Español",
+    "label": "Idioma"
+  },
+  "a11y": {
+    "skipToContent": "Saltar al contenido principal",
+    "mainNav": "Principal",
+    "mobileMenu": "Menú móvil",
+    "openMenu": "Abrir menú de navegación",
+    "closeMenu": "Cerrar menú de navegación",
+    "breadcrumb": "Breadcrumb",
+    "impactMetrics": "Métricas de impacto profesional",
+    "metricsHighlight": "Métricas de impacto",
+    "certCarousel": "Carrusel de certificaciones. Desliza horizontalmente para ver más.",
+    "homeContact": "Contacto"
+  },
+  "sections": {
+    "projectsLabel": "Proyectos",
+    "projectsTitle": "Trabajo seleccionado",
+    "projectsLink": "Ver todos →",
+    "labLabel": "The Lab",
+    "labTitle": "Notas técnicas y exploración",
+    "labDescription": "Reflexiones sobre arquitectura, sistemas y la intersección entre ciencia y código.",
+    "labLink": "Ver blog →",
+    "seeAll": "Ver todos →"
+  },
+  "cta": {
+    "defaultDescription": "Explora más contenido o ponte en contacto.",
+    "contact": "Contactar",
+    "viewProjects": "Ver proyectos"
+  },
+  "skills": {
+    "categories": {
+      "language": "Backend",
+      "framework": "Frontend",
+      "infra": "Infra / DevOps",
+      "database": "Bases de datos",
+      "tool": "Herramientas"
+    },
+    "softSkills": [
+      "Pensamiento analítico",
+      "Resolución de problemas",
+      "Aprendizaje continuo",
+      "Comunicación técnica",
+      "Trabajo en equipo"
+    ],
+    "radarTitle": "Perfil técnico",
+    "stackTitle": "Stack principal",
+    "softSkillsTitle": "Soft skills"
+  },
+  "blog": {
+    "title": "The Lab",
+    "description": "Notas técnicas sobre arquitectura, sistemas y DevOps.",
+    "empty": "Aún no hay artículos publicados.",
+    "readMore": "Leer artículo",
+    "backToBlog": "← Volver al blog",
+    "paginationPrev": "Anterior",
+    "paginationNext": "Siguiente",
+    "pageOf": "Página {page} de {total}"
+  },
+  "projects": {
+    "title": "Proyectos",
+    "description": "Case studies de backend, sistemas distribuidos e infraestructura.",
+    "empty": "No hay proyectos publicados todavía.",
+    "viewCase": "Ver case study",
+    "github": "GitHub",
+    "demo": "Demo"
+  },
+  "experience": {
+    "title": "Experiencia",
+    "description": "Timeline profesional, roles y tecnologías.",
+    "present": "Presente",
+    "empty": "No hay experiencias registradas."
+  },
+  "about": {
+    "title": "Sobre mí",
+    "description": "Conoce mi trayectoria, formación en Bioingeniería y enfoque en sistemas."
+  },
+  "contact": {
+    "title": "Contacto",
+    "description": "Ponte en contacto para oportunidades profesionales.",
+    "email": "Email",
+    "copyEmail": "Copiar email",
+    "copied": "Copiado"
+  },
+  "author": {
+    "bio": "Software Engineer especializado en backend y sistemas distribuidos."
+  },
+  "home": {
+    "title": "Inicio",
+    "description": "Portafolio profesional de Esteban Maya — Software Engineer."
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "description": "La página que buscas no existe.",
+    "backHome": "Volver al inicio"
+  },
+  "seo": {
+    "pages": {
+      "/": {
+        "title": "Inicio",
+        "description": "Portafolio profesional de Esteban Maya — Software Engineer."
+      },
+      "/about": {
+        "title": "Sobre mí",
+        "description": "Conoce mi trayectoria, formación en Bioingeniería y enfoque en sistemas."
+      },
+      "/experience": {
+        "title": "Experiencia",
+        "description": "Timeline profesional, roles y tecnologías."
+      },
+      "/projects": {
+        "title": "Proyectos",
+        "description": "Case studies de backend, sistemas distribuidos e infraestructura."
+      },
+      "/blog": {
+        "title": "Blog",
+        "description": "The Lab — notas técnicas sobre arquitectura, sistemas y DevOps."
+      },
+      "/contact": {
+        "title": "Contacto",
+        "description": "Ponte en contacto para oportunidades profesionales."
+      }
+    }
+  }
+}

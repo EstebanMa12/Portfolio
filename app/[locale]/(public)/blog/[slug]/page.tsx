@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { AuthorBox } from "@/components/public/author-box";
 import { Badge } from "@/components/public/badge";
@@ -11,33 +12,48 @@ import {
   getHeroContent,
 } from "@/lib/cache/public-queries";
 import { MarkdownContent } from "@/lib/markdown/render";
-import { resolvePageMeta, toMetadata } from "@/lib/domain/seo/seo-service";
+import {
+  resolvePageMeta,
+  toMetadata,
+} from "@/lib/domain/seo/seo-service";
+import { localizedPath } from "@/lib/i18n/paths";
+import type { Locale } from "@/lib/i18n/config";
+import { routing } from "@/lib/i18n/routing";
 import { getSettings } from "@/lib/repositories/seo-repo";
 import { formatArticleDate } from "@/lib/utils/format-date";
 
 export const revalidate = 86400;
 
 type ArticlePageProps = {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 };
 
 export async function generateStaticParams() {
-  const slugs = await getArticleSlugs();
-  return slugs.map(({ slug }) => ({ slug }));
+  const params = await Promise.all(
+    routing.locales.map(async (locale) => {
+      const slugs = await getArticleSlugs(locale);
+      return slugs.map(({ slug }) => ({ locale, slug }));
+    }),
+  );
+  return params.flat();
 }
 
 export async function generateMetadata({
   params,
 }: ArticlePageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale: localeParam } = await params;
+  const locale = localeParam as Locale;
   const [article, settings] = await Promise.all([
-    getArticleBySlug(slug),
-    getSettings(),
+    getArticleBySlug(slug, locale),
+    getSettings(locale),
   ]);
 
   if (!article) {
     return {};
   }
+
+  const path = `/blog/${article.slug}`;
+  const canonicalPath = localizedPath(path, locale);
 
   return toMetadata(
     resolvePageMeta(
@@ -49,18 +65,22 @@ export async function generateMetadata({
         canonical: article.seoCanonical,
         noindex: article.seoNoindex,
       },
-      `/blog/${article.slug}`,
+      canonicalPath,
       "article",
+      path,
     ),
   );
 }
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
-  const { slug } = await params;
+  const { slug, locale: localeParam } = await params;
+  const locale = localeParam as Locale;
+  const t = await getTranslations({ locale, namespace: "nav" });
+
   const [article, hero, settings] = await Promise.all([
-    getArticleBySlug(slug),
-    getHeroContent(),
-    getSettings(),
+    getArticleBySlug(slug, locale),
+    getHeroContent(locale),
+    getSettings(locale),
   ]);
 
   if (!article) {
@@ -68,6 +88,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   }
 
   const { label, datetime } = formatArticleDate(article.publishedAt);
+  const articlePath = localizedPath(`/blog/${article.slug}`, locale);
 
   return (
     <article className="py-8">
@@ -79,19 +100,20 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           description: article.excerpt,
           datePublished: article.publishedAt,
           dateModified: article.updatedAt,
+          inLanguage: locale,
           author: {
             "@type": "Person",
             name: hero?.name ?? settings.siteName,
           },
-          url: `${settings.siteUrl}/blog/${article.slug}`,
+          url: `${settings.siteUrl}${articlePath}`,
         }}
       />
 
       <RevealOnScroll direction="none">
         <Breadcrumbs
           items={[
-            { label: "Inicio", href: "/" },
-            { label: "Blog", href: "/blog" },
+            { label: t("home"), href: "/" },
+            { label: t("blog"), href: "/blog" },
             { label: article.title },
           ]}
         />
@@ -110,7 +132,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             ) : null}
             {article.readingTimeMin ? (
               <span className="text-text-muted text-sm">
-                · {article.readingTimeMin} min de lectura
+                · {article.readingTimeMin} min
               </span>
             ) : null}
           </div>

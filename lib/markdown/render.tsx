@@ -19,7 +19,10 @@ export async function markdownToHtml(content: string): Promise<string> {
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeSlug)
     .use(rehypePrettyCode, {
-      theme: "github-dark",
+      theme: {
+        dark: "github-dark",
+        light: "github-light",
+      },
       keepBackground: true,
     })
     .use(rehypeStringify, { allowDangerousHtml: true })
@@ -37,7 +40,7 @@ export async function MarkdownContent({
   return (
     <div
       className={cn(
-        "prose prose-invert prose-zinc max-w-none",
+        "prose prose-zinc max-w-none dark:prose-invert",
         "prose-headings:font-display prose-headings:tracking-tight",
         "prose-a:text-accent prose-code:text-accent",
         className,

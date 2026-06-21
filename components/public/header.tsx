@@ -1,16 +1,22 @@
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/lib/i18n/navigation";
 import { SITE_NAME, SOCIAL_LINKS } from "@/lib/config/site";
+import { LocaleSwitcher } from "@/components/i18n/locale-switcher";
 import { ScrollHeader } from "@/components/motion/scroll-header";
 import { Button } from "./button";
 import { GitHubIcon, LinkedInIcon } from "./icons";
 import { MobileNav } from "./mobile-nav";
 import { NavLinks } from "./nav-links";
+import { ThemeToggle } from "./theme-toggle";
 
 type HeaderProps = {
   siteName?: string;
 };
 
-export function Header({ siteName = SITE_NAME }: HeaderProps) {
+export async function Header({ siteName = SITE_NAME }: HeaderProps) {
+  const t = await getTranslations("nav");
+  const tA11y = await getTranslations("a11y");
+
   return (
     <ScrollHeader>
       <div className="max-w-6xl mx-auto px-gutter h-16 flex items-center justify-between gap-4 relative">
@@ -21,11 +27,13 @@ export function Header({ siteName = SITE_NAME }: HeaderProps) {
           {siteName}
         </Link>
 
-        <nav aria-label="Principal" className="hidden md:flex items-center gap-8">
+        <nav aria-label={tA11y("mainNav")} className="hidden md:flex items-center gap-8">
           <NavLinks className="items-center gap-8" />
         </nav>
 
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-3">
+          <LocaleSwitcher />
+          <ThemeToggle />
           <Link
             href={SOCIAL_LINKS.github}
             target="_blank"
@@ -45,7 +53,7 @@ export function Header({ siteName = SITE_NAME }: HeaderProps) {
             <LinkedInIcon />
           </Link>
           <Button href="/contact" className="text-sm px-5">
-            Contactar
+            {t("contactCta")}
           </Button>
         </div>
 

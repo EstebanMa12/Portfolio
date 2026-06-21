@@ -1,9 +1,10 @@
-import { cachedQuery } from "@/lib/repositories/base";
+import { cachedQuery, unwrap, unwrapOptional } from "@/lib/repositories/base";
 import { createClient } from "@/lib/supabase/server";
 import { createStaticClient } from "@/lib/supabase/static";
+import type { Locale } from "@/lib/i18n/config";
+import { defaultLocale } from "@/lib/i18n/config";
 import type { SeoSettings } from "@/lib/domain/seo/types";
 import { seoSettingsSchema } from "@/lib/schemas/seo-settings";
-import { unwrap, unwrapOptional } from "./base";
 
 export const DEFAULT_SEO_SETTINGS: SeoSettings = {
   siteName: "Esteban Maya",
@@ -33,10 +34,15 @@ function mapRow(row: {
   });
 }
 
-async function fetchSettings(): Promise<SeoSettings> {
+async function fetchSettings(locale: Locale = defaultLocale): Promise<SeoSettings> {
   try {
     const supabase = createStaticClient();
-    const result = await supabase.from("seo_settings").select("*").single();
+    const result = await supabase
+      .from("seo_settings")
+      .select("*")
+      .eq("id", 1)
+      .eq("locale", locale)
+      .maybeSingle();
     const row = unwrapOptional(result);
 
     if (!row) {
@@ -53,6 +59,7 @@ export const getSettings = cachedQuery(fetchSettings);
 
 export async function updateSettings(
   settings: SeoSettings,
+  locale: Locale = defaultLocale,
 ): Promise<SeoSettings> {
   const parsed = seoSettingsSchema.parse(settings);
   const supabase = await createClient();
@@ -69,6 +76,7 @@ export async function updateSettings(
         twitter_handle: parsed.twitterHandle,
       })
       .eq("id", 1)
+      .eq("locale", locale)
       .select("*")
       .single(),
   );

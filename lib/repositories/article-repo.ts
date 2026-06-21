@@ -3,12 +3,14 @@ import { assertNoError, unwrap } from "@/lib/repositories/base";
 import { mapArticle } from "@/lib/repositories/mappers";
 import { createClient } from "@/lib/supabase/server";
 import { createStaticClient } from "@/lib/supabase/static";
+import type { Locale } from "@/lib/i18n/config";
+import { defaultLocale } from "@/lib/i18n/config";
 import type { Article, ArticleInsert } from "@/lib/schemas/article";
 import { articleSchema } from "@/lib/schemas/article";
 import type { Database } from "@/types/database";
 
 const LIST_SELECT =
-  "id, title, slug, excerpt, tags, cover_image_url, published_at, reading_time_min, status, updated_at, created_at, content, seo_title, seo_description, seo_og_image, seo_canonical, seo_noindex";
+  "id, title, slug, excerpt, tags, cover_image_url, published_at, reading_time_min, status, updated_at, created_at, content, seo_title, seo_description, seo_og_image, seo_canonical, seo_noindex, locale";
 
 export type PaginatedArticles = {
   items: Article[];
@@ -21,6 +23,7 @@ export type PaginatedArticles = {
 async function fetchPublishedPaginated(
   page = 1,
   pageSize = 9,
+  locale: Locale = defaultLocale,
 ): Promise<PaginatedArticles> {
   const supabase = createStaticClient();
   const from = (page - 1) * pageSize;
@@ -30,6 +33,7 @@ async function fetchPublishedPaginated(
     .from("articles")
     .select(LIST_SELECT, { count: "exact" })
     .eq("status", "published")
+    .eq("locale", locale)
     .order("published_at", { ascending: false })
     .range(from, to);
 
@@ -49,13 +53,17 @@ async function fetchPublishedPaginated(
   };
 }
 
-async function fetchLatest(limit = 3): Promise<Article[]> {
+async function fetchLatest(
+  limit = 3,
+  locale: Locale = defaultLocale,
+): Promise<Article[]> {
   const supabase = createStaticClient();
   const rows = unwrap(
     await supabase
       .from("articles")
       .select(LIST_SELECT)
       .eq("status", "published")
+      .eq("locale", locale)
       .order("published_at", { ascending: false })
       .limit(limit),
   );
@@ -78,12 +86,13 @@ async function fetchAllAdmin(): Promise<Article[]> {
 async function fetchBySlug(
   slug: string,
   admin = false,
+  locale: Locale = defaultLocale,
 ): Promise<Article | null> {
   const supabase = admin ? await createClient() : createStaticClient();
   let query = supabase.from("articles").select("*").eq("slug", slug);
 
   if (!admin) {
-    query = query.eq("status", "published");
+    query = query.eq("status", "published").eq("locale", locale);
   }
 
   const { data } = await query.maybeSingle();
@@ -111,8 +120,9 @@ export const getAllAdmin = cache(fetchAllAdmin);
 export async function getBySlug(
   slug: string,
   admin = false,
+  locale: Locale = defaultLocale,
 ): Promise<Article | null> {
-  return fetchBySlug(slug, admin);
+  return fetchBySlug(slug, admin, locale);
 }
 
 export async function getById(
@@ -122,15 +132,16 @@ export async function getById(
   return fetchById(id, admin);
 }
 
-export async function getPublishedSlugs(): Promise<
-  Array<{ slug: string; updatedAt: string }>
-> {
+export async function getPublishedSlugs(
+  locale: Locale = defaultLocale,
+): Promise<Array<{ slug: string; updatedAt: string }>> {
   const supabase = createStaticClient();
   const rows = unwrap(
     await supabase
       .from("articles")
       .select("slug, updated_at")
       .eq("status", "published")
+      .eq("locale", locale)
       .order("published_at", { ascending: false }),
   );
 

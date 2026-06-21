@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { FeaturedProjects } from "@/components/public/project-card";
 import { HeroSection } from "@/components/public/hero-section";
@@ -16,38 +17,42 @@ import {
   getHeroContent,
   getLatestArticles,
 } from "@/lib/cache/public-queries";
-import { resolvePageMeta, toMetadata } from "@/lib/domain/seo/seo-service";
+import { createPageMetadata } from "@/lib/domain/seo/create-page-metadata";
+import { localizedPath } from "@/lib/i18n/paths";
+import type { Locale } from "@/lib/i18n/config";
 import { getSettings } from "@/lib/repositories/seo-repo";
 import * as technologyRepo from "@/lib/repositories/technology-repo";
+import { getTranslations } from "next-intl/server";
 
 export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const [hero, settings] = await Promise.all([getHeroContent(), getSettings()]);
+  const locale = (await getLocale()) as Locale;
+  const [hero, settings] = await Promise.all([
+    getHeroContent(locale),
+    getSettings(locale),
+  ]);
 
-  return toMetadata(
-    resolvePageMeta(
-      settings,
-      {
-        title: hero?.name ?? settings.siteName,
-        description: hero?.bio ?? settings.defaultDescription,
-      },
-      "/",
-    ),
-  );
+  return createPageMetadata(locale, "/", {
+    title: hero?.name ?? settings.siteName,
+    description: hero?.bio ?? settings.defaultDescription,
+  });
 }
 
 export default async function HomePage() {
+  const locale = (await getLocale()) as Locale;
+  const t = await getTranslations({ locale, namespace: "a11y" });
+
   const [hero, featuredProjects, latestArticles, about, achievements, contact, technologies, settings] =
     await Promise.all([
-      getHeroContent(),
-      getFeaturedProjects(),
-      getLatestArticles(),
-      getAboutContent(),
-      getAchievementsContent(),
-      getContactContent(),
+      getHeroContent(locale),
+      getFeaturedProjects(locale),
+      getLatestArticles(locale),
+      getAboutContent(locale),
+      getAchievementsContent(locale),
+      getContactContent(locale),
       technologyRepo.getAll(),
-      getSettings(),
+      getSettings(locale),
     ]);
 
   if (!hero || !about || !contact) {
@@ -65,14 +70,16 @@ export default async function HomePage() {
             {
               "@type": "Person",
               name: hero.name,
-              url: siteUrl,
+              url: `${siteUrl}${localizedPath("/", locale)}`,
               jobTitle: hero.headline,
               sameAs: [hero.socialLinks.github, hero.socialLinks.linkedin],
+              inLanguage: locale,
             },
             {
               "@type": "WebSite",
               name: settings.siteName,
-              url: siteUrl,
+              url: `${siteUrl}${localizedPath("/", locale)}`,
+              inLanguage: locale,
             },
           ],
         }}
@@ -93,7 +100,7 @@ export default async function HomePage() {
           className="scroll-mt-28"
         >
           <h2 id="home-contact-heading" className="sr-only">
-            Contacto
+            {t("homeContact")}
           </h2>
           <ContactCard contact={contact} />
         </section>

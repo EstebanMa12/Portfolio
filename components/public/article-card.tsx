@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
+import { getTranslations } from "next-intl/server";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
 import { Badge } from "@/components/public/badge";
 import { Card } from "@/components/public/card";
@@ -8,9 +9,10 @@ import { formatArticleDate } from "@/lib/utils/format-date";
 
 type ArticleCardProps = {
   article: Article;
+  readMoreLabel: string;
 };
 
-export function ArticleCard({ article }: ArticleCardProps) {
+export function ArticleCard({ article, readMoreLabel }: ArticleCardProps) {
   const { label, datetime } = formatArticleDate(article.publishedAt);
   const primaryTag = article.tags[0];
 
@@ -47,7 +49,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
         href={`/blog/${article.slug}`}
         className="inline-flex items-center gap-1.5 text-sm text-accent hover:text-text-primary transition-colors mt-4 pt-4 border-t border-border"
       >
-        Leer nota
+        {readMoreLabel}
         <span aria-hidden="true">→</span>
       </Link>
     </Card>
@@ -58,7 +60,10 @@ type LatestArticlesProps = {
   articles: Article[];
 };
 
-export function LatestArticles({ articles }: LatestArticlesProps) {
+export async function LatestArticles({ articles }: LatestArticlesProps) {
+  const t = await getTranslations("sections");
+  const tBlog = await getTranslations("blog");
+
   return (
     <section
       id="lab"
@@ -67,26 +72,27 @@ export function LatestArticles({ articles }: LatestArticlesProps) {
     >
       <RevealOnScroll>
         <SectionHeader
-          label="The Lab"
-          title="Notas técnicas y exploración"
-          description="Reflexiones sobre arquitectura, sistemas y la intersección entre ciencia y código."
+          label={t("labLabel")}
+          title={t("labTitle")}
+          description={t("labDescription")}
           href="/blog"
-          linkLabel="Ver blog →"
+          linkLabel={t("labLink")}
         />
       </RevealOnScroll>
       <h2 id="latest-articles-heading" className="sr-only">
-        Últimos artículos
+        {t("labTitle")}
       </h2>
 
       {articles.length === 0 ? (
-        <p className="text-text-secondary text-sm">
-          Aún no hay artículos publicados.
-        </p>
+        <p className="text-text-secondary text-sm">{tBlog("empty")}</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {articles.map((article, index) => (
             <RevealOnScroll key={article.id} delay={index * 80}>
-              <ArticleCard article={article} />
+              <ArticleCard
+                article={article}
+                readMoreLabel={tBlog("readMore")}
+              />
             </RevealOnScroll>
           ))}
         </div>

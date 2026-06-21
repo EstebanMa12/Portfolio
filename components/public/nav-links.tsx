@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { Link, usePathname } from "@/lib/i18n/navigation";
 import { PRIMARY_NAV } from "@/lib/config/site";
 import { cn } from "@/lib/utils/cn";
 
@@ -17,10 +17,11 @@ export function NavLinks({
   onNavigate,
 }: NavLinksProps) {
   const pathname = usePathname();
+  const t = useTranslations("nav");
 
   return (
     <ul className={cn("flex", className)}>
-      {PRIMARY_NAV.map(({ label, href }) => {
+      {PRIMARY_NAV.map(({ key, href }) => {
         const isActive =
           href === "/" ? pathname === "/" : pathname.startsWith(href);
 
@@ -36,7 +37,7 @@ export function NavLinks({
               aria-current={isActive ? "page" : undefined}
               onClick={onNavigate}
             >
-              {label}
+              {t(key)}
             </Link>
           </li>
         );

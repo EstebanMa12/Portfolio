@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
-import { resolvePageMeta, toMetadata } from "@/lib/domain/seo/seo-service";
-import { getSettings } from "@/lib/repositories/seo-repo";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 import "./globals.css";
 
 const inter = Inter({
@@ -11,14 +10,11 @@ const inter = Inter({
   display: "swap",
 });
 
-export async function generateMetadata(): Promise<Metadata> {
-  const settings = await getSettings();
-
-  return {
-    metadataBase: new URL(settings.siteUrl),
-    ...toMetadata(resolvePageMeta(settings, {}, "/")),
-  };
-}
+export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  ),
+};
 
 export default function RootLayout({
   children,
@@ -28,12 +24,13 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`dark h-full antialiased ${inter.variable} ${GeistSans.variable}`}
+      suppressHydrationWarning
+      className={`h-full antialiased ${inter.variable} ${GeistSans.variable}`}
     >
       <body
         className={`${GeistSans.className} min-h-full flex flex-col bg-bg text-text-primary overflow-x-hidden`}
       >
-        {children}
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

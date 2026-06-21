@@ -1,11 +1,14 @@
 "use client";
 
 import { useCallback, useEffect, useId, useRef, useState } from "react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/lib/i18n/navigation";
+import { LocaleSwitcher } from "@/components/i18n/locale-switcher";
 import { SOCIAL_LINKS } from "@/lib/config/site";
 import { Button } from "./button";
 import { CloseIcon, MenuIcon } from "./icons";
 import { NavLinks } from "./nav-links";
+import { ThemeToggle } from "./theme-toggle";
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
@@ -15,6 +18,8 @@ export function MobileNav() {
   const menuId = useId();
   const menuRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
+  const t = useTranslations("nav");
+  const tA11y = useTranslations("a11y");
 
   const closeMenu = useCallback(() => {
     setOpen(false);
@@ -65,7 +70,7 @@ export function MobileNav() {
         className="md:hidden flex items-center justify-center w-11 h-11 rounded-lg border border-border text-text-primary"
         aria-expanded={open}
         aria-controls={menuId}
-        aria-label={open ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
+        aria-label={open ? tA11y("closeMenu") : tA11y("openMenu")}
         onClick={() => setOpen((prev) => !prev)}
       >
         {open ? <CloseIcon /> : <MenuIcon />}
@@ -75,7 +80,7 @@ export function MobileNav() {
         <nav
           id={menuId}
           ref={menuRef}
-          aria-label="Menú móvil"
+          aria-label={tA11y("mobileMenu")}
           className="md:hidden absolute inset-x-0 top-16 border-t border-border bg-bg px-gutter py-4"
         >
           <NavLinks
@@ -83,6 +88,10 @@ export function MobileNav() {
             linkClassName="block py-3 px-2 text-base"
             onNavigate={closeMenu}
           />
+          <div className="flex items-center gap-4 mt-4 pt-4 border-t border-border">
+            <LocaleSwitcher />
+            <ThemeToggle />
+          </div>
           <div className="flex gap-4 mt-4 pt-4 border-t border-border">
             <Link
               href={SOCIAL_LINKS.github}
@@ -109,7 +118,7 @@ export function MobileNav() {
               className="w-full text-sm px-5"
               onClick={closeMenu}
             >
-              Contactar
+              {t("contactCta")}
             </Button>
           </div>
         </nav>

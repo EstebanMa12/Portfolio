@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { Link, usePathname } from "@/lib/i18n/navigation";
 import { useEffect, useState, type MouseEvent, type ReactNode } from "react";
 import { GitHubIcon, LinkedInIcon } from "@/components/public/icons";
 import { cn } from "@/lib/utils/cn";
@@ -25,8 +25,8 @@ type SideDockProps = {
 
 type DockNavItem = {
   id: DockSection;
-  label: string;
-  href: string;
+  labelKey: "home" | "projects" | "lab" | "skills" | "contact";
+  href: "/#hero" | "/#projects" | "/#lab" | "/#skills" | "/#contact";
   icon: ReactNode;
 };
 
@@ -49,7 +49,7 @@ function scrollToSection(id: string) {
 
 function handleHashClick(event: MouseEvent<HTMLAnchorElement>, href: string) {
   const hash = href.split("#")[1];
-  if (!hash || window.location.pathname !== "/") return;
+  if (!hash || !isHomePath(window.location.pathname)) return;
 
   event.preventDefault();
   scrollToSection(hash);
@@ -156,25 +156,31 @@ function getInitialScrollSection(): DockSection {
     : "hero";
 }
 
+function isHomePath(pathname: string): boolean {
+  return pathname === "/" || pathname === "/en";
+}
+
 export function SideDock({ cvUrl, github, linkedin }: SideDockProps) {
   const pathname = usePathname();
+  const t = useTranslations("dock");
   const [scrollActive, setScrollActive] = useState<DockSection>(
     getInitialScrollSection,
   );
   const hasCv = Boolean(cvUrl?.trim());
-  const activeSection =
-    pathname === "/" ? scrollActive : (PATH_SECTION_MAP[pathname] ?? null);
+  const activeSection = isHomePath(pathname)
+    ? scrollActive
+    : (PATH_SECTION_MAP[pathname] ?? null);
 
   const navItems: DockNavItem[] = [
-    { id: "hero", label: "Inicio", href: "/#hero", icon: <HomeIcon className="w-5 h-5" /> },
-    { id: "projects", label: "Proyectos", href: "/#projects", icon: <ProjectsIcon className="w-5 h-5" /> },
-    { id: "lab", label: "The Lab", href: "/#lab", icon: <LabIcon className="w-5 h-5" /> },
-    { id: "skills", label: "Skills", href: "/#skills", icon: <SkillsIcon className="w-5 h-5" /> },
-    { id: "contact", label: "Contacto", href: "/#contact", icon: <ContactIcon className="w-5 h-5" /> },
+    { id: "hero", labelKey: "home", href: "/#hero", icon: <HomeIcon className="w-5 h-5" /> },
+    { id: "projects", labelKey: "projects", href: "/#projects", icon: <ProjectsIcon className="w-5 h-5" /> },
+    { id: "lab", labelKey: "lab", href: "/#lab", icon: <LabIcon className="w-5 h-5" /> },
+    { id: "skills", labelKey: "skills", href: "/#skills", icon: <SkillsIcon className="w-5 h-5" /> },
+    { id: "contact", labelKey: "contact", href: "/#contact", icon: <ContactIcon className="w-5 h-5" /> },
   ];
 
   useEffect(() => {
-    if (pathname !== "/") return;
+    if (!isHomePath(pathname)) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -196,7 +202,7 @@ export function SideDock({ cvUrl, github, linkedin }: SideDockProps) {
   }, [pathname]);
 
   useEffect(() => {
-    if (pathname !== "/") return;
+    if (!isHomePath(pathname)) return;
     const hash = window.location.hash.slice(1);
     if (!DOCK_SECTIONS.includes(hash as DockSection)) return;
 
@@ -206,16 +212,16 @@ export function SideDock({ cvUrl, github, linkedin }: SideDockProps) {
 
   return (
     <aside
-      aria-label="Accesos rápidos"
+      aria-label={t("quickAccess")}
       className="side-dock fixed top-1/2 z-40 hidden -translate-y-1/2 flex-col items-center xl:flex left-[max(1.25rem,calc((100%-72rem)/2-4.75rem))]"
     >
-      <nav aria-label="Navegación lateral">
+      <nav aria-label={t("sideNav")}>
         <ul className="flex flex-col items-center gap-1.5" role="list">
           {navItems.map((item) => (
             <li key={item.id}>
               <DockLink
                 href={item.href}
-                label={item.label}
+                label={t(item.labelKey)}
                 active={activeSection === item.id}
                 onClick={(event) => handleHashClick(event, item.href)}
               >
@@ -228,21 +234,21 @@ export function SideDock({ cvUrl, github, linkedin }: SideDockProps) {
 
       <div className="dock-divider" aria-hidden="true" />
 
-      <nav aria-label="Redes sociales">
+      <nav aria-label={t("socialNav")}>
         <ul className="flex flex-col items-center gap-1.5" role="list">
           <li>
-            <DockLink href={github} label="GitHub" external>
+            <DockLink href={github} label={t("github")} external>
               <GitHubIcon className="w-5 h-5" />
             </DockLink>
           </li>
           <li>
-            <DockLink href={linkedin} label="LinkedIn" external>
+            <DockLink href={linkedin} label={t("linkedin")} external>
               <LinkedInIcon className="w-5 h-5" />
             </DockLink>
           </li>
           {hasCv ? (
             <li>
-              <DockLink href={cvUrl!} label="Descargar CV">
+              <DockLink href={cvUrl!} label={t("downloadCv")} external>
                 <DownloadIcon className="w-5 h-5" />
               </DockLink>
             </li>

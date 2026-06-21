@@ -1,0 +1,156 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "experience": "Experience",
+    "projects": "Projects",
+    "blog": "Blog",
+    "contact": "Contact",
+    "contactCta": "Get in touch"
+  },
+  "dock": {
+    "home": "Home",
+    "projects": "Projects",
+    "lab": "The Lab",
+    "skills": "Skills",
+    "contact": "Contact",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "downloadCv": "Download CV",
+    "quickAccess": "Quick links",
+    "sideNav": "Side navigation",
+    "socialNav": "Social links"
+  },
+  "theme": {
+    "toggle": "Toggle theme",
+    "system": "Theme: system",
+    "dark": "Theme: dark",
+    "light": "Theme: light"
+  },
+  "locale": {
+    "switchToEn": "English",
+    "switchToEs": "Español",
+    "label": "Language"
+  },
+  "a11y": {
+    "skipToContent": "Skip to main content",
+    "mainNav": "Main",
+    "mobileMenu": "Mobile menu",
+    "openMenu": "Open navigation menu",
+    "closeMenu": "Close navigation menu",
+    "breadcrumb": "Breadcrumb",
+    "impactMetrics": "Professional impact metrics",
+    "metricsHighlight": "Impact metrics",
+    "certCarousel": "Certifications carousel. Swipe horizontally to see more.",
+    "homeContact": "Contact"
+  },
+  "sections": {
+    "projectsLabel": "Projects",
+    "projectsTitle": "Selected work",
+    "projectsLink": "View all →",
+    "labLabel": "The Lab",
+    "labTitle": "Technical notes and exploration",
+    "labDescription": "Reflections on architecture, systems, and the intersection of science and code.",
+    "labLink": "View blog →",
+    "seeAll": "View all →"
+  },
+  "cta": {
+    "defaultDescription": "Explore more content or get in touch.",
+    "contact": "Get in touch",
+    "viewProjects": "View projects"
+  },
+  "skills": {
+    "categories": {
+      "language": "Backend",
+      "framework": "Frontend",
+      "infra": "Infra / DevOps",
+      "database": "Databases",
+      "tool": "Tools"
+    },
+    "softSkills": [
+      "Analytical thinking",
+      "Problem solving",
+      "Continuous learning",
+      "Technical communication",
+      "Teamwork"
+    ],
+    "radarTitle": "Technical profile",
+    "stackTitle": "Core stack",
+    "softSkillsTitle": "Soft skills"
+  },
+  "blog": {
+    "title": "The Lab",
+    "description": "Technical notes on architecture, systems, and DevOps.",
+    "empty": "No published articles yet.",
+    "readMore": "Read article",
+    "backToBlog": "← Back to blog",
+    "paginationPrev": "Previous",
+    "paginationNext": "Next",
+    "pageOf": "Page {page} of {total}"
+  },
+  "projects": {
+    "title": "Projects",
+    "description": "Case studies in backend, distributed systems, and infrastructure.",
+    "empty": "No published projects yet.",
+    "viewCase": "View case study",
+    "github": "GitHub",
+    "demo": "Demo"
+  },
+  "experience": {
+    "title": "Experience",
+    "description": "Professional timeline, roles, and technologies.",
+    "present": "Present",
+    "empty": "No experience entries yet."
+  },
+  "about": {
+    "title": "About",
+    "description": "Learn about my background in Bioengineering and systems-focused engineering."
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "Reach out for professional opportunities.",
+    "email": "Email",
+    "copyEmail": "Copy email",
+    "copied": "Copied"
+  },
+  "author": {
+    "bio": "Software Engineer focused on backend and distributed systems."
+  },
+  "home": {
+    "title": "Home",
+    "description": "Esteban Maya's professional portfolio — Software Engineer."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you're looking for doesn't exist.",
+    "backHome": "Back to home"
+  },
+  "seo": {
+    "pages": {
+      "/": {
+        "title": "Home",
+        "description": "Esteban Maya's professional portfolio — Software Engineer."
+      },
+      "/about": {
+        "title": "About",
+        "description": "Learn about my background in Bioengineering and systems-focused engineering."
+      },
+      "/experience": {
+        "title": "Experience",
+        "description": "Professional timeline, roles, and technologies."
+      },
+      "/projects": {
+        "title": "Projects",
+        "description": "Case studies in backend, distributed systems, and infrastructure."
+      },
+      "/blog": {
+        "title": "Blog",
+        "description": "The Lab — technical notes on architecture, systems, and DevOps."
+      },
+      "/contact": {
+        "title": "Contact",
+        "description": "Reach out for professional opportunities."
+      }
+    }
+  }
+}

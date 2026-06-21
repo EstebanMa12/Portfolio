@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getLocale, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/public/badge";
 import { BioBridgeTable } from "@/components/public/bio-bridge-table";
@@ -10,23 +11,29 @@ import {
   getHeroContent,
 } from "@/lib/cache/public-queries";
 import { createPageMetadata } from "@/lib/domain/seo/create-page-metadata";
+import { localizedPath } from "@/lib/i18n/paths";
+import type { Locale } from "@/lib/i18n/config";
 import { getSettings } from "@/lib/repositories/seo-repo";
 
 export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const about = await getAboutContent();
-  return createPageMetadata("/about", {
-    title: about?.title ?? "Sobre mí",
+  const locale = (await getLocale()) as Locale;
+  const about = await getAboutContent(locale);
+  return createPageMetadata(locale, "/about", {
+    title: about?.title,
     description: about?.paragraphs[0],
   });
 }
 
 export default async function AboutPage() {
+  const locale = (await getLocale()) as Locale;
+  const t = await getTranslations({ locale, namespace: "about" });
+
   const [about, hero, settings] = await Promise.all([
-    getAboutContent(),
-    getHeroContent(),
-    getSettings(),
+    getAboutContent(locale),
+    getHeroContent(locale),
+    getSettings(locale),
   ]);
 
   if (!about) {
@@ -42,13 +49,14 @@ export default async function AboutPage() {
           name: hero?.name ?? settings.siteName,
           description: about.paragraphs.join(" "),
           knowsAbout: about.interests,
-          url: `${settings.siteUrl}/about`,
+          url: `${settings.siteUrl}${localizedPath("/about", locale)}`,
+          inLanguage: locale,
         }}
       />
 
       <section aria-labelledby="about-heading" className="py-8">
         <RevealOnScroll>
-          <SectionLabel className="mb-3">Sobre mí</SectionLabel>
+          <SectionLabel className="mb-3">{t("title")}</SectionLabel>
           <h1
             id="about-heading"
             className="font-display text-3xl md:text-4xl font-semibold tracking-tight text-text-primary mb-10"

@@ -2,6 +2,8 @@ import { cachedQuery, assertNoError, RepositoryError, unwrap } from "@/lib/repos
 import { mapProjectWithTechnologies } from "@/lib/repositories/mappers";
 import { createClient } from "@/lib/supabase/server";
 import { createStaticClient } from "@/lib/supabase/static";
+import type { Locale } from "@/lib/i18n/config";
+import { defaultLocale } from "@/lib/i18n/config";
 import type {
   Project,
   ProjectInsert,
@@ -17,20 +19,26 @@ const WITH_TECH = `
   )
 `;
 
-async function fetchPublished(): Promise<ProjectWithTechnologies[]> {
+async function fetchPublished(
+  locale: Locale = defaultLocale,
+): Promise<ProjectWithTechnologies[]> {
   const supabase = createStaticClient();
   const rows = unwrap(
     await supabase
       .from("projects")
       .select(WITH_TECH)
       .eq("status", "published")
+      .eq("locale", locale)
       .order("sort_order", { ascending: true }),
   );
 
   return rows.map(mapProjectWithTechnologies);
 }
 
-async function fetchFeatured(limit = 3): Promise<ProjectWithTechnologies[]> {
+async function fetchFeatured(
+  limit = 3,
+  locale: Locale = defaultLocale,
+): Promise<ProjectWithTechnologies[]> {
   const supabase = createStaticClient();
   const rows = unwrap(
     await supabase
@@ -38,6 +46,7 @@ async function fetchFeatured(limit = 3): Promise<ProjectWithTechnologies[]> {
       .select(WITH_TECH)
       .eq("status", "published")
       .eq("featured", true)
+      .eq("locale", locale)
       .order("sort_order", { ascending: true })
       .limit(limit),
   );
@@ -60,12 +69,13 @@ async function fetchAllAdmin(): Promise<ProjectWithTechnologies[]> {
 async function fetchBySlug(
   slug: string,
   admin = false,
+  locale: Locale = defaultLocale,
 ): Promise<ProjectWithTechnologies | null> {
   const supabase = admin ? await createClient() : createStaticClient();
   let query = supabase.from("projects").select(WITH_TECH).eq("slug", slug);
 
   if (!admin) {
-    query = query.eq("status", "published");
+    query = query.eq("status", "published").eq("locale", locale);
   }
 
   const { data } = await query.maybeSingle();
@@ -96,8 +106,9 @@ export const getAllAdmin = cachedQuery(fetchAllAdmin);
 export async function getBySlug(
   slug: string,
   admin = false,
+  locale: Locale = defaultLocale,
 ): Promise<ProjectWithTechnologies | null> {
-  return fetchBySlug(slug, admin);
+  return fetchBySlug(slug, admin, locale);
 }
 
 export async function getById(

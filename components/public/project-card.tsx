@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
 import { Badge } from "@/components/public/badge";
 import { Card } from "@/components/public/card";
@@ -9,9 +9,16 @@ import type { ProjectWithTechnologies } from "@/lib/schemas/project";
 type ProjectCardProps = {
   project: ProjectWithTechnologies;
   featured?: boolean;
+  githubLabel: string;
+  demoLabel: string;
 };
 
-export function ProjectCard({ project, featured = false }: ProjectCardProps) {
+export function ProjectCard({
+  project,
+  featured = false,
+  githubLabel,
+  demoLabel,
+}: ProjectCardProps) {
   return (
     <Card
       as="article"
@@ -55,25 +62,25 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
       {(project.githubUrl || project.demoUrl) && (
         <div className="flex gap-4 mt-6 pt-4 border-t border-border">
           {project.githubUrl ? (
-            <Link
+            <a
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-sm text-text-secondary hover:text-text-primary transition-colors"
             >
               <GitHubIcon className="w-4 h-4" />
-              GitHub
-            </Link>
+              {githubLabel}
+            </a>
           ) : null}
           {project.demoUrl ? (
-            <Link
+            <a
               href={project.demoUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-sm text-text-secondary hover:text-text-primary transition-colors"
             >
-              Demo
-            </Link>
+              {demoLabel}
+            </a>
           ) : null}
         </div>
       )}
@@ -85,20 +92,22 @@ type ProjectGridProps = {
   projects: ProjectWithTechnologies[];
 };
 
-export function ProjectGrid({ projects }: ProjectGridProps) {
+export async function ProjectGrid({ projects }: ProjectGridProps) {
+  const t = await getTranslations("projects");
+
   if (projects.length === 0) {
-    return (
-      <p className="text-text-secondary text-sm">
-        No hay proyectos publicados todavía.
-      </p>
-    );
+    return <p className="text-text-secondary text-sm">{t("empty")}</p>;
   }
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {projects.map((project, index) => (
         <RevealOnScroll key={project.id} delay={index * 90}>
-          <ProjectCard project={project} />
+          <ProjectCard
+            project={project}
+            githubLabel={t("github")}
+            demoLabel={t("demo")}
+          />
         </RevealOnScroll>
       ))}
     </div>
@@ -109,7 +118,9 @@ type FeaturedProjectsProps = {
   projects: ProjectWithTechnologies[];
 };
 
-export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
+export async function FeaturedProjects({ projects }: FeaturedProjectsProps) {
+  const t = await getTranslations("sections");
+
   return (
     <section
       id="projects"
@@ -118,14 +129,14 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
     >
       <RevealOnScroll>
         <SectionHeader
-          label="Proyectos"
-          title="Trabajo seleccionado"
+          label={t("projectsLabel")}
+          title={t("projectsTitle")}
           href="/projects"
-          linkLabel="Ver todos →"
+          linkLabel={t("projectsLink")}
         />
       </RevealOnScroll>
       <h2 id="featured-projects-heading" className="sr-only">
-        Proyectos destacados
+        {t("projectsTitle")}
       </h2>
       <ProjectGrid projects={projects} />
     </section>

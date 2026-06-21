@@ -37,6 +37,7 @@ export type Database = {
           created_at: string;
           excerpt: string;
           id: string;
+          locale: string;
           published_at: string | null;
           reading_time_min: number | null;
           seo_canonical: string | null;
@@ -56,6 +57,7 @@ export type Database = {
           created_at?: string;
           excerpt: string;
           id?: string;
+          locale?: string;
           published_at?: string | null;
           reading_time_min?: number | null;
           seo_canonical?: string | null;
@@ -75,6 +77,7 @@ export type Database = {
           created_at?: string;
           excerpt?: string;
           id?: string;
+          locale?: string;
           published_at?: string | null;
           reading_time_min?: number | null;
           seo_canonical?: string | null;
@@ -127,6 +130,7 @@ export type Database = {
           created_at: string;
           end_date: string | null;
           id: string;
+          locale: string;
           role: string;
           sort_order: number;
           start_date: string;
@@ -138,6 +142,7 @@ export type Database = {
           created_at?: string;
           end_date?: string | null;
           id?: string;
+          locale?: string;
           role: string;
           sort_order?: number;
           start_date: string;
@@ -149,6 +154,7 @@ export type Database = {
           created_at?: string;
           end_date?: string | null;
           id?: string;
+          locale?: string;
           role?: string;
           sort_order?: number;
           start_date?: string;
@@ -190,16 +196,19 @@ export type Database = {
         Row: {
           data: Json;
           id: string;
+          locale: string;
           updated_at: string;
         };
         Insert: {
           data: Json;
           id: string;
+          locale?: string;
           updated_at?: string;
         };
         Update: {
           data?: Json;
           id?: string;
+          locale?: string;
           updated_at?: string;
         };
         Relationships: [];
@@ -244,6 +253,7 @@ export type Database = {
           featured: boolean;
           github_url: string | null;
           id: string;
+          locale: string;
           problem: string;
           result: string;
           seo_canonical: string | null;
@@ -267,6 +277,7 @@ export type Database = {
           featured?: boolean;
           github_url?: string | null;
           id?: string;
+          locale?: string;
           problem: string;
           result: string;
           seo_canonical?: string | null;
@@ -290,6 +301,7 @@ export type Database = {
           featured?: boolean;
           github_url?: string | null;
           id?: string;
+          locale?: string;
           problem?: string;
           result?: string;
           seo_canonical?: string | null;
@@ -311,6 +323,7 @@ export type Database = {
           default_description: string;
           default_og_image: string | null;
           id: number;
+          locale: string;
           site_name: string;
           site_url: string;
           title_template: string;
@@ -321,6 +334,7 @@ export type Database = {
           default_description: string;
           default_og_image?: string | null;
           id: number;
+          locale?: string;
           site_name: string;
           site_url: string;
           title_template?: string;
@@ -331,6 +345,7 @@ export type Database = {
           default_description?: string;
           default_og_image?: string | null;
           id?: number;
+          locale?: string;
           site_name?: string;
           site_url?: string;
           title_template?: string;

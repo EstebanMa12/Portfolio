@@ -2,6 +2,8 @@ import { cachedQuery, assertNoError, RepositoryError, unwrap } from "@/lib/repos
 import { mapExperienceWithTechnologies } from "@/lib/repositories/mappers";
 import { createClient } from "@/lib/supabase/server";
 import { createStaticClient } from "@/lib/supabase/static";
+import type { Locale } from "@/lib/i18n/config";
+import { defaultLocale } from "@/lib/i18n/config";
 import type {
   Experience,
   ExperienceInsert,
@@ -16,12 +18,15 @@ const WITH_TECH = `
   )
 `;
 
-async function fetchAllPublic(): Promise<ExperienceWithTechnologies[]> {
+async function fetchAllPublic(
+  locale: Locale = defaultLocale,
+): Promise<ExperienceWithTechnologies[]> {
   const supabase = createStaticClient();
   const rows = unwrap(
     await supabase
       .from("experiences")
       .select(WITH_TECH)
+      .eq("locale", locale)
       .order("sort_order", { ascending: true }),
   );
 

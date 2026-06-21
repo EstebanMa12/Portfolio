@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
 import { cn } from "@/lib/utils/cn";
 
 type ButtonVariant = "primary" | "secondary";
@@ -37,11 +37,23 @@ export function Button({
 
   if (href) {
     const isExternal = href.startsWith("http") || href.startsWith("mailto:");
+    if (isExternal) {
+      return (
+        <a
+          href={href}
+          className={classes}
+          target="_blank"
+          rel="noopener noreferrer"
+          {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+        >
+          {children}
+        </a>
+      );
+    }
     return (
       <Link
         href={href}
         className={classes}
-        {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
         {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
       >
         {children}

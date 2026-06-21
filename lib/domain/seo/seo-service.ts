@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import type { Locale } from "@/lib/i18n/config";
+import { localizedPath } from "@/lib/i18n/paths";
 import type { ResolvedSeo, SeoFields, SeoSettings } from "./types";
 
 export function formatTitle(
@@ -12,11 +14,22 @@ export function formatTitle(
   return `${pageTitle} | ${siteName}`;
 }
 
+export function buildLanguageAlternates(
+  path: string,
+): Record<string, string> {
+  return {
+    es: localizedPath(path, "es"),
+    en: localizedPath(path, "en"),
+    "x-default": localizedPath(path, "es"),
+  };
+}
+
 export function resolvePageMeta(
   settings: SeoSettings,
   page: SeoFields,
-  path: string,
+  canonicalPath: string,
   type: "website" | "article" = "website",
+  hreflangPath?: string,
 ): ResolvedSeo {
   const pageTitle = page.title?.trim() || settings.siteName;
   const title =
@@ -25,7 +38,7 @@ export function resolvePageMeta(
       : settings.siteName;
 
   const description = page.description?.trim() || settings.defaultDescription;
-  const canonical = page.canonical?.trim() || `${settings.siteUrl}${path}`;
+  const canonical = page.canonical?.trim() || `${settings.siteUrl}${canonicalPath}`;
   const ogImage = page.ogImage ?? settings.defaultOgImage;
   const images = ogImage ? [{ url: ogImage }] : [];
 
@@ -33,6 +46,7 @@ export function resolvePageMeta(
     title,
     description,
     canonical,
+    languages: hreflangPath ? buildLanguageAlternates(hreflangPath) : undefined,
     robots: page.noindex ? "noindex, nofollow" : "index, follow",
     openGraph: {
       title,
@@ -54,11 +68,21 @@ export function resolvePageMeta(
   };
 }
 
-export function toMetadata(resolved: ResolvedSeo): Metadata {
+export function toMetadata(
+  resolved: ResolvedSeo,
+  _locale?: Locale,
+  _path?: string,
+): Metadata {
+  void _locale;
+  void _path;
+
   return {
     title: resolved.title,
     description: resolved.description,
-    alternates: { canonical: resolved.canonical },
+    alternates: {
+      canonical: resolved.canonical,
+      ...(resolved.languages ? { languages: resolved.languages } : {}),
+    },
     robots: resolved.robots,
     openGraph: resolved.openGraph,
     twitter: resolved.twitter,
