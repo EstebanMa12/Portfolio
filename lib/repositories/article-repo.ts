@@ -2,6 +2,7 @@ import { cache } from "react";
 import { assertNoError, unwrap } from "@/lib/repositories/base";
 import { mapArticle } from "@/lib/repositories/mappers";
 import { createClient } from "@/lib/supabase/server";
+import { createStaticClient } from "@/lib/supabase/static";
 import type { Article, ArticleInsert } from "@/lib/schemas/article";
 import { articleSchema } from "@/lib/schemas/article";
 import type { Database } from "@/types/database";
@@ -21,7 +22,7 @@ async function fetchPublishedPaginated(
   page = 1,
   pageSize = 9,
 ): Promise<PaginatedArticles> {
-  const supabase = await createClient();
+  const supabase = createStaticClient();
   const from = (page - 1) * pageSize;
   const to = from + pageSize - 1;
 
@@ -49,7 +50,7 @@ async function fetchPublishedPaginated(
 }
 
 async function fetchLatest(limit = 3): Promise<Article[]> {
-  const supabase = await createClient();
+  const supabase = createStaticClient();
   const rows = unwrap(
     await supabase
       .from("articles")
@@ -78,7 +79,7 @@ async function fetchBySlug(
   slug: string,
   admin = false,
 ): Promise<Article | null> {
-  const supabase = await createClient();
+  const supabase = admin ? await createClient() : createStaticClient();
   let query = supabase.from("articles").select("*").eq("slug", slug);
 
   if (!admin) {
@@ -91,7 +92,7 @@ async function fetchBySlug(
 }
 
 async function fetchById(id: string, admin = false): Promise<Article | null> {
-  const supabase = await createClient();
+  const supabase = admin ? await createClient() : createStaticClient();
   let query = supabase.from("articles").select("*").eq("id", id);
 
   if (!admin) {
@@ -124,7 +125,7 @@ export async function getById(
 export async function getPublishedSlugs(): Promise<
   Array<{ slug: string; updatedAt: string }>
 > {
-  const supabase = await createClient();
+  const supabase = createStaticClient();
   const rows = unwrap(
     await supabase
       .from("articles")

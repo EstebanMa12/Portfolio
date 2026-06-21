@@ -6,11 +6,12 @@ import {
 } from "@/lib/schemas/page-content";
 import { RepositoryError, unwrap, unwrapOptional } from "./base";
 import { createClient } from "@/lib/supabase/server";
+import { createStaticClient } from "@/lib/supabase/static";
 
 async function fetchById<T extends PageContentId>(
   id: T,
 ): Promise<PageContentMap[T] | null> {
-  const supabase = await createClient();
+  const supabase = createStaticClient();
   const result = await supabase
     .from("page_content")
     .select("data")
@@ -57,3 +58,4 @@ export async function updateById<T extends PageContentId>(
 export const getHero = cache(() => fetchById("hero"));
 export const getAbout = cache(() => fetchById("about"));
 export const getContact = cache(() => fetchById("contact"));
+export const getAchievements = cache(() => fetchById("achievements"));

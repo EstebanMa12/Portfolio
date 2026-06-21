@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SITE_NAME, SOCIAL_LINKS } from "@/lib/config/site";
+import { ScrollHeader } from "@/components/motion/scroll-header";
 import { Button } from "./button";
 import { GitHubIcon, LinkedInIcon } from "./icons";
 import { MobileNav } from "./mobile-nav";
@@ -11,7 +12,7 @@ type HeaderProps = {
 
 export function Header({ siteName = SITE_NAME }: HeaderProps) {
   return (
-    <header className="fixed top-0 w-full z-50 bg-bg/85 backdrop-blur-md border-b border-border">
+    <ScrollHeader>
       <div className="max-w-6xl mx-auto px-gutter h-16 flex items-center justify-between gap-4 relative">
         <Link
           href="/"
@@ -50,6 +51,6 @@ export function Header({ siteName = SITE_NAME }: HeaderProps) {
 
         <MobileNav />
       </div>
-    </header>
+    </ScrollHeader>
   );
 }

@@ -1,6 +1,7 @@
 import { cachedQuery, assertNoError, RepositoryError, unwrap } from "@/lib/repositories/base";
 import { mapProjectWithTechnologies } from "@/lib/repositories/mappers";
 import { createClient } from "@/lib/supabase/server";
+import { createStaticClient } from "@/lib/supabase/static";
 import type {
   Project,
   ProjectInsert,
@@ -17,7 +18,7 @@ const WITH_TECH = `
 `;
 
 async function fetchPublished(): Promise<ProjectWithTechnologies[]> {
-  const supabase = await createClient();
+  const supabase = createStaticClient();
   const rows = unwrap(
     await supabase
       .from("projects")
@@ -30,7 +31,7 @@ async function fetchPublished(): Promise<ProjectWithTechnologies[]> {
 }
 
 async function fetchFeatured(limit = 3): Promise<ProjectWithTechnologies[]> {
-  const supabase = await createClient();
+  const supabase = createStaticClient();
   const rows = unwrap(
     await supabase
       .from("projects")
@@ -60,7 +61,7 @@ async function fetchBySlug(
   slug: string,
   admin = false,
 ): Promise<ProjectWithTechnologies | null> {
-  const supabase = await createClient();
+  const supabase = admin ? await createClient() : createStaticClient();
   let query = supabase.from("projects").select(WITH_TECH).eq("slug", slug);
 
   if (!admin) {
@@ -76,7 +77,7 @@ async function fetchById(
   id: string,
   admin = false,
 ): Promise<ProjectWithTechnologies | null> {
-  const supabase = await createClient();
+  const supabase = admin ? await createClient() : createStaticClient();
   let query = supabase.from("projects").select(WITH_TECH).eq("id", id);
 
   if (!admin) {

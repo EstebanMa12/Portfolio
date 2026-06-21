@@ -1,6 +1,7 @@
 import { cachedQuery, assertNoError, RepositoryError, unwrap } from "@/lib/repositories/base";
 import { mapExperienceWithTechnologies } from "@/lib/repositories/mappers";
 import { createClient } from "@/lib/supabase/server";
+import { createStaticClient } from "@/lib/supabase/static";
 import type {
   Experience,
   ExperienceInsert,
@@ -16,7 +17,7 @@ const WITH_TECH = `
 `;
 
 async function fetchAllPublic(): Promise<ExperienceWithTechnologies[]> {
-  const supabase = await createClient();
+  const supabase = createStaticClient();
   const rows = unwrap(
     await supabase
       .from("experiences")

@@ -63,6 +63,14 @@ INSERT INTO page_content (id, data) VALUES
       { "from": "Modelado de sistemas complejos", "to": "Arquitectura de microservicios y diseño modular" },
       { "from": "Validación experimental", "to": "Testing automatizado, CI/CD y entornos reproducibles" },
       { "from": "Análisis estadístico", "to": "Observabilidad, métricas y análisis de rendimiento" }
+    ],
+    "skills": [
+      { "name": "Frontend", "level": 0.88 },
+      { "name": "Backend", "level": 0.92 },
+      { "name": "Bases de datos", "level": 0.78 },
+      { "name": "Infra / CI", "level": 0.85 },
+      { "name": "Seguridad", "level": 0.72 },
+      { "name": "Arquitectura", "level": 0.8 }
     ]
   }'::jsonb
 ),
@@ -74,6 +82,51 @@ INSERT INTO page_content (id, data) VALUES
     "email": "hello@estebanmaya.dev",
     "linkedin": "https://linkedin.com/in/estebanmaya",
     "github": "https://github.com/EstebanMa12"
+  }'::jsonb
+),
+(
+  'achievements',
+  '{
+    "label": "Credenciales",
+    "title": "Certificaciones y logros",
+    "items": [
+      {
+        "title": "B.S. Bioingeniería",
+        "meta": "Universidad · 2018",
+        "badge": "degree"
+      },
+      {
+        "title": "AWS Solutions Architect Associate",
+        "meta": "Amazon Web Services · 2024",
+        "badge": "aws"
+      },
+      {
+        "title": "Terraform Certified Associate",
+        "meta": "HashiCorp · 2024",
+        "badge": "terraform"
+      },
+      {
+        "title": "Certified Kubernetes Administrator",
+        "meta": "CNCF · 2023",
+        "badge": "kubernetes"
+      },
+      {
+        "title": "Premio Mejor Tesis",
+        "meta": "Bioingeniería · 2018",
+        "badge": "award"
+      },
+      {
+        "title": "Speaker · Microservicios en producción",
+        "meta": "Meetup local · 2025",
+        "badge": "speaker"
+      },
+      {
+        "title": "Open Source Contributor",
+        "meta": "Go · DevOps tools",
+        "badge": "opensource",
+        "url": "https://github.com/EstebanMa12"
+      }
+    ]
   }'::jsonb
 );
 

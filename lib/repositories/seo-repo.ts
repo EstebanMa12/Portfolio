@@ -1,5 +1,6 @@
 import { cachedQuery } from "@/lib/repositories/base";
 import { createClient } from "@/lib/supabase/server";
+import { createStaticClient } from "@/lib/supabase/static";
 import type { SeoSettings } from "@/lib/domain/seo/types";
 import { seoSettingsSchema } from "@/lib/schemas/seo-settings";
 import { unwrap, unwrapOptional } from "./base";
@@ -34,7 +35,7 @@ function mapRow(row: {
 
 async function fetchSettings(): Promise<SeoSettings> {
   try {
-    const supabase = await createClient();
+    const supabase = createStaticClient();
     const result = await supabase.from("seo_settings").select("*").single();
     const row = unwrapOptional(result);
 
