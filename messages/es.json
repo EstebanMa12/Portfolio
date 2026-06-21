@@ -125,6 +125,13 @@
     "description": "La página que buscas no existe.",
     "backHome": "Volver al inicio"
   },
+  "error": {
+    "label": "Error",
+    "title": "Algo salió mal",
+    "description": "Ocurrió un error inesperado. Puedes intentar de nuevo.",
+    "retry": "Reintentar",
+    "backHome": "Volver al inicio"
+  },
   "seo": {
     "pages": {
       "/": {

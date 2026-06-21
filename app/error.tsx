@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { Button } from "@/components/public/button";
+import { cn } from "@/lib/utils/cn";
 
 export default function Error({
   error,
@@ -24,12 +24,12 @@ export default function Error({
         Ocurrió un error inesperado. Puedes intentar de nuevo.
       </p>
       <div className="mt-8 flex flex-col sm:flex-row gap-3">
-        <Button type="button" onClick={reset}>
+        <button type="button" onClick={reset} className={cn("btn-primary")}>
           Reintentar
-        </Button>
-        <Button href="/" variant="secondary">
+        </button>
+        <a href="/" className={cn("btn-secondary")}>
           Volver al inicio
-        </Button>
+        </a>
       </div>
     </main>
   );

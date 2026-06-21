@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
-import { ThemeProvider } from "@/components/providers/theme-provider";
+import { ThemeProvider } from "@wrksz/themes/next";
 import "./globals.css";
 
 const inter = Inter({
@@ -30,7 +30,14 @@ export default function RootLayout({
       <body
         className={`${GeistSans.className} min-h-full flex flex-col bg-bg text-text-primary overflow-x-hidden`}
       >
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

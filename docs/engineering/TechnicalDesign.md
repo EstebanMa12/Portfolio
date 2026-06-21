@@ -255,7 +255,7 @@ const geist = localFont({ src: './fonts/GeistVF.woff2', variable: '--font-displa
 
 | Regla | Detalle |
 |-------|---------|
-| Dark/light + system | `next-themes` con tokens CSS en `:root` / `.dark`; toggle en header |
+| Dark/light + system | `@wrksz/themes` (compatible con next-themes; fix React 19) con tokens CSS en `:root` / `.dark`; toggle en header |
 | i18n ES/EN | `next-intl`; ES sin prefijo (`/about`), EN con `/en/about`; CMS con columna `locale` |
 | Mobile-first | Breakpoints: `sm:640`, `md:768`, `lg:1024`, `xl:1280` |
 | Prose blog | `@tailwindcss/typography`; `prose dark:prose-invert`; Shiki dual theme |

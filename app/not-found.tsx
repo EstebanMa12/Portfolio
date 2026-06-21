@@ -1,4 +1,4 @@
-import { Button } from "@/components/public/button";
+import { cn } from "@/lib/utils/cn";
 
 export default function NotFound() {
   return (
@@ -10,9 +10,9 @@ export default function NotFound() {
       <p className="mt-4 max-w-md text-text-secondary">
         La ruta que buscas no existe o fue movida.
       </p>
-      <Button href="/" variant="secondary" className="mt-8">
+      <a href="/" className={cn("btn-secondary mt-8")}>
         Volver al inicio
-      </Button>
+      </a>
     </main>
   );
 }

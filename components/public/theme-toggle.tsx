@@ -1,7 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { useTheme } from "next-themes";
+import { useTheme } from "@wrksz/themes/client";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils/cn";
 
