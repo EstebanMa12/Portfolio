@@ -1,9 +1,30 @@
 import Link from "next/link";
 import { SectionLabel } from "@/components/public/section-label";
 import { requireAdmin } from "@/lib/auth/require-admin";
+import * as articleRepo from "@/lib/repositories/article-repo";
+import * as experienceRepo from "@/lib/repositories/experience-repo";
+import * as projectRepo from "@/lib/repositories/project-repo";
+import * as technologyRepo from "@/lib/repositories/technology-repo";
 
 export default async function AdminDashboardPage() {
   const admin = await requireAdmin();
+
+  const [projects, articles, experiences, technologies] = await Promise.all([
+    projectRepo.getAllAdmin(),
+    articleRepo.getAllAdmin(),
+    experienceRepo.getAllAdmin(),
+    technologyRepo.getAll(),
+  ]);
+
+  const draftProjects = projects.filter((project) => project.status === "draft").length;
+  const draftArticles = articles.filter((article) => article.status === "draft").length;
+
+  const quickLinks = [
+    { label: "Tecnologías", href: "/admin/technologies", count: technologies.length },
+    { label: "Experiencia", href: "/admin/experience", count: experiences.length },
+    { label: "Proyectos", href: "/admin/projects", count: projects.length },
+    { label: "Artículos", href: "/admin/articles", count: articles.length },
+  ] as const;
 
   return (
     <section aria-labelledby="admin-heading">
@@ -15,22 +36,35 @@ export default async function AdminDashboardPage() {
         Dashboard
       </h1>
       <p className="mt-3 text-text-secondary max-w-prose">
-        Bienvenido, {admin.email}. Gestiona el contenido del portfolio desde
-        aquí.
+        Bienvenido, {admin.email}. Gestiona el contenido del portfolio desde aquí.
       </p>
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {[
-          { label: "Experiencia", href: "/admin/experience", status: "Próximamente" },
-          { label: "Proyectos", href: "/admin/projects", status: "Disponible" },
-          { label: "Artículos", href: "/admin/articles", status: "Próximamente" },
-        ].map((item) => (
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <StatCard label="Borradores (proyectos)" value={draftProjects} />
+        <StatCard label="Borradores (artículos)" value={draftArticles} />
+        <StatCard label="Experiencias" value={experiences.length} />
+        <StatCard label="Tecnologías" value={technologies.length} />
+      </div>
+
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {quickLinks.map((item) => (
           <Link key={item.label} href={item.href} className="card block no-underline">
             <h2 className="font-medium text-text-primary">{item.label}</h2>
-            <p className="mt-2 text-sm text-text-muted">{item.status}</p>
+            <p className="mt-2 text-2xl font-display font-semibold text-accent">
+              {item.count}
+            </p>
           </Link>
         ))}
       </div>
     </section>
+  );
+}
+
+function StatCard({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="card">
+      <p className="text-sm text-text-muted">{label}</p>
+      <p className="mt-2 text-2xl font-display font-semibold text-text-primary">{value}</p>
+    </div>
   );
 }

@@ -54,10 +54,7 @@ export async function ProjectCard({
         ) : null}
       </div>
 
-      <ProjectCardMedia
-        project={project}
-        className="-mx-6 md:-mx-8 mb-4"
-      />
+      <ProjectCardMedia project={project} className="mb-4" />
 
       <h3 className="text-xl font-semibold text-text-primary mb-4">
         {project.title}

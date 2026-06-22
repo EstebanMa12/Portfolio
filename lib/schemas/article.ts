@@ -1,10 +1,12 @@
 import { z } from "zod";
 import { contentStatusSchema } from "./common";
+import { localeSchema } from "./locale";
 
 export const articleSchema = z.object({
   id: z.string().uuid(),
   title: z.string().min(1),
   slug: z.string().min(1),
+  locale: localeSchema,
   excerpt: z.string().min(160).max(320),
   content: z.string().min(1),
   tags: z.array(z.string()),
@@ -24,6 +26,7 @@ export const articleSchema = z.object({
 export const articleInsertSchema = z.object({
   title: z.string().min(1),
   slug: z.string().min(1),
+  locale: localeSchema.default("es"),
   excerpt: z.string().min(160).max(320),
   content: z.string().min(1),
   tags: z.array(z.string()).default([]),

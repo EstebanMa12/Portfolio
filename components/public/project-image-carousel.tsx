@@ -108,8 +108,7 @@ export function ProjectImageCarousel({
         <Image
           src={image.url}
           alt={image.alt || title}
-          width={1280}
-          height={720}
+          fill
           className="project-carousel-image"
           sizes="(max-width: 768px) 100vw, 50vw"
         />
@@ -158,8 +157,7 @@ export function ProjectImageCarousel({
               <Image
                 src={image.url}
                 alt={image.alt || `${title} — ${index + 1}`}
-                width={1280}
-                height={720}
+                fill
                 className="project-carousel-image"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />

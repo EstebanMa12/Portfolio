@@ -159,6 +159,7 @@ export async function create(input: ArticleInsert): Promise<Article> {
       .insert({
         title: input.title,
         slug: input.slug,
+        locale: input.locale,
         excerpt: input.excerpt,
         content: input.content,
         tags: input.tags,
@@ -189,6 +190,7 @@ export async function update(
 
   if (input.title !== undefined) patch.title = input.title;
   if (input.slug !== undefined) patch.slug = input.slug;
+  if (input.locale !== undefined) patch.locale = input.locale;
   if (input.excerpt !== undefined) patch.excerpt = input.excerpt;
   if (input.content !== undefined) patch.content = input.content;
   if (input.tags !== undefined) patch.tags = input.tags;
@@ -214,10 +216,18 @@ export async function remove(id: string): Promise<void> {
   assertNoError(await supabase.from("articles").delete().eq("id", id));
 }
 
-export async function slugExists(slug: string, excludeId?: string): Promise<boolean> {
+export async function slugExists(
+  slug: string,
+  options: { locale?: Locale; excludeId?: string } = {},
+): Promise<boolean> {
+  const locale = options.locale ?? defaultLocale;
   const supabase = await createClient();
-  let query = supabase.from("articles").select("id").eq("slug", slug);
-  if (excludeId) query = query.neq("id", excludeId);
+  let query = supabase
+    .from("articles")
+    .select("id")
+    .eq("slug", slug)
+    .eq("locale", locale);
+  if (options.excludeId) query = query.neq("id", options.excludeId);
   const { data } = await query.maybeSingle();
   return data !== null;
 }

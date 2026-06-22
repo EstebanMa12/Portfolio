@@ -12,7 +12,7 @@ const slugCheckers: Record<
   (slug: string, excludeId?: string) => Promise<boolean>
 > = {
   project: (slug, excludeId) => projectRepo.slugExists(slug, { excludeId }),
-  article: articleRepo.slugExists,
+  article: (slug, excludeId) => articleRepo.slugExists(slug, { excludeId }),
   technology: technologyRepo.slugExists,
 };
 
