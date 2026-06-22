@@ -62,8 +62,11 @@
   "cta": {
     "nextStep": "What's next?",
     "defaultDescription": "Explore more content or get in touch.",
+    "aboutDescription": "Explore my technical trajectory or reach out directly.",
+    "blogDescription": "Interested in collaborating or seeing more production work?",
     "contact": "Get in touch",
-    "viewProjects": "View projects"
+    "viewProjects": "View projects",
+    "viewExperience": "View experience"
   },
   "hero": {
     "profilePhotoAlt": "Profile photo of {name}, {role}",

@@ -1721,6 +1721,10 @@ body {
   mask-image: radial-gradient(ellipse 85% 65% at 50% 20%, black 15%, transparent 70%);
 }
 
+.about-page-grid--subtle {
+  opacity: 0.45;
+}
+
 .about-page-noise {
   position: absolute;
   inset: 0;

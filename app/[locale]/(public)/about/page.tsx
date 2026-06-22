@@ -10,6 +10,8 @@ import { BioBridgeInteractive } from "@/components/about/bio-bridge-interactive"
 import { EngineeringMindset } from "@/components/about/engineering-mindset";
 import type { MindsetItem } from "@/components/about/engineering-mindset";
 import { FadeInView } from "@/components/motion/fade-in-view";
+import { PageCta } from "@/components/public/page-cta";
+import { PageHeader } from "@/components/public/page-header";
 import { SectionLabel } from "@/components/public/section-label";
 import { JsonLd } from "@/components/seo/json-ld";
 import {
@@ -37,6 +39,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function AboutPage() {
   const locale = (await getLocale()) as Locale;
   const t = await getTranslations({ locale, namespace: "about" });
+  const tCta = await getTranslations({ locale, namespace: "cta" });
 
   const [about, hero, settings, projects, technologies] = await Promise.all([
     getAboutContent(locale),
@@ -114,15 +117,13 @@ export default async function AboutPage() {
         <AboutPageAmbience />
 
         <section aria-labelledby="about-heading" className="relative py-8">
-          <FadeInView duration={0.65}>
-            <SectionLabel className="mb-3">{t("title")}</SectionLabel>
-            <h1
-              id="about-heading"
-              className="font-display text-3xl md:text-[2.75rem] font-semibold tracking-tight text-text-primary mb-6 max-w-3xl leading-[1.15]"
-            >
-              {about.title}
-            </h1>
-          </FadeInView>
+          <PageHeader
+            label={t("title")}
+            title={about.title}
+            headingId="about-heading"
+            className="mb-0"
+            titleClassName="text-3xl md:text-[2.75rem] mb-6 max-w-3xl leading-[1.15]"
+          />
 
           <AboutEvolutionPath
             label={t("evolutionLabel")}
@@ -132,7 +133,7 @@ export default async function AboutPage() {
             toDetail={t("evolutionToDetail")}
           />
 
-          <div className="mt-10 mb-section-gap-mobile md:mb-12">
+          <div className="mt-10 mb-section-gap-mobile md:mb-section-gap">
             <AboutCredibilityMetrics
               metrics={credibilityMetrics}
               ariaLabel={t("metricsAria")}
@@ -182,6 +183,15 @@ export default async function AboutPage() {
             items={mindsetItems}
             bioLabel={t("mindsetBioLabel")}
             softwareLabel={t("mindsetSoftwareLabel")}
+          />
+
+          <PageCta
+            title={tCta("nextStep")}
+            description={tCta("aboutDescription")}
+            primaryHref="/experience"
+            primaryLabel={tCta("viewExperience")}
+            secondaryHref="/contact"
+            secondaryLabel={tCta("contact")}
           />
         </section>
       </div>

@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
 import { ExperienceTimeline } from "@/components/public/experience-timeline";
 import { PageCta } from "@/components/public/page-cta";
-import { SectionLabel } from "@/components/public/section-label";
-import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
+import { PageHeader } from "@/components/public/page-header";
 import { JsonLd } from "@/components/seo/json-ld";
 import {
   getAllExperiences,
@@ -64,18 +63,12 @@ export default async function ExperiencePage() {
       ) : null}
 
       <section aria-labelledby="experience-heading" className="py-8">
-        <RevealOnScroll>
-          <SectionLabel className="mb-3">{t("title")}</SectionLabel>
-          <h1
-            id="experience-heading"
-            className="font-display text-3xl md:text-4xl font-semibold tracking-tight text-text-primary"
-          >
-            {t("title")}
-          </h1>
-          <p className="mt-3 text-text-secondary max-w-prose leading-relaxed mb-10">
-            {t("description")}
-          </p>
-        </RevealOnScroll>
+        <PageHeader
+          label={t("title")}
+          title={t("title")}
+          description={t("description")}
+          headingId="experience-heading"
+        />
 
         <ExperienceTimeline experiences={experiences} />
 

@@ -62,8 +62,11 @@
   "cta": {
     "nextStep": "¿Siguiente paso?",
     "defaultDescription": "Explora más contenido o ponte en contacto.",
+    "aboutDescription": "Explora mi trayectoria técnica o escríbeme directamente.",
+    "blogDescription": "¿Te interesa colaborar o ver más trabajo en producción?",
     "contact": "Contactar",
-    "viewProjects": "Ver proyectos"
+    "viewProjects": "Ver proyectos",
+    "viewExperience": "Ver experiencia"
   },
   "hero": {
     "profilePhotoAlt": "Foto de perfil de {name}, {role}",

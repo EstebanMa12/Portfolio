@@ -1,5 +1,6 @@
 import { Link } from "@/lib/i18n/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
+import { StaggerContainer, StaggerItem } from "@/components/motion/fade-in-view";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
 import { Badge } from "@/components/public/badge";
 import { Card } from "@/components/public/card";
@@ -99,9 +100,9 @@ export async function LatestArticles({ articles }: LatestArticlesProps) {
       {articles.length === 0 ? (
         <p className="text-text-secondary text-sm">{tBlog("empty")}</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {articles.map((article, index) => (
-            <RevealOnScroll key={article.id} delay={index * 80}>
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {articles.map((article) => (
+            <StaggerItem key={article.id}>
               <ArticleCard
                 article={article}
                 readMoreLabel={tBlog("readMore")}
@@ -113,9 +114,9 @@ export async function LatestArticles({ articles }: LatestArticlesProps) {
                     : undefined
                 }
               />
-            </RevealOnScroll>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       )}
     </section>
   );

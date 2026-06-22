@@ -228,7 +228,7 @@ export function SideDock({ cvUrl, github, linkedin }: SideDockProps) {
   return (
     <aside
       aria-label={t("quickAccess")}
-      className="side-dock fixed top-1/2 z-40 hidden -translate-y-1/2 flex-col items-center xl:flex left-[max(1.25rem,calc((100%-72rem)/2-4.75rem))]"
+      className="side-dock fixed top-1/2 z-40 hidden -translate-y-1/2 flex-col items-center lg:flex left-[max(1.25rem,calc((100%-72rem)/2-4.75rem))]"
     >
       <nav aria-label={t("sideNav")}>
         <ul className="flex flex-col items-center gap-1.5" role="list">

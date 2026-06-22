@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
 import { PageCta } from "@/components/public/page-cta";
+import { PageHeader } from "@/components/public/page-header";
 import { ProjectGrid } from "@/components/public/project-card";
-import { SectionLabel } from "@/components/public/section-label";
-import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
 import { getPublishedProjects } from "@/lib/cache/public-queries";
 import { createPageMetadata } from "@/lib/domain/seo/create-page-metadata";
 import type { Locale } from "@/lib/i18n/config";
@@ -24,18 +23,12 @@ export default async function ProjectsPage() {
 
   return (
     <section aria-labelledby="projects-heading" className="py-8">
-      <RevealOnScroll>
-        <SectionLabel className="mb-3">{t("title")}</SectionLabel>
-        <h1
-          id="projects-heading"
-          className="font-display text-3xl md:text-4xl font-semibold tracking-tight text-text-primary"
-        >
-          {t("title")}
-        </h1>
-        <p className="mt-3 text-text-secondary max-w-prose leading-relaxed mb-10">
-          {t("description")}
-        </p>
-      </RevealOnScroll>
+      <PageHeader
+        label={t("title")}
+        title={t("title")}
+        description={t("description")}
+        headingId="projects-heading"
+      />
 
       <ProjectGrid projects={projects} />
 

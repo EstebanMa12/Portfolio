@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { StaggerContainer, StaggerItem } from "@/components/motion/fade-in-view";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
 import { Card } from "@/components/public/card";
 import { GitHubIcon } from "@/components/public/icons";
@@ -115,9 +116,9 @@ export async function ProjectGrid({ projects }: ProjectGridProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      {projects.map((project, index) => (
-        <RevealOnScroll key={project.id} delay={index * 80}>
+    <StaggerContainer className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {projects.map((project) => (
+        <StaggerItem key={project.id}>
           <ProjectCard
             project={project}
             githubLabel={t("github")}
@@ -127,9 +128,9 @@ export async function ProjectGrid({ projects }: ProjectGridProps) {
             stackLabel={t("stack")}
             resultLabel={t("result")}
           />
-        </RevealOnScroll>
+        </StaggerItem>
       ))}
-    </div>
+    </StaggerContainer>
   );
 }
 
