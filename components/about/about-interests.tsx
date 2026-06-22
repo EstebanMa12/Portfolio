@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
-import { Link } from "@/lib/i18n/navigation";
+import { TextLink } from "@/components/public/text-link";
 import { motion } from "framer-motion";
 import { FadeInView } from "@/components/motion/fade-in-view";
 import { cn } from "@/lib/utils/cn";
@@ -187,12 +187,13 @@ function InterestChip({
             {interest.description}
           </span>
           {interest.relatedHref && interest.relatedLabel ? (
-            <Link
+            <TextLink
               href={interest.relatedHref}
-              className="mt-2 inline-flex text-[11px] font-semibold text-accent hover:text-text-primary transition-colors"
+              size="xs"
+              className="mt-2 inline-flex"
             >
               {interest.relatedLabel} →
-            </Link>
+            </TextLink>
           ) : null}
         </span>
       </motion.div>

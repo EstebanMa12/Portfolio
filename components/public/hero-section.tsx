@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { CtaButton } from "@/components/analytics/cta-button";
 import { TrackedLink } from "@/components/analytics/tracked-link";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
+import { textLinkClassName } from "@/components/public/text-link";
 import { ImpactMetrics } from "@/components/public/impact-metrics";
 import type { HeroContent } from "@/lib/schemas/page-content";
 
@@ -93,7 +94,7 @@ export async function HeroSection({ hero }: Readonly<HeroSectionProps>) {
             <TrackedLink
               href="/experience"
               eventType="experience"
-              className="inline-block mt-4 text-sm font-medium text-accent hover:text-text-primary transition-colors"
+              className={`inline-block mt-4 ${textLinkClassName} text-sm font-medium`}
             >
               {tHero("viewExperience")} →
             </TrackedLink>

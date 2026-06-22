@@ -1,4 +1,5 @@
 import { Link } from "@/lib/i18n/navigation";
+import { TextLink } from "@/components/public/text-link";
 import { getLocale, getTranslations } from "next-intl/server";
 import { StaggerContainer, StaggerItem } from "@/components/motion/fade-in-view";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
@@ -58,13 +59,13 @@ export function ArticleCard({
         {article.excerpt}
       </p>
 
-      <Link
+      <TextLink
         href={`/blog/${article.slug}`}
-        className="inline-flex items-center gap-1.5 text-sm text-accent hover:text-text-primary transition-colors mt-4 pt-4 border-t border-border"
+        showArrow
+        className="mt-4 pt-4 border-t border-border"
       >
         {readMoreLabel}
-        <span aria-hidden="true">→</span>
-      </Link>
+      </TextLink>
     </Card>
   );
 }

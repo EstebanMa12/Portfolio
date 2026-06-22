@@ -1,4 +1,4 @@
-import { Link } from "@/lib/i18n/navigation";
+import { TextLink } from "@/components/public/text-link";
 import { SectionLabel } from "@/components/public/section-label";
 import { cn } from "@/lib/utils/cn";
 
@@ -38,12 +38,9 @@ export function SectionHeader({
           ) : null}
         </div>
         {href ? (
-          <Link
-            href={href}
-            className="text-sm font-medium text-accent hover:text-text-primary transition-colors shrink-0"
-          >
+          <TextLink href={href} className="shrink-0">
             {linkLabel}
-          </Link>
+          </TextLink>
         ) : null}
       </div>
     </div>

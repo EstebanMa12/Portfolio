@@ -1,29 +1,60 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { getLocale, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { AboutCredibilityMetrics } from "@/components/about/about-credibility-metrics";
-import { AboutEvolutionPath } from "@/components/about/about-evolution-path";
-import { AboutInterests } from "@/components/about/about-interests";
 import { AboutPageAmbience } from "@/components/about/about-page-ambience";
 import { AboutStoryParagraphs } from "@/components/about/about-story-paragraphs";
-import { BioBridgeInteractive } from "@/components/about/bio-bridge-interactive";
-import { EngineeringMindset } from "@/components/about/engineering-mindset";
 import type { MindsetItem } from "@/components/about/engineering-mindset";
-import { FadeInView } from "@/components/motion/fade-in-view";
 import { PageCta } from "@/components/public/page-cta";
 import { PageHeader } from "@/components/public/page-header";
-import { SectionLabel } from "@/components/public/section-label";
+import { SectionIntro } from "@/components/public/section-intro";
 import { JsonLd } from "@/components/seo/json-ld";
 import {
   getAboutContent,
   getHeroContent,
   getPublishedProjects,
 } from "@/lib/cache/public-queries";
+import { getInterestDescriptionKey } from "@/lib/domain/about/interest-slugs";
 import { createPageMetadata } from "@/lib/domain/seo/create-page-metadata";
 import { localizedPath } from "@/lib/i18n/paths";
 import type { Locale } from "@/lib/i18n/config";
 import { getSettings } from "@/lib/repositories/seo-repo";
 import * as technologyRepo from "@/lib/repositories/technology-repo";
+
+const AboutCredibilityMetrics = dynamic(
+  () =>
+    import("@/components/about/about-credibility-metrics").then(
+      (mod) => mod.AboutCredibilityMetrics,
+    ),
+);
+
+const AboutEvolutionPath = dynamic(
+  () =>
+    import("@/components/about/about-evolution-path").then(
+      (mod) => mod.AboutEvolutionPath,
+    ),
+);
+
+const AboutInterests = dynamic(
+  () =>
+    import("@/components/about/about-interests").then(
+      (mod) => mod.AboutInterests,
+    ),
+);
+
+const BioBridgeInteractive = dynamic(
+  () =>
+    import("@/components/about/bio-bridge-interactive").then(
+      (mod) => mod.BioBridgeInteractive,
+    ),
+);
+
+const EngineeringMindset = dynamic(
+  () =>
+    import("@/components/about/engineering-mindset").then(
+      (mod) => mod.EngineeringMindset,
+    ),
+);
 
 export const revalidate = 3600;
 
@@ -64,12 +95,15 @@ export default async function AboutPage() {
     yearsSuffix: string;
   };
 
-  const interests = about.interests.map((name) => ({
-    name,
-    description: interestDescriptions[name] ?? name,
-    relatedHref: "/projects",
-    relatedLabel: t("interestsRelated"),
-  }));
+  const interests = about.interests.map((name) => {
+    const slug = getInterestDescriptionKey(name, locale);
+    return {
+      name,
+      description: interestDescriptions[slug] ?? name,
+      relatedHref: "/projects",
+      relatedLabel: t("interestsRelated"),
+    };
+  });
 
   const bioBridgeRows = about.bioBridge.map((row, index) => ({
     ...row,
@@ -121,8 +155,7 @@ export default async function AboutPage() {
             label={t("title")}
             title={about.title}
             headingId="about-heading"
-            className="mb-0"
-            titleClassName="text-3xl md:text-[2.75rem] mb-6 max-w-3xl leading-[1.15]"
+            className="mb-6"
           />
 
           <AboutEvolutionPath
@@ -156,18 +189,12 @@ export default async function AboutPage() {
             aria-labelledby="bio-bridge-heading"
             className="mb-section-gap-mobile md:mb-section-gap"
           >
-            <FadeInView duration={0.6}>
-              <SectionLabel className="mb-3">{t("bioBridgeLabel")}</SectionLabel>
-              <h2
-                id="bio-bridge-heading"
-                className="font-display text-2xl md:text-3xl font-semibold tracking-tight text-text-primary mb-4"
-              >
-                {t("bioBridgeTitle")}
-              </h2>
-              <p className="text-text-secondary text-base md:text-[17px] leading-relaxed max-w-prose mb-10">
-                {t("bioBridgeDescription")}
-              </p>
-            </FadeInView>
+            <SectionIntro
+              label={t("bioBridgeLabel")}
+              title={t("bioBridgeTitle")}
+              description={t("bioBridgeDescription")}
+              headingId="bio-bridge-heading"
+            />
 
             <BioBridgeInteractive
               rows={bioBridgeRows}

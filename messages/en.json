@@ -203,10 +203,10 @@
       }
     ],
     "interestDescriptions": {
-      "Artificial Intelligence": "Exploring models that amplify human capabilities — from applied ML to agents.",
-      "Quantum Computing": "Interest in quantum algorithms and their future impact on optimization and cryptography.",
-      "Computational Neuroscience": "A natural bridge between biological signals and distributed processing systems.",
-      "Fitness": "Measurable discipline: incremental progress, consistency, and variable optimization."
+      "ai": "Exploring models that amplify human capabilities — from applied ML to agents.",
+      "quantum": "Interest in quantum algorithms and their future impact on optimization and cryptography.",
+      "neuro": "A natural bridge between biological signals and distributed processing systems.",
+      "fitness": "Measurable discipline: incremental progress, consistency, and variable optimization."
     },
     "bioBridgeLabel": "Skill transfer",
     "bioBridgeTitle": "Bioengineering ↔ Software",

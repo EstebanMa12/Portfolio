@@ -203,10 +203,10 @@
       }
     ],
     "interestDescriptions": {
-      "Inteligencia Artificial": "Exploración de modelos que amplifican capacidades humanas — desde ML aplicado hasta agentes.",
-      "Computación Cuántica": "Interés en algoritmos cuánticos y su impacto futuro en optimización y criptografía.",
-      "Neurociencia Computacional": "Puente natural entre señales biológicas y sistemas de procesamiento distribuido.",
-      "Fitness": "Disciplina medible: progreso incremental, consistencia y optimización de variables."
+      "ai": "Exploración de modelos que amplifican capacidades humanas — desde ML aplicado hasta agentes.",
+      "quantum": "Interés en algoritmos cuánticos y su impacto futuro en optimización y criptografía.",
+      "neuro": "Puente natural entre señales biológicas y sistemas de procesamiento distribuido.",
+      "fitness": "Disciplina medible: progreso incremental, consistencia y optimización de variables."
     },
     "bioBridgeLabel": "Transferencia de skills",
     "bioBridgeTitle": "Bioingeniería ↔ Software",

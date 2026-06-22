@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
-import { Link } from "@/lib/i18n/navigation";
+import { TextLink } from "@/components/public/text-link";
 import { ArticleCard } from "@/components/public/article-card";
 import { PageCta } from "@/components/public/page-cta";
 import { PageHeader } from "@/components/public/page-header";
@@ -72,12 +72,11 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
             className="mt-10 flex items-center justify-between gap-4 text-sm"
           >
             {page > 1 ? (
-              <Link
+              <TextLink
                 href={page === 2 ? "/blog" : `/blog?page=${page - 1}`}
-                className="text-accent hover:text-text-primary transition-colors"
               >
                 ← {t("paginationPrev")}
-              </Link>
+              </TextLink>
             ) : (
               <span />
             )}
@@ -85,12 +84,9 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
               {t("pageOf", { page, total: totalPages })} · {total}
             </span>
             {page < totalPages ? (
-              <Link
-                href={`/blog?page=${page + 1}`}
-                className="text-accent hover:text-text-primary transition-colors"
-              >
+              <TextLink href={`/blog?page=${page + 1}`}>
                 {t("paginationNext")} →
-              </Link>
+              </TextLink>
             ) : (
               <span />
             )}
