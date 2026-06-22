@@ -38,7 +38,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         >
           {tSections("labTitle")}
         </h1>
-        <p className="mt-3 text-text-secondary max-w-prose leading-relaxed">
+        <p className="mt-3 text-text-secondary max-w-prose leading-relaxed mb-10">
           {tSections("labDescription")}
         </p>
       </RevealOnScroll>

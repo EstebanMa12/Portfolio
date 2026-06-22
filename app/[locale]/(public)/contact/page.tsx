@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { ContactCard } from "@/components/public/contact-card";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
@@ -20,7 +20,6 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function ContactPage() {
   const locale = (await getLocale()) as Locale;
-  const t = await getTranslations({ locale, namespace: "contact" });
   const contact = await getContactContent(locale);
 
   if (!contact) {
@@ -29,11 +28,8 @@ export default async function ContactPage() {
 
   return (
     <section aria-labelledby="contact-heading" className="py-8">
-      <h1 id="contact-heading" className="sr-only">
-        {t("title")}
-      </h1>
       <RevealOnScroll>
-        <ContactCard contact={contact} />
+        <ContactCard contact={contact} headingLevel="h1" headingId="contact-heading" />
       </RevealOnScroll>
     </section>
   );

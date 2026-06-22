@@ -9,6 +9,11 @@ import { cn } from "@/lib/utils/cn";
 
 export type FadeDirection = "up" | "down" | "left" | "right" | "none";
 
+/** Shared motion tokens — used across About and scroll-reveal sections. */
+export const MOTION_EASE = [0.22, 1, 0.36, 1] as const;
+export const MOTION_DURATION = 0.65;
+export const MOTION_STAGGER = 0.08;
+
 const directionOffset: Record<FadeDirection, { x: number; y: number }> = {
   up: { x: 0, y: 24 },
   down: { x: 0, y: -24 },
@@ -32,7 +37,7 @@ export function FadeInView({
   className,
   direction = "up",
   delay = 0,
-  duration = 0.6,
+  duration = MOTION_DURATION,
   amount = 0.15,
   once = true,
 }: FadeInViewProps) {
@@ -54,7 +59,7 @@ export function FadeInView({
       transition: {
         duration,
         delay,
-        ease: [0.22, 1, 0.36, 1],
+        ease: MOTION_EASE,
       },
     },
   };
@@ -83,7 +88,7 @@ type StaggerContainerProps = {
 export function StaggerContainer({
   children,
   className,
-  stagger = 0.1,
+  stagger = MOTION_STAGGER,
   delayChildren = 0,
   amount = 0.12,
 }: StaggerContainerProps) {
@@ -136,7 +141,7 @@ export function StaggerItem({
           opacity: 1,
           y: 0,
           x: 0,
-          transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+          transition: { duration: MOTION_DURATION, ease: MOTION_EASE },
         },
       }}
     >

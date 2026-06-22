@@ -2,21 +2,25 @@ import { Link } from "@/lib/i18n/navigation";
 import { SectionLabel } from "@/components/public/section-label";
 import { cn } from "@/lib/utils/cn";
 
-type SectionHeaderProps = {
+type SectionHeaderBaseProps = {
   label: string;
   title: string;
   description?: string;
-  href?: string;
-  linkLabel?: string;
   className?: string;
 };
+
+type SectionHeaderProps = SectionHeaderBaseProps &
+  (
+    | { href?: undefined; linkLabel?: undefined }
+    | { href: string; linkLabel: string }
+  );
 
 export function SectionHeader({
   label,
   title,
   description,
   href,
-  linkLabel = "Ver todos →",
+  linkLabel,
   className,
 }: SectionHeaderProps) {
   return (

@@ -18,6 +18,7 @@ export function MobileNav() {
   const menuRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const t = useTranslations("nav");
+  const tDock = useTranslations("dock");
   const tA11y = useTranslations("a11y");
 
   const closeMenu = useCallback(() => {
@@ -117,7 +118,7 @@ export function MobileNav() {
                 className="text-text-secondary hover:text-text-primary text-sm font-medium"
                 onClick={closeMenu}
               >
-                GitHub
+                {tDock("github")}
               </a>
               <a
                 href={SOCIAL_LINKS.linkedin}
@@ -126,7 +127,7 @@ export function MobileNav() {
                 className="text-text-secondary hover:text-text-primary text-sm font-medium"
                 onClick={closeMenu}
               >
-                LinkedIn
+                {tDock("linkedin")}
               </a>
             </div>
             <div className="mt-4">

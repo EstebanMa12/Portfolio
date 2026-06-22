@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
 import { motion } from "framer-motion";
 import { FadeInView } from "@/components/motion/fade-in-view";
 import { cn } from "@/lib/utils/cn";

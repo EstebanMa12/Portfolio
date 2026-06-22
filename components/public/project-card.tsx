@@ -117,7 +117,7 @@ export async function ProjectGrid({ projects }: ProjectGridProps) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {projects.map((project, index) => (
-        <RevealOnScroll key={project.id} delay={index * 90}>
+        <RevealOnScroll key={project.id} delay={index * 80}>
           <ProjectCard
             project={project}
             githubLabel={t("github")}

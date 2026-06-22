@@ -5,16 +5,27 @@ import type { ContactContent } from "@/lib/schemas/page-content";
 
 type ContactCardProps = {
   contact: ContactContent;
+  /** Use h2 when embedded in home (hero already owns the page h1). */
+  headingLevel?: "h1" | "h2";
+  headingId?: string;
 };
 
-export async function ContactCard({ contact }: Readonly<ContactCardProps>) {
+export async function ContactCard({
+  contact,
+  headingLevel = "h2",
+  headingId,
+}: Readonly<ContactCardProps>) {
   const t = await getTranslations("contact");
+  const Heading = headingLevel;
 
   return (
     <div className="card text-center py-12 md:py-16 px-6 max-w-2xl mx-auto">
-      <h1 className="font-display text-2xl md:text-3xl font-semibold tracking-tight text-text-primary mb-4">
+      <Heading
+        id={headingId}
+        className="font-display text-2xl md:text-3xl font-semibold tracking-tight text-text-primary mb-4"
+      >
         {contact.title}
-      </h1>
+      </Heading>
       <p className="text-text-secondary text-base max-w-prose mx-auto mb-8 leading-relaxed">
         {contact.description}
       </p>

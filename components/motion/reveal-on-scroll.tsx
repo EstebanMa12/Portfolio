@@ -1,26 +1,27 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
-import { cn } from "@/lib/utils/cn";
+import type { ReactNode } from "react";
+import {
+  FadeInView,
+  MOTION_DURATION,
+  type FadeDirection,
+} from "@/components/motion/fade-in-view";
 
-export type RevealDirection = "up" | "down" | "left" | "right" | "none";
+export type RevealDirection = FadeDirection;
 
-const directionClass: Record<RevealDirection, string> = {
-  up: "reveal-from-up",
-  down: "reveal-from-down",
-  left: "reveal-from-left",
-  right: "reveal-from-right",
-  none: "reveal-from-none",
-};
+/** Default scroll-reveal timing — aligned with About page (`FadeInView`). */
+export const REVEAL_DURATION = MOTION_DURATION;
+export const REVEAL_STAGGER_MS = 80;
 
 type RevealOnScrollProps = {
   children: ReactNode;
   className?: string;
+  /** Delay in milliseconds (80 ≈ About stagger step). */
   delay?: number;
   direction?: RevealDirection;
   once?: boolean;
   amount?: number;
+  duration?: number;
 };
 
 export function RevealOnScroll({
@@ -29,52 +30,19 @@ export function RevealOnScroll({
   delay = 0,
   direction = "up",
   once = true,
-  amount = 0.12,
+  amount = 0.15,
+  duration = REVEAL_DURATION,
 }: RevealOnScrollProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const reducedMotion = usePrefersReducedMotion();
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    if (reducedMotion) return;
-
-    const node = ref.current;
-    if (!node) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (!entry) return;
-
-        if (entry.isIntersecting) {
-          setVisible(true);
-          if (once) observer.disconnect();
-        } else if (!once) {
-          setVisible(false);
-        }
-      },
-      {
-        threshold: amount,
-        rootMargin: "0px 0px -8% 0px",
-      },
-    );
-
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, [reducedMotion, once, amount]);
-
   return (
-    <div
-      ref={ref}
-      className={cn(
-        "reveal-on-scroll",
-        directionClass[direction],
-        (visible || reducedMotion) && "is-visible",
-        className,
-      )}
-      style={delay > 0 ? { transitionDelay: `${delay}ms` } : undefined}
+    <FadeInView
+      className={className}
+      direction={direction}
+      delay={delay / 1000}
+      duration={duration}
+      amount={amount}
+      once={once}
     >
       {children}
-    </div>
+    </FadeInView>
   );
 }

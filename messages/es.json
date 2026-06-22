@@ -13,7 +13,7 @@
     "projects": "Proyectos",
     "experience": "Experiencia",
     "lab": "The Lab",
-    "skills": "Skills",
+    "skills": "Competencias",
     "contact": "Contacto",
     "github": "GitHub",
     "linkedin": "LinkedIn",
@@ -70,7 +70,7 @@
     "viewExperience": "Ver experiencia"
   },
   "footer": {
-    "tagline": "Software Engineer",
+    "tagline": "Ingeniero de software",
     "internalNav": "Navegación",
     "socialNav": "Redes sociales"
   },
@@ -96,7 +96,7 @@
     "technologiesCount": "{count} tecnologías",
     "categoryTechCount": "{count, plural, one {# tecnología} other {# tecnologías}}",
     "softSkillsTitle": "Soft skills",
-    "sectionLabel": "Skills",
+    "sectionLabel": "Competencias",
     "sectionTitle": "Stack tecnológico e impacto",
     "radarDescription": "Profundidad técnica por dominio",
     "radarImageTitle": "Matriz de habilidades técnicas",
