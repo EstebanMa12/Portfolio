@@ -4,6 +4,11 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { requireAdmin } from "@/lib/auth/require-admin";
 import {
+  MediaValidationError,
+  uploadImage,
+  uploadPdf,
+} from "@/lib/domain/media/media-service";
+import {
   achievementItemSchema,
   achievementsContentSchema,
 } from "@/lib/schemas/page-content";
@@ -27,6 +32,7 @@ function parseItems(formData: FormData) {
   const metas = formData.getAll("itemMeta").map(String);
   const badges = formData.getAll("itemBadge").map(String);
   const urls = formData.getAll("itemUrl").map(String);
+  const imageUrls = formData.getAll("itemImageUrl").map(String);
 
   return titles
     .map((title, index) =>
@@ -35,9 +41,42 @@ function parseItems(formData: FormData) {
         meta: metas[index]?.trim() ?? "",
         badge: badges[index],
         url: emptyToNull(urls[index] ?? null),
+        imageUrl: emptyToNull(imageUrls[index] ?? null),
       }),
     )
     .filter((item) => item.title && item.meta);
+}
+
+export async function uploadCertificationAsset(
+  _prev: ActionState,
+  formData: FormData,
+): Promise<ActionState & { url?: string; kind?: "image" | "pdf" }> {
+  await requireAdmin();
+
+  const file = formData.get("file");
+  if (!(file instanceof File) || file.size === 0) {
+    return { error: "Selecciona un archivo." };
+  }
+
+  const altText = String(formData.get("altText") ?? "");
+
+  try {
+    if (file.type === "application/pdf") {
+      const { publicUrl } = await uploadPdf(file, altText);
+      return { success: "Diploma subido.", url: publicUrl, kind: "pdf" };
+    }
+
+    const { publicUrl } = await uploadImage(file, altText);
+    return { success: "Imagen subida.", url: publicUrl, kind: "image" };
+  } catch (error) {
+    if (error instanceof MediaValidationError) {
+      return { error: error.message };
+    }
+    return {
+      error:
+        error instanceof Error ? error.message : "Error al subir el archivo.",
+    };
+  }
 }
 
 export async function updateCertificationsContent(

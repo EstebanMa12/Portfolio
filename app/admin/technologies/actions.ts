@@ -4,6 +4,10 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { requireAdmin } from "@/lib/auth/require-admin";
 import { ensureUniqueSlug } from "@/lib/domain/content/content-service";
+import {
+  MediaValidationError,
+  uploadImage,
+} from "@/lib/domain/media/media-service";
 import { technologyInsertSchema } from "@/lib/schemas/technology";
 import * as technologyRepo from "@/lib/repositories/technology-repo";
 import { revalidateEntity } from "@/lib/revalidate";
@@ -128,4 +132,31 @@ export async function deleteTechnology(id: string): Promise<ActionState> {
 export async function suggestTechnologySlug(name: string) {
   await requireAdmin();
   return ensureUniqueSlug(name, "technology");
+}
+
+export async function uploadTechnologyIcon(
+  _prev: ActionState,
+  formData: FormData,
+): Promise<ActionState & { url?: string }> {
+  await requireAdmin();
+
+  const file = formData.get("file");
+  if (!(file instanceof File) || file.size === 0) {
+    return { error: "Selecciona una imagen." };
+  }
+
+  const altText = String(formData.get("altText") ?? "");
+
+  try {
+    const { publicUrl } = await uploadImage(file, altText);
+    return { success: "Icono subido.", url: publicUrl };
+  } catch (error) {
+    if (error instanceof MediaValidationError) {
+      return { error: error.message };
+    }
+    return {
+      error:
+        error instanceof Error ? error.message : "Error al subir el icono.",
+    };
+  }
 }

@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/lib/i18n/navigation";
-import { CertBadge } from "@/components/public/cert-badge";
+import { CertificationBadge } from "@/components/public/certification-badge";
 import { SectionLabel } from "@/components/public/section-label";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
 import type {
@@ -25,7 +25,7 @@ function CertCardBody({ item }: Readonly<{ item: AchievementItem }>) {
         <h3 className="cert-card-title">{item.title}</h3>
         <p className="cert-card-meta">{item.meta}</p>
       </div>
-      <CertBadge variant={item.badge} />
+      <CertificationBadge item={item} />
     </>
   );
 }

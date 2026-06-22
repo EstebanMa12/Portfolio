@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { TechnologyIcon } from "@/components/ui/technology-icon";
 import { useCallback, useId, useState } from "react";
 import { useTranslations } from "next-intl";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
@@ -122,12 +122,11 @@ function TechChip({
     >
       <span className="tech-chip-icon" aria-hidden="true">
         {tech.iconUrl ? (
-          <Image
+          <TechnologyIcon
             src={tech.iconUrl}
-            alt=""
             width={20}
             height={20}
-            className="w-5 h-5 object-contain"
+            className="w-5 h-5"
           />
         ) : (
           <span className="tech-chip-initial">{initials}</span>
