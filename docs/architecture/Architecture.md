@@ -987,7 +987,7 @@ CREATE TABLE seo_settings (
 |-----------|------------|
 | **URLs** | Sitemap paginado si > 1000 URLs (improbable antes de v2) |
 | **Blog** | Paginación `/blog?page=2`; canonical a page 1 para filters |
-| **i18n (v1.2)** | Subpath `/en/*`; hreflang tags; sitemap por locale |
+| **i18n** | Subpath `/en/*` (next-intl); hreflang en metadata; sitemap por locale; CMS con `locale` en `page_content`, `articles`, `projects`, `experiences`, `seo_settings` |
 | **OG images** | v1.2: `@vercel/og` dynamic generation; cache en CDN |
 
 ### 11.6 Escalabilidad operativa

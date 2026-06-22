@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { httpUrlSchema, optionalHttpUrlSchema } from "@/lib/schemas/common";
 
 const metricSchema = z.object({
   label: z.string().min(1),
@@ -16,11 +17,11 @@ export const heroContentSchema = z.object({
     label: z.string(),
     visible: z.boolean(),
   }),
-  photoUrl: z.string().url(),
+  photoUrl: httpUrlSchema,
   cvUrl: z.string(),
   socialLinks: z.object({
-    github: z.string().url(),
-    linkedin: z.string().url(),
+    github: httpUrlSchema,
+    linkedin: httpUrlSchema,
     email: z.string().email(),
   }),
   metrics: z.array(metricSchema),
@@ -50,25 +51,58 @@ export const contactContentSchema = z.object({
   title: z.string().min(1),
   description: z.string(),
   email: z.string().email(),
-  linkedin: z.string().url(),
-  github: z.string().url(),
+  linkedin: httpUrlSchema,
+  github: httpUrlSchema,
 });
 
-export const pageContentIdSchema = z.enum(["hero", "about", "contact"]);
+export const achievementBadgeSchema = z.enum([
+  "degree",
+  "aws",
+  "terraform",
+  "kubernetes",
+  "award",
+  "speaker",
+  "opensource",
+]);
+
+export const achievementItemSchema = z.object({
+  title: z.string().min(1),
+  meta: z.string().min(1),
+  badge: achievementBadgeSchema,
+  url: optionalHttpUrlSchema,
+});
+
+export const achievementsContentSchema = z.object({
+  label: z.string().min(1),
+  title: z.string().min(1),
+  items: z.array(achievementItemSchema),
+});
+
+export const pageContentIdSchema = z.enum([
+  "hero",
+  "about",
+  "contact",
+  "achievements",
+]);
 
 export const pageContentSchemas = {
   hero: heroContentSchema,
   about: aboutContentSchema,
   contact: contactContentSchema,
+  achievements: achievementsContentSchema,
 } as const;
 
 export type PageContentId = z.infer<typeof pageContentIdSchema>;
 export type HeroContent = z.infer<typeof heroContentSchema>;
 export type AboutContent = z.infer<typeof aboutContentSchema>;
 export type ContactContent = z.infer<typeof contactContentSchema>;
+export type AchievementBadge = z.infer<typeof achievementBadgeSchema>;
+export type AchievementItem = z.infer<typeof achievementItemSchema>;
+export type AchievementsContent = z.infer<typeof achievementsContentSchema>;
 
 export type PageContentMap = {
   hero: HeroContent;
   about: AboutContent;
   contact: ContactContent;
+  achievements: AchievementsContent;
 };

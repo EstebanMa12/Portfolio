@@ -1,11 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useId, useRef, useState } from "react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { LocaleSwitcher } from "@/components/i18n/locale-switcher";
 import { SOCIAL_LINKS } from "@/lib/config/site";
 import { Button } from "./button";
 import { CloseIcon, MenuIcon } from "./icons";
 import { NavLinks } from "./nav-links";
+import { ThemeToggle } from "./theme-toggle";
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
@@ -15,11 +17,25 @@ export function MobileNav() {
   const menuId = useId();
   const menuRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
+  const t = useTranslations("nav");
+  const tDock = useTranslations("dock");
+  const tA11y = useTranslations("a11y");
 
   const closeMenu = useCallback(() => {
     setOpen(false);
     toggleRef.current?.focus();
   }, []);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;
@@ -65,54 +81,66 @@ export function MobileNav() {
         className="md:hidden flex items-center justify-center w-11 h-11 rounded-lg border border-border text-text-primary"
         aria-expanded={open}
         aria-controls={menuId}
-        aria-label={open ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
+        aria-label={open ? tA11y("closeMenu") : tA11y("openMenu")}
         onClick={() => setOpen((prev) => !prev)}
       >
         {open ? <CloseIcon /> : <MenuIcon />}
       </button>
 
       {open ? (
-        <nav
-          id={menuId}
-          ref={menuRef}
-          aria-label="Menú móvil"
-          className="md:hidden absolute inset-x-0 top-16 border-t border-border bg-bg px-gutter py-4"
-        >
-          <NavLinks
-            className="flex-col gap-1"
-            linkClassName="block py-3 px-2 text-base"
-            onNavigate={closeMenu}
+        <>
+          <button
+            type="button"
+            className="md:hidden fixed inset-0 top-16 z-40 bg-bg/75 backdrop-blur-sm"
+            aria-label={tA11y("closeMenu")}
+            onClick={closeMenu}
           />
-          <div className="flex gap-4 mt-4 pt-4 border-t border-border">
-            <Link
-              href={SOCIAL_LINKS.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-text-secondary hover:text-text-primary text-sm font-medium"
-              onClick={closeMenu}
-            >
-              GitHub
-            </Link>
-            <Link
-              href={SOCIAL_LINKS.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-text-secondary hover:text-text-primary text-sm font-medium"
-              onClick={closeMenu}
-            >
-              LinkedIn
-            </Link>
-          </div>
-          <div className="mt-4">
-            <Button
-              href="/contact"
-              className="w-full text-sm px-5"
-              onClick={closeMenu}
-            >
-              Contactar
-            </Button>
-          </div>
-        </nav>
+          <nav
+            id={menuId}
+            ref={menuRef}
+            aria-label={tA11y("mobileMenu")}
+            className="md:hidden absolute inset-x-0 top-16 z-50 border-t border-border bg-bg/98 backdrop-blur-md px-gutter py-4 shadow-[0_24px_48px_rgba(0,0,0,0.18)] dark:shadow-[0_24px_48px_rgba(0,0,0,0.45)]"
+          >
+            <NavLinks
+              className="flex-col gap-1"
+              linkClassName="block py-3 px-2 text-base"
+              onNavigate={closeMenu}
+            />
+            <div className="flex items-center gap-4 mt-4 pt-4 border-t border-border">
+              <LocaleSwitcher />
+              <ThemeToggle />
+            </div>
+            <div className="flex gap-4 mt-4 pt-4 border-t border-border">
+              <a
+                href={SOCIAL_LINKS.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-text-secondary hover:text-text-primary text-sm font-medium"
+                onClick={closeMenu}
+              >
+                {tDock("github")}
+              </a>
+              <a
+                href={SOCIAL_LINKS.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-text-secondary hover:text-text-primary text-sm font-medium"
+                onClick={closeMenu}
+              >
+                {tDock("linkedin")}
+              </a>
+            </div>
+            <div className="mt-4">
+              <Button
+                href="/contact"
+                className="w-full text-sm px-5"
+                onClick={closeMenu}
+              >
+                {t("contactCta")}
+              </Button>
+            </div>
+          </nav>
+        </>
       ) : null}
     </>
   );

@@ -1,0 +1,292 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "about": "Sobre mí",
+    "experience": "Experiencia",
+    "projects": "Proyectos",
+    "blog": "The Lab",
+    "contact": "Contacto",
+    "contactCta": "Contactar"
+  },
+  "dock": {
+    "home": "Inicio",
+    "projects": "Proyectos",
+    "experience": "Experiencia",
+    "lab": "The Lab",
+    "skills": "Competencias",
+    "contact": "Contacto",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "downloadCv": "Descargar CV",
+    "quickAccess": "Accesos rápidos",
+    "sideNav": "Navegación lateral",
+    "socialNav": "Redes sociales"
+  },
+  "theme": {
+    "toggle": "Cambiar tema",
+    "system": "Tema: sistema",
+    "dark": "Tema: oscuro",
+    "light": "Tema: claro"
+  },
+  "locale": {
+    "switchToEn": "English",
+    "switchToEs": "Español",
+    "label": "Idioma"
+  },
+  "a11y": {
+    "skipToContent": "Saltar al contenido principal",
+    "mainNav": "Principal",
+    "mobileMenu": "Menú móvil",
+    "openMenu": "Abrir menú de navegación",
+    "closeMenu": "Cerrar menú de navegación",
+    "breadcrumb": "Breadcrumb",
+    "impactMetrics": "Métricas de impacto profesional",
+    "metricsHighlight": "Métricas de impacto",
+    "certCarousel": "Carrusel de certificaciones. Desliza horizontalmente para ver más.",
+    "homeContact": "Contacto"
+  },
+  "sections": {
+    "projectsLabel": "Proyectos",
+    "projectsTitle": "Trabajo seleccionado",
+    "projectsLink": "Ver todos →",
+    "labLabel": "The Lab",
+    "labTitle": "Notas técnicas y exploración",
+    "labDescription": "Reflexiones sobre arquitectura, sistemas y la intersección entre ciencia y código.",
+    "labLink": "Ver blog →",
+    "experienceLabel": "Experiencia",
+    "experienceTitle": "Trayectoria profesional",
+    "experienceDescription": "Rol actual y highlights recientes de mi carrera.",
+    "experienceLink": "Ver experiencia completa →",
+    "seeAll": "Ver todos →"
+  },
+  "cta": {
+    "nextStep": "¿Siguiente paso?",
+    "defaultDescription": "Explora más contenido o ponte en contacto.",
+    "aboutDescription": "Explora mi trayectoria técnica o escríbeme directamente.",
+    "blogDescription": "¿Te interesa colaborar o ver más trabajo en producción?",
+    "contact": "Contactar",
+    "viewProjects": "Ver proyectos",
+    "viewExperience": "Ver experiencia"
+  },
+  "hero": {
+    "profilePhotoAlt": "Foto de perfil de {name}, {role}",
+    "viewExperience": "Ver experiencia"
+  },
+  "footer": {
+    "tagline": "Ingeniero de software",
+    "internalNav": "Navegación",
+    "socialNav": "Redes sociales"
+  },
+  "skills": {
+    "categories": {
+      "language": "Backend",
+      "framework": "Frontend",
+      "infra": "Infra / DevOps",
+      "database": "Bases de datos",
+      "tool": "Herramientas"
+    },
+    "softSkills": [
+      "Pensamiento analítico",
+      "Resolución de problemas",
+      "Aprendizaje continuo",
+      "Comunicación técnica",
+      "Trabajo en equipo"
+    ],
+    "radarTitle": "Perfil técnico",
+    "stackTitle": "Stack principal",
+    "stackByCategoryTitle": "Stack por categoría",
+    "stackByCategoryDescription": "Explora las tecnologías agrupadas por dominio.",
+    "technologiesCount": "{count} tecnologías",
+    "categoryTechCount": "{count, plural, one {# tecnología} other {# tecnologías}}",
+    "softSkillsTitle": "Soft skills",
+    "sectionLabel": "Competencias",
+    "sectionTitle": "Stack tecnológico e impacto",
+    "radarDescription": "Profundidad técnica por dominio",
+    "radarImageTitle": "Matriz de habilidades técnicas",
+    "explorationTitle": "Exploración"
+  },
+  "blog": {
+    "title": "The Lab",
+    "description": "Notas técnicas sobre arquitectura, sistemas y DevOps.",
+    "empty": "Aún no hay artículos publicados.",
+    "readMore": "Leer artículo",
+    "backToBlog": "← Volver al blog",
+    "paginationPrev": "Anterior",
+    "paginationNext": "Siguiente",
+    "pageOf": "Página {page} de {total}",
+    "readingTime": "{minutes} min",
+    "noDate": "Sin fecha",
+    "paginationAria": "Paginación del blog"
+  },
+  "projects": {
+    "title": "Proyectos",
+    "description": "Case studies de backend, sistemas distribuidos e infraestructura.",
+    "empty": "No hay proyectos publicados todavía.",
+    "viewCase": "Ver case study",
+    "problem": "Problema",
+    "solution": "Solución",
+    "stack": "Stack",
+    "result": "Resultado",
+    "github": "GitHub",
+    "demo": "Demo",
+    "carouselPrev": "Imagen anterior",
+    "carouselNext": "Imagen siguiente",
+    "carouselSlideOf": "Imagen {current} de {total}",
+    "noPreview": "Vista previa no disponible para {title}",
+    "featured": "Destacado",
+    "withoutGallery": "Opcional: imágenes para la galería del listado. Sin ellas se muestra un placeholder."
+  },
+  "experience": {
+    "title": "Experiencia",
+    "description": "Timeline profesional, roles y tecnologías.",
+    "present": "Presente",
+    "empty": "No hay experiencias registradas.",
+    "currentRole": "Rol actual",
+    "stack": "Stack",
+    "summaryLabel": "Resumen de trayectoria",
+    "yearsInIndustry": "Años en la industria",
+    "roles": "Roles",
+    "technologiesUsed": "Tecnologías",
+    "durationYears": "{count, plural, one {# año} other {# años}}",
+    "durationMonths": "{count, plural, one {# mes} other {# meses}}",
+    "durationMixed": "{years} · {months}",
+    "timelineLabel": "Trayectoria profesional",
+    "moreTechnologies": "+{count} más",
+    "roleNavLabel": "Saltar a rol",
+    "expandRole": "Ver detalle",
+    "collapseRole": "Ocultar detalle",
+    "showLessTech": "Ver menos tecnologías"
+  },
+  "about": {
+    "title": "Sobre mí",
+    "description": "Conoce mi trayectoria, formación en Bioingeniería y enfoque en sistemas.",
+    "interests": "Intereses",
+    "interestsRelated": "Ver proyectos",
+    "evolutionLabel": "Evolución profesional",
+    "evolutionFrom": "Bioingeniería",
+    "evolutionTo": "Software Engineering",
+    "evolutionFromDetail": "Modelado de sistemas biológicos, señales y rigor experimental.",
+    "evolutionToDetail": "Backend, platform engineering y arquitectura de sistemas distribuidos.",
+    "metricsAria": "Métricas de credibilidad profesional",
+    "metrics": {
+      "yearsCoding": "Años programando",
+      "projects": "Proyectos desarrollados",
+      "technologies": "Tecnologías dominadas",
+      "specializations": "Áreas de especialización"
+    },
+    "metricsValues": {
+      "yearsCoding": 5,
+      "yearsSuffix": "+"
+    },
+    "mindsetLabel": "Filosofía",
+    "mindsetTitle": "Cómo pienso como ingeniero",
+    "mindsetDescription": "Los mismos principios que aplicaba en el laboratorio guían cómo diseño, valido y opero software en producción.",
+    "mindsetBioLabel": "En ciencia",
+    "mindsetSoftwareLabel": "En software",
+    "mindsetItems": [
+      {
+        "title": "Pensamiento sistémico",
+        "bioContext": "Analizo interacciones entre variables, feedback loops y efectos emergentes en sistemas biológicos.",
+        "softwareContext": "Diseño servicios con límites claros, contratos explícitos y dependencias conscientes."
+      },
+      {
+        "title": "Modelado de sistemas complejos",
+        "bioContext": "Construyo modelos que simplifican la realidad sin perder las variables que importan.",
+        "softwareContext": "Traduzco dominios de negocio en arquitecturas modulares, event-driven y escalables."
+      },
+      {
+        "title": "Validación experimental",
+        "bioContext": "Formulo hipótesis, diseño experimentos controlados y mido resultados reproducibles.",
+        "softwareContext": "Automatizo tests, CI/CD y entornos reproducibles antes de cada deploy."
+      },
+      {
+        "title": "Diseño orientado a evidencia",
+        "bioContext": "Tomo decisiones basadas en datos, no en intuición — especialmente con señal ruidosa.",
+        "softwareContext": "Priorizo observabilidad, métricas de negocio y SLOs para guiar iteraciones."
+      }
+    ],
+    "interestDescriptions": {
+      "ai": "Exploración de modelos que amplifican capacidades humanas — desde ML aplicado hasta agentes.",
+      "quantum": "Interés en algoritmos cuánticos y su impacto futuro en optimización y criptografía.",
+      "neuro": "Puente natural entre señales biológicas y sistemas de procesamiento distribuido.",
+      "fitness": "Disciplina medible: progreso incremental, consistencia y optimización de variables."
+    },
+    "bioBridgeLabel": "Transferencia de skills",
+    "bioBridgeTitle": "Bioingeniería ↔ Software",
+    "bioBridgeDescription": "Mi formación científica se traduce directamente en cómo diseño, valido y opero sistemas de software en producción.",
+    "bioBridgeFrom": "Bioingeniería",
+    "bioBridgeTo": "Software",
+    "bioBridgeTooltips": [
+      "El rigor del procesamiento de señales biológicas se traduce en pipelines de datos robustos y event streams en tiempo real.",
+      "Modelar sistemas biológicos complejos es equivalente a diseñar microservicios con límites claros y acoplamiento bajo.",
+      "La validación experimental en laboratorio es el mismo mindset detrás de testing automatizado y CI/CD.",
+      "El análisis estadístico de datos ruidosos se convierte en observabilidad, métricas y análisis de rendimiento."
+    ]
+  },
+  "contact": {
+    "title": "Contacto",
+    "description": "Ponte en contacto para oportunidades profesionales.",
+    "email": "Email",
+    "linkedin": "LinkedIn",
+    "github": "GitHub",
+    "copyEmail": "Copiar email",
+    "copied": "Copiado"
+  },
+  "author": {
+    "label": "Autor",
+    "bio": "Software Engineer especializado en backend y sistemas distribuidos.",
+    "about": "Sobre mí",
+    "contact": "Contactar"
+  },
+  "achievements": {
+    "carouselHint": "Desliza horizontalmente para explorar · Hover para destacar",
+    "viewCredential": "Ver credencial"
+  },
+  "home": {
+    "title": "Inicio",
+    "description": "Portafolio profesional de Esteban Maya — Software Engineer."
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "description": "La página que buscas no existe.",
+    "backHome": "Volver al inicio",
+    "exploreProjects": "Ver proyectos",
+    "exploreBlog": "Ir al blog",
+    "getInTouch": "Contactar"
+  },
+  "error": {
+    "label": "Error",
+    "title": "Algo salió mal",
+    "description": "Ocurrió un error inesperado. Puedes intentar de nuevo.",
+    "retry": "Reintentar",
+    "backHome": "Volver al inicio"
+  },
+  "seo": {
+    "pages": {
+      "/": {
+        "title": "Inicio",
+        "description": "Portafolio profesional de Esteban Maya — Software Engineer."
+      },
+      "/about": {
+        "title": "Sobre mí",
+        "description": "Conoce mi trayectoria, formación en Bioingeniería y enfoque en sistemas."
+      },
+      "/experience": {
+        "title": "Experiencia",
+        "description": "Timeline profesional, roles y tecnologías."
+      },
+      "/projects": {
+        "title": "Proyectos",
+        "description": "Case studies de backend, sistemas distribuidos e infraestructura."
+      },
+      "/blog": {
+        "title": "Blog",
+        "description": "The Lab — notas técnicas sobre arquitectura, sistemas y DevOps."
+      },
+      "/contact": {
+        "title": "Contacto",
+        "description": "Ponte en contacto para oportunidades profesionales."
+      }
+    }
+  }
+}

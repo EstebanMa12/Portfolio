@@ -1,13 +1,24 @@
 import type { Database } from "@/types/database";
 import type { Article } from "@/lib/schemas/article";
 import type { Experience, ExperienceWithTechnologies } from "@/lib/schemas/experience";
-import type { Project, ProjectWithTechnologies } from "@/lib/schemas/project";
+import type {
+  Project,
+  ProjectImage,
+  ProjectWithTechnologies,
+} from "@/lib/schemas/project";
+import { projectWithTechnologiesSchema } from "@/lib/schemas/project";
+import type { Locale } from "@/lib/i18n/config";
 import type { Technology } from "@/lib/schemas/technology";
 import type { MediaAsset } from "@/lib/schemas/media";
 
 type TechnologyRow = Database["public"]["Tables"]["technologies"]["Row"];
 type ExperienceRow = Database["public"]["Tables"]["experiences"]["Row"];
 type ProjectRow = Database["public"]["Tables"]["projects"]["Row"];
+type ProjectImageRow = Database["public"]["Tables"]["project_images"]["Row"];
+type ProjectImageJoinRow = Pick<
+  ProjectImageRow,
+  "id" | "image_url" | "alt_text" | "sort_order"
+>;
 type ArticleRow = Database["public"]["Tables"]["articles"]["Row"];
 type MediaAssetRow = Database["public"]["Tables"]["media_assets"]["Row"];
 
@@ -38,11 +49,21 @@ export function mapExperience(row: ExperienceRow): Experience {
   };
 }
 
+export function mapProjectImage(row: ProjectImageJoinRow): ProjectImage {
+  return {
+    id: row.id,
+    imageUrl: row.image_url,
+    altText: row.alt_text,
+    sortOrder: row.sort_order,
+  };
+}
+
 export function mapProject(row: ProjectRow): Project {
   return {
     id: row.id,
     title: row.title,
     slug: row.slug,
+    locale: row.locale as Locale,
     category: row.category,
     problem: row.problem,
     solution: row.solution,
@@ -104,6 +125,7 @@ type ExperienceWithJoin = ExperienceRow & {
 
 type ProjectWithJoin = ProjectRow & {
   project_technologies: Array<{ technologies: TechnologyRow | null }>;
+  project_images?: ProjectImageJoinRow[];
 };
 
 export function mapExperienceWithTechnologies(
@@ -123,13 +145,18 @@ export function mapExperienceWithTechnologies(
 export function mapProjectWithTechnologies(
   row: ProjectWithJoin,
 ): ProjectWithTechnologies {
-  const technologies = row.project_technologies
+  const technologies = (row.project_technologies ?? [])
     .map((link) => link.technologies)
     .filter((tech): tech is TechnologyRow => tech !== null)
     .map(mapTechnology);
 
-  return {
+  const images = (row.project_images ?? [])
+    .map(mapProjectImage)
+    .sort((a, b) => a.sortOrder - b.sortOrder);
+
+  return projectWithTechnologiesSchema.parse({
     ...mapProject(row),
     technologies,
-  };
+    images,
+  });
 }

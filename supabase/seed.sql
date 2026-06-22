@@ -19,12 +19,12 @@ INSERT INTO page_content (id, data) VALUES
     "subheadline": "Disponible para oportunidades · Software Engineer",
     "bio": "Ingeniero con formación en Bioingeniería. Diseño y construyo sistemas escalables con enfoque en calidad, observabilidad e impacto medible.",
     "availability": { "label": "Disponible para oportunidades", "visible": true },
-    "photoUrl": "https://cvvimcxjkdbzqtncflro.supabase.co/storage/v1/object/public/media/WhatsApp%20Image%202026-06-20%20at%206.22.56%20PM%20(1).jpeg",
+    "photoUrl": "https://cvvimcxjkdbzqtncflro.supabase.co/storage/v1/object/public/media/HeroImage.png",
     "cvUrl": "",
     "socialLinks": {
       "github": "https://github.com/EstebanMa12",
-      "linkedin": "https://linkedin.com/in/estebanmaya",
-      "email": "hello@estebanmaya.dev"
+      "linkedin": "https://www.linkedin.com/in/estebanmaya-bioengineer",
+      "email": "daesmapo@gmail.com"
     },
     "metrics": [
       {
@@ -63,6 +63,14 @@ INSERT INTO page_content (id, data) VALUES
       { "from": "Modelado de sistemas complejos", "to": "Arquitectura de microservicios y diseño modular" },
       { "from": "Validación experimental", "to": "Testing automatizado, CI/CD y entornos reproducibles" },
       { "from": "Análisis estadístico", "to": "Observabilidad, métricas y análisis de rendimiento" }
+    ],
+    "skills": [
+      { "name": "Frontend", "level": 0.88 },
+      { "name": "Backend", "level": 0.92 },
+      { "name": "Bases de datos", "level": 0.78 },
+      { "name": "Infra / CI", "level": 0.85 },
+      { "name": "Seguridad", "level": 0.72 },
+      { "name": "Arquitectura", "level": 0.8 }
     ]
   }'::jsonb
 ),
@@ -71,9 +79,54 @@ INSERT INTO page_content (id, data) VALUES
   '{
     "title": "¿Trabajamos juntos?",
     "description": "Abierto a oportunidades en backend, platform engineering y arquitectura de sistemas.",
-    "email": "hello@estebanmaya.dev",
-    "linkedin": "https://linkedin.com/in/estebanmaya",
+    "email": "daesmapo@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/estebanmaya-bioengineer",
     "github": "https://github.com/EstebanMa12"
+  }'::jsonb
+),
+(
+  'achievements',
+  '{
+    "label": "Credenciales",
+    "title": "Certificaciones y logros",
+    "items": [
+      {
+        "title": "B.S. Bioingeniería",
+        "meta": "Universidad · 2018",
+        "badge": "degree"
+      },
+      {
+        "title": "AWS Solutions Architect Associate",
+        "meta": "Amazon Web Services · 2024",
+        "badge": "aws"
+      },
+      {
+        "title": "Terraform Certified Associate",
+        "meta": "HashiCorp · 2024",
+        "badge": "terraform"
+      },
+      {
+        "title": "Certified Kubernetes Administrator",
+        "meta": "CNCF · 2023",
+        "badge": "kubernetes"
+      },
+      {
+        "title": "Premio Mejor Tesis",
+        "meta": "Bioingeniería · 2018",
+        "badge": "award"
+      },
+      {
+        "title": "Speaker · Microservicios en producción",
+        "meta": "Meetup local · 2025",
+        "badge": "speaker"
+      },
+      {
+        "title": "Open Source Contributor",
+        "meta": "Go · DevOps tools",
+        "badge": "opensource",
+        "url": "https://github.com/EstebanMa12"
+      }
+    ]
   }'::jsonb
 );
 
@@ -144,7 +197,7 @@ INSERT INTO projects (id, title, slug, category, problem, solution, result, gith
   'https://github.com/EstebanMa12',
   true,
   'published',
-  0
+  1
 ),
 (
   '33333333-3333-3333-3333-333333333302',
@@ -157,7 +210,7 @@ INSERT INTO projects (id, title, slug, category, problem, solution, result, gith
   'https://github.com/EstebanMa12',
   true,
   'published',
-  1
+  2
 ),
 (
   '33333333-3333-3333-3333-333333333303',
@@ -168,9 +221,48 @@ INSERT INTO projects (id, title, slug, category, problem, solution, result, gith
   'Pipeline IaC con Terraform y GitHub Actions. Entornos idénticos, rollback automático y notificaciones en Slack.',
   'Deploys de 45min → 8min · zero-downtime releases',
   'https://github.com/EstebanMa12',
+  false,
+  'published',
+  5
+),
+(
+  '33333333-3333-3333-3333-333333333304',
+  'CLI de migración clínica',
+  'clinical-migration-cli',
+  'Backend · CLI',
+  'Migrar registros históricos entre sistemas clínicos requería scripts ad hoc frágiles y sin trazabilidad de errores.',
+  'CLI en Go con validación de esquemas, reintentos idempotentes y reportes CSV de filas rechazadas.',
+  '12M registros migrados · 0 pérdida de datos auditada',
+  'https://github.com/EstebanMa12',
+  false,
+  'published',
+  3
+),
+(
+  '33333333-3333-3333-3333-333333333305',
+  'Librería de parsing de señales',
+  'signal-parsing-library',
+  'Open Source · Library',
+  'Cada equipo reimplementaba filtros y normalización de señales fisiológicas con resultados inconsistentes.',
+  'Paquete Python con pipelines configurables, tests golden-file y documentación de APIs estables.',
+  'Adoptada por 3 equipos · −60% tiempo de preprocesado',
+  'https://github.com/EstebanMa12',
+  false,
+  'published',
+  4
+),
+(
+  '33333333-3333-3333-3333-333333333306',
+  'Pipeline batch ETL',
+  'batch-etl-pipeline',
+  'Data · Pipeline',
+  'Exportaciones clínicas nocturnas mezclaban PII con datos analíticos, bloqueando estudios internos.',
+  'Pipeline batch con anonimización determinística, particionado por fecha y métricas de calidad en cada stage.',
+  '100% jobs auditables · cumplimiento GDPR en exports',
+  'https://github.com/EstebanMa12',
   true,
   'published',
-  2
+  0
 );
 
 INSERT INTO project_technologies (project_id, technology_id) VALUES
@@ -182,7 +274,31 @@ INSERT INTO project_technologies (project_id, technology_id) VALUES
   ('33333333-3333-3333-3333-333333333302', '11111111-1111-1111-1111-111111111107'),
   ('33333333-3333-3333-3333-333333333303', '11111111-1111-1111-1111-111111111110'),
   ('33333333-3333-3333-3333-333333333303', '11111111-1111-1111-1111-111111111109'),
-  ('33333333-3333-3333-3333-333333333303', '11111111-1111-1111-1111-111111111105');
+  ('33333333-3333-3333-3333-333333333303', '11111111-1111-1111-1111-111111111105'),
+  ('33333333-3333-3333-3333-333333333304', '11111111-1111-1111-1111-111111111101'),
+  ('33333333-3333-3333-3333-333333333304', '11111111-1111-1111-1111-111111111102'),
+  ('33333333-3333-3333-3333-333333333305', '11111111-1111-1111-1111-111111111111'),
+  ('33333333-3333-3333-3333-333333333305', '11111111-1111-1111-1111-111111111102'),
+  ('33333333-3333-3333-3333-333333333306', '11111111-1111-1111-1111-111111111111'),
+  ('33333333-3333-3333-3333-333333333306', '11111111-1111-1111-1111-111111111102'),
+  ('33333333-3333-3333-3333-333333333306', '11111111-1111-1111-1111-111111111108');
+
+UPDATE projects SET cover_image_url = 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1280&h=720&fit=crop'
+WHERE id = '33333333-3333-3333-3333-333333333301';
+UPDATE projects SET cover_image_url = 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1280&h=720&fit=crop'
+WHERE id = '33333333-3333-3333-3333-333333333302';
+UPDATE projects SET cover_image_url = 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1280&h=720&fit=crop'
+WHERE id = '33333333-3333-3333-3333-333333333303';
+
+INSERT INTO project_images (project_id, image_url, alt_text, sort_order) VALUES
+  ('33333333-3333-3333-3333-333333333301', 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1280&h=720&fit=crop', 'Dashboard de métricas clínicas', 0),
+  ('33333333-3333-3333-3333-333333333301', 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1280&h=720&fit=crop', 'Arquitectura de microservicios', 1),
+  ('33333333-3333-3333-3333-333333333301', 'https://images.unsplash.com/photo-1511171637578-41c2ffb122fb?w=1280&h=720&fit=crop', 'Monitor de latencia API', 2),
+  ('33333333-3333-3333-3333-333333333302', 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1280&h=720&fit=crop', 'Panel de observabilidad', 0),
+  ('33333333-3333-3333-3333-333333333302', 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1280&h=720&fit=crop', 'Gráficos en tiempo real', 1),
+  ('33333333-3333-3333-3333-333333333303', 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1280&h=720&fit=crop', 'Pipeline CI/CD', 0),
+  ('33333333-3333-3333-3333-333333333303', 'https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1280&h=720&fit=crop', 'Infraestructura como código', 1),
+  ('33333333-3333-3333-3333-333333333303', 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1280&h=720&fit=crop', 'Despliegue automatizado', 2);
 
 INSERT INTO articles (id, title, slug, excerpt, content, tags, status, published_at, reading_time_min) VALUES
 (

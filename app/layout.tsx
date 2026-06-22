@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
-import { resolvePageMeta, toMetadata } from "@/lib/domain/seo/seo-service";
-import { getSettings } from "@/lib/repositories/seo-repo";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { getLocale } from "next-intl/server";
+import { ThemeProvider } from "@wrksz/themes/next";
 import "./globals.css";
 
 const inter = Inter({
@@ -11,29 +13,38 @@ const inter = Inter({
   display: "swap",
 });
 
-export async function generateMetadata(): Promise<Metadata> {
-  const settings = await getSettings();
+export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  ),
+};
 
-  return {
-    metadataBase: new URL(settings.siteUrl),
-    ...toMetadata(resolvePageMeta(settings, {}, "/")),
-  };
-}
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+
   return (
     <html
-      lang="es"
-      className={`dark h-full antialiased ${inter.variable} ${GeistSans.variable}`}
+      lang={locale}
+      suppressHydrationWarning
+      className={`h-full antialiased ${inter.variable} ${GeistSans.variable}`}
     >
       <body
         className={`${GeistSans.className} min-h-full flex flex-col bg-bg text-text-primary overflow-x-hidden`}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <Analytics />
+          <SpeedInsights />
+        </ThemeProvider>
       </body>
     </html>
   );

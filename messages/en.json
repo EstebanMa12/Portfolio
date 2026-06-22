@@ -1,0 +1,292 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "experience": "Experience",
+    "projects": "Projects",
+    "blog": "The Lab",
+    "contact": "Contact",
+    "contactCta": "Get in touch"
+  },
+  "dock": {
+    "home": "Home",
+    "projects": "Projects",
+    "experience": "Experience",
+    "lab": "The Lab",
+    "skills": "Skills",
+    "contact": "Contact",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "downloadCv": "Download CV",
+    "quickAccess": "Quick links",
+    "sideNav": "Side navigation",
+    "socialNav": "Social links"
+  },
+  "theme": {
+    "toggle": "Toggle theme",
+    "system": "Theme: system",
+    "dark": "Theme: dark",
+    "light": "Theme: light"
+  },
+  "locale": {
+    "switchToEn": "English",
+    "switchToEs": "Español",
+    "label": "Language"
+  },
+  "a11y": {
+    "skipToContent": "Skip to main content",
+    "mainNav": "Main",
+    "mobileMenu": "Mobile menu",
+    "openMenu": "Open navigation menu",
+    "closeMenu": "Close navigation menu",
+    "breadcrumb": "Breadcrumb",
+    "impactMetrics": "Professional impact metrics",
+    "metricsHighlight": "Impact metrics",
+    "certCarousel": "Certifications carousel. Swipe horizontally to see more.",
+    "homeContact": "Contact"
+  },
+  "sections": {
+    "projectsLabel": "Projects",
+    "projectsTitle": "Selected work",
+    "projectsLink": "View all →",
+    "labLabel": "The Lab",
+    "labTitle": "Technical notes and exploration",
+    "labDescription": "Reflections on architecture, systems, and the intersection of science and code.",
+    "labLink": "View blog →",
+    "experienceLabel": "Experience",
+    "experienceTitle": "Professional trajectory",
+    "experienceDescription": "Current role and recent career highlights.",
+    "experienceLink": "View full experience →",
+    "seeAll": "View all →"
+  },
+  "cta": {
+    "nextStep": "What's next?",
+    "defaultDescription": "Explore more content or get in touch.",
+    "aboutDescription": "Explore my technical trajectory or reach out directly.",
+    "blogDescription": "Interested in collaborating or seeing more production work?",
+    "contact": "Get in touch",
+    "viewProjects": "View projects",
+    "viewExperience": "View experience"
+  },
+  "hero": {
+    "profilePhotoAlt": "Profile photo of {name}, {role}",
+    "viewExperience": "View experience"
+  },
+  "footer": {
+    "tagline": "Software Engineer",
+    "internalNav": "Navigation",
+    "socialNav": "Social links"
+  },
+  "skills": {
+    "categories": {
+      "language": "Backend",
+      "framework": "Frontend",
+      "infra": "Infra / DevOps",
+      "database": "Databases",
+      "tool": "Tools"
+    },
+    "softSkills": [
+      "Analytical thinking",
+      "Problem solving",
+      "Continuous learning",
+      "Technical communication",
+      "Teamwork"
+    ],
+    "radarTitle": "Technical profile",
+    "stackTitle": "Core stack",
+    "stackByCategoryTitle": "Stack by category",
+    "stackByCategoryDescription": "Browse technologies grouped by domain.",
+    "technologiesCount": "{count} technologies",
+    "categoryTechCount": "{count, plural, one {# technology} other {# technologies}}",
+    "softSkillsTitle": "Soft skills",
+    "sectionLabel": "Skills",
+    "sectionTitle": "Tech stack and impact",
+    "radarDescription": "Technical depth by domain",
+    "radarImageTitle": "Technical skills matrix",
+    "explorationTitle": "Exploration"
+  },
+  "blog": {
+    "title": "The Lab",
+    "description": "Technical notes on architecture, systems, and DevOps.",
+    "empty": "No published articles yet.",
+    "readMore": "Read article",
+    "backToBlog": "← Back to blog",
+    "paginationPrev": "Previous",
+    "paginationNext": "Next",
+    "pageOf": "Page {page} of {total}",
+    "readingTime": "{minutes} min",
+    "noDate": "No date",
+    "paginationAria": "Blog pagination"
+  },
+  "projects": {
+    "title": "Projects",
+    "description": "Case studies in backend, distributed systems, and infrastructure.",
+    "empty": "No published projects yet.",
+    "viewCase": "View case study",
+    "problem": "Problem",
+    "solution": "Solution",
+    "stack": "Stack",
+    "result": "Result",
+    "github": "GitHub",
+    "demo": "Demo",
+    "carouselPrev": "Previous image",
+    "carouselNext": "Next image",
+    "carouselSlideOf": "Image {current} of {total}",
+    "noPreview": "No preview available for {title}",
+    "featured": "Featured",
+    "withoutGallery": "Optional: gallery images for the listing. Without them, a placeholder is shown."
+  },
+  "experience": {
+    "title": "Experience",
+    "description": "Professional timeline, roles, and technologies.",
+    "present": "Present",
+    "empty": "No experience entries yet.",
+    "currentRole": "Current role",
+    "stack": "Stack",
+    "summaryLabel": "Career summary",
+    "yearsInIndustry": "Years in industry",
+    "roles": "Roles",
+    "technologiesUsed": "Technologies",
+    "durationYears": "{count, plural, one {# year} other {# years}}",
+    "durationMonths": "{count, plural, one {# month} other {# months}}",
+    "durationMixed": "{years} · {months}",
+    "timelineLabel": "Professional timeline",
+    "moreTechnologies": "+{count} more",
+    "roleNavLabel": "Jump to role",
+    "expandRole": "View details",
+    "collapseRole": "Hide details",
+    "showLessTech": "Show fewer technologies"
+  },
+  "about": {
+    "title": "About",
+    "description": "Learn about my background in Bioengineering and systems-focused engineering.",
+    "interests": "Interests",
+    "interestsRelated": "View projects",
+    "evolutionLabel": "Professional evolution",
+    "evolutionFrom": "Bioengineering",
+    "evolutionTo": "Software Engineering",
+    "evolutionFromDetail": "Biological system modeling, signal processing, and experimental rigor.",
+    "evolutionToDetail": "Backend, platform engineering, and distributed systems architecture.",
+    "metricsAria": "Professional credibility metrics",
+    "metrics": {
+      "yearsCoding": "Years coding",
+      "projects": "Projects built",
+      "technologies": "Technologies mastered",
+      "specializations": "Specialization areas"
+    },
+    "metricsValues": {
+      "yearsCoding": 5,
+      "yearsSuffix": "+"
+    },
+    "mindsetLabel": "Philosophy",
+    "mindsetTitle": "How I think as an engineer",
+    "mindsetDescription": "The same principles I applied in the lab guide how I design, validate, and operate software in production.",
+    "mindsetBioLabel": "In science",
+    "mindsetSoftwareLabel": "In software",
+    "mindsetItems": [
+      {
+        "title": "Systems thinking",
+        "bioContext": "I analyze interactions between variables, feedback loops, and emergent effects in biological systems.",
+        "softwareContext": "I design services with clear boundaries, explicit contracts, and conscious dependencies."
+      },
+      {
+        "title": "Complex system modeling",
+        "bioContext": "I build models that simplify reality without losing the variables that matter.",
+        "softwareContext": "I translate business domains into modular, event-driven, scalable architectures."
+      },
+      {
+        "title": "Experimental validation",
+        "bioContext": "I formulate hypotheses, design controlled experiments, and measure reproducible results.",
+        "softwareContext": "I automate tests, CI/CD, and reproducible environments before every deploy."
+      },
+      {
+        "title": "Evidence-driven design",
+        "bioContext": "I make decisions based on data, not intuition — especially with noisy signals.",
+        "softwareContext": "I prioritize observability, business metrics, and SLOs to guide iterations."
+      }
+    ],
+    "interestDescriptions": {
+      "ai": "Exploring models that amplify human capabilities — from applied ML to agents.",
+      "quantum": "Interest in quantum algorithms and their future impact on optimization and cryptography.",
+      "neuro": "A natural bridge between biological signals and distributed processing systems.",
+      "fitness": "Measurable discipline: incremental progress, consistency, and variable optimization."
+    },
+    "bioBridgeLabel": "Skill transfer",
+    "bioBridgeTitle": "Bioengineering ↔ Software",
+    "bioBridgeDescription": "My scientific background directly shapes how I design, validate, and operate software systems in production.",
+    "bioBridgeFrom": "Bioengineering",
+    "bioBridgeTo": "Software",
+    "bioBridgeTooltips": [
+      "The rigor of biological signal processing translates into robust data pipelines and real-time event streams.",
+      "Modeling complex biological systems is equivalent to designing microservices with clear boundaries and low coupling.",
+      "Experimental validation in the lab is the same mindset behind automated testing and CI/CD.",
+      "Statistical analysis of noisy data becomes observability, metrics, and performance analysis."
+    ]
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "Reach out for professional opportunities.",
+    "email": "Email",
+    "linkedin": "LinkedIn",
+    "github": "GitHub",
+    "copyEmail": "Copy email",
+    "copied": "Copied"
+  },
+  "author": {
+    "label": "Author",
+    "bio": "Software Engineer focused on backend and distributed systems.",
+    "about": "About me",
+    "contact": "Get in touch"
+  },
+  "achievements": {
+    "carouselHint": "Swipe horizontally to explore · Hover to highlight",
+    "viewCredential": "View credential"
+  },
+  "home": {
+    "title": "Home",
+    "description": "Esteban Maya's professional portfolio — Software Engineer."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you're looking for doesn't exist.",
+    "backHome": "Back to home",
+    "exploreProjects": "View projects",
+    "exploreBlog": "Go to blog",
+    "getInTouch": "Get in touch"
+  },
+  "error": {
+    "label": "Error",
+    "title": "Something went wrong",
+    "description": "An unexpected error occurred. You can try again.",
+    "retry": "Try again",
+    "backHome": "Back to home"
+  },
+  "seo": {
+    "pages": {
+      "/": {
+        "title": "Home",
+        "description": "Esteban Maya's professional portfolio — Software Engineer."
+      },
+      "/about": {
+        "title": "About",
+        "description": "Learn about my background in Bioengineering and systems-focused engineering."
+      },
+      "/experience": {
+        "title": "Experience",
+        "description": "Professional timeline, roles, and technologies."
+      },
+      "/projects": {
+        "title": "Projects",
+        "description": "Case studies in backend, distributed systems, and infrastructure."
+      },
+      "/blog": {
+        "title": "Blog",
+        "description": "The Lab — technical notes on architecture, systems, and DevOps."
+      },
+      "/contact": {
+        "title": "Contact",
+        "description": "Reach out for professional opportunities."
+      }
+    }
+  }
+}

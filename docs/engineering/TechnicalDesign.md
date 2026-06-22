@@ -255,9 +255,10 @@ const geist = localFont({ src: './fonts/GeistVF.woff2', variable: '--font-displa
 
 | Regla | Detalle |
 |-------|---------|
-| Dark-only MVP | Sin toggle theme; `class="dark"` en `<html>` |
+| Dark/light + system | `@wrksz/themes` (compatible con next-themes; fix React 19) con tokens CSS en `:root` / `.dark`; toggle en header |
+| i18n ES/EN | `next-intl`; ES sin prefijo (`/about`), EN con `/en/about`; CMS con columna `locale` |
 | Mobile-first | Breakpoints: `sm:640`, `md:768`, `lg:1024`, `xl:1280` |
-| Prose blog | `@tailwindcss/typography` plugin; clase `prose prose-invert` |
+| Prose blog | `@tailwindcss/typography`; `prose dark:prose-invert`; Shiki dual theme |
 | Animations | `prefers-reduced-motion: reduce` desactiva transitions (IDEA.html) |
 | Focus | `:focus-visible` outline accent 2px (accesibilidad) |
 | No CSS modules | Tailwind utility-first; excepción: SVG radar chart |

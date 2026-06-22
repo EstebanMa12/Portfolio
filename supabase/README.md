@@ -1,7 +1,7 @@
 # Supabase project refs
 #
 # staging: cvvimcxjkdbzqtncflro (portfolio-staging)
-# prod:    njslzlfijpciuwxebkkf (portfolio-prod)
+# prod:    portfolio-prod (ref in GitHub secret SUPABASE_PROD_PROJECT_REF)
 #
 # Link local CLI to staging:
 #   supabase login
@@ -33,10 +33,27 @@ ON CONFLICT (id) DO NOTHING;
 
 `admin_users.id` must match `auth.users.id` (FK).
 
-## Seed / reset (local only)
+## Seed / reset
+
+| Comando | Qué hace |
+|---------|----------|
+| `pnpm db:reset` / `pnpm db:seed:local` | Resetea la **BD local** (Docker): migraciones + `seed.sql` + `seed_en.sql` |
+| `pnpm db:push` | Aplica **solo migraciones** al proyecto linked (no ejecuta seeds) |
+| `pnpm db:seed:remote` | Borra contenido CMS en el proyecto **linked** y vuelve a cargar los seeds |
+
+**Importante:** `pnpm db:seed` ya no existe — antes era un alias de `db reset` y **nunca** tocaba la nube.
+
+### Staging (recomendado para dev)
 
 ```bash
-pnpm db:reset   # migrations + seed.sql
+supabase link --project-ref cvvimcxjkdbzqtncflro
+pnpm db:push          # asegurar migraciones al día
+pnpm db:seed:remote   # sincronizar contenido con seed.sql
 ```
 
-Remote DB: update rows via SQL Editor; do not run full seed on staging/prod if data exists.
+`db:seed:remote` trunca tablas de contenido (`projects`, `page_content`, etc.) pero **no** borra `admin_users`.
+
+### Producción
+
+- Migraciones: workflow `Migrate Production DB` (manual) o `supabase link --project-ref <prod-ref> && pnpm db:push`
+- **No** ejecutar `db:seed:remote` en prod salvo reset controlado — editar filas vía SQL Editor o admin CMS.
