@@ -131,7 +131,10 @@
     "demo": "Demo",
     "carouselPrev": "Imagen anterior",
     "carouselNext": "Imagen siguiente",
-    "carouselSlideOf": "Imagen {current} de {total}"
+    "carouselSlideOf": "Imagen {current} de {total}",
+    "noPreview": "Vista previa no disponible para {title}",
+    "featured": "Destacado",
+    "withoutGallery": "Opcional: imágenes para la galería del listado. Sin ellas se muestra un placeholder."
   },
   "experience": {
     "title": "Experiencia",

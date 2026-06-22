@@ -163,7 +163,7 @@ INSERT INTO projects (id, locale, title, slug, category, problem, solution, resu
   'https://github.com/EstebanMa12',
   true,
   'published',
-  0
+  1
 ),
 (
   '33333333-3333-3333-3333-333333333312',
@@ -177,7 +177,7 @@ INSERT INTO projects (id, locale, title, slug, category, problem, solution, resu
   'https://github.com/EstebanMa12',
   true,
   'published',
-  1
+  2
 ),
 (
   '33333333-3333-3333-3333-333333333313',
@@ -189,9 +189,51 @@ INSERT INTO projects (id, locale, title, slug, category, problem, solution, resu
   'IaC pipeline with Terraform and GitHub Actions. Identical environments, automatic rollback, and Slack notifications.',
   'Deploys from 45min → 8min · zero-downtime releases',
   'https://github.com/EstebanMa12',
+  false,
+  'published',
+  5
+),
+(
+  '33333333-3333-3333-3333-333333333314',
+  'en',
+  'Clinical Migration CLI',
+  'clinical-migration-cli',
+  'Backend · CLI',
+  'Migrating historical records between clinical systems required fragile ad hoc scripts with no error traceability.',
+  'Go CLI with schema validation, idempotent retries, and CSV reports for rejected rows.',
+  '12M records migrated · 0 audited data loss',
+  'https://github.com/EstebanMa12',
+  false,
+  'published',
+  3
+),
+(
+  '33333333-3333-3333-3333-333333333315',
+  'en',
+  'Signal Parsing Library',
+  'signal-parsing-library',
+  'Open Source · Library',
+  'Each team reimplemented physiological signal filters and normalization with inconsistent results.',
+  'Python package with configurable pipelines, golden-file tests, and stable API documentation.',
+  'Adopted by 3 teams · −60% preprocessing time',
+  'https://github.com/EstebanMa12',
+  false,
+  'published',
+  4
+),
+(
+  '33333333-3333-3333-3333-333333333316',
+  'en',
+  'Batch ETL Pipeline',
+  'batch-etl-pipeline',
+  'Data · Pipeline',
+  'Nightly clinical exports mixed PII with analytics data, blocking internal studies.',
+  'Batch pipeline with deterministic anonymization, date partitioning, and quality metrics at each stage.',
+  '100% auditable jobs · GDPR-compliant exports',
+  'https://github.com/EstebanMa12',
   true,
   'published',
-  2
+  0
 );
 
 INSERT INTO project_technologies (project_id, technology_id) VALUES
@@ -203,7 +245,14 @@ INSERT INTO project_technologies (project_id, technology_id) VALUES
   ('33333333-3333-3333-3333-333333333312', '11111111-1111-1111-1111-111111111107'),
   ('33333333-3333-3333-3333-333333333313', '11111111-1111-1111-1111-111111111110'),
   ('33333333-3333-3333-3333-333333333313', '11111111-1111-1111-1111-111111111109'),
-  ('33333333-3333-3333-3333-333333333313', '11111111-1111-1111-1111-111111111105');
+  ('33333333-3333-3333-3333-333333333313', '11111111-1111-1111-1111-111111111105'),
+  ('33333333-3333-3333-3333-333333333314', '11111111-1111-1111-1111-111111111101'),
+  ('33333333-3333-3333-3333-333333333314', '11111111-1111-1111-1111-111111111102'),
+  ('33333333-3333-3333-3333-333333333315', '11111111-1111-1111-1111-111111111111'),
+  ('33333333-3333-3333-3333-333333333315', '11111111-1111-1111-1111-111111111102'),
+  ('33333333-3333-3333-3333-333333333316', '11111111-1111-1111-1111-111111111111'),
+  ('33333333-3333-3333-3333-333333333316', '11111111-1111-1111-1111-111111111102'),
+  ('33333333-3333-3333-3333-333333333316', '11111111-1111-1111-1111-111111111108');
 
 UPDATE projects SET cover_image_url = 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1280&h=720&fit=crop'
 WHERE id = '33333333-3333-3333-3333-333333333311';

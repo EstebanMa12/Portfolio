@@ -3,14 +3,18 @@ import { StaggerContainer, StaggerItem } from "@/components/motion/fade-in-view"
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
 import { Card } from "@/components/public/card";
 import { GitHubIcon } from "@/components/public/icons";
-import { ProjectImageCarousel } from "@/components/public/project-image-carousel";
+import { ProjectCardMedia } from "@/components/public/project-card-media";
 import { SectionHeader } from "@/components/public/section-header";
 import { TechnologyBadge } from "@/components/public/technology-badge";
+import { textLinkClassName } from "@/components/public/text-link";
 import type { ProjectWithTechnologies } from "@/lib/schemas/project";
+import { cn } from "@/lib/utils/cn";
 
 type ProjectCardProps = {
   project: ProjectWithTechnologies;
   featured?: boolean;
+  showFeaturedBadge?: boolean;
+  featuredLabel?: string;
   githubLabel: string;
   demoLabel: string;
   problemLabel: string;
@@ -19,9 +23,11 @@ type ProjectCardProps = {
   resultLabel: string;
 };
 
-export function ProjectCard({
+export async function ProjectCard({
   project,
   featured = false,
+  showFeaturedBadge = false,
+  featuredLabel,
   githubLabel,
   demoLabel,
   problemLabel,
@@ -29,19 +35,30 @@ export function ProjectCard({
   stackLabel,
   resultLabel,
 }: Readonly<ProjectCardProps>) {
+  const showBadge = showFeaturedBadge && project.featured && featuredLabel;
+
   return (
     <Card
       as="article"
-      className={`flex flex-col ${featured ? "" : "h-full"}`}
+      className={cn(
+        "lab-card project-card flex flex-col overflow-hidden h-full",
+        featured && "project-card--featured",
+      )}
     >
-      <ProjectImageCarousel
-        images={(project.images ?? []).map((image) => ({
-          url: image.imageUrl,
-          alt: image.altText,
-        }))}
-        title={project.title}
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <p className="text-xs font-medium text-accent">{project.category}</p>
+        {showBadge ? (
+          <span className="project-card-featured-badge shrink-0">
+            {featuredLabel}
+          </span>
+        ) : null}
+      </div>
+
+      <ProjectCardMedia
+        project={project}
+        className="-mx-6 md:-mx-8 mb-4"
       />
-      <p className="text-xs font-medium text-accent mb-2">{project.category}</p>
+
       <h3 className="text-xl font-semibold text-text-primary mb-4">
         {project.title}
       </h3>
@@ -71,18 +88,23 @@ export function ProjectCard({
         ) : null}
         <div>
           <dt className="text-text-muted font-medium mb-1">{resultLabel}</dt>
-          <dd className="text-text-primary font-medium">{project.result}</dd>
+          <dd className="metric-highlight rounded-md px-3 py-2 text-text-primary font-medium">
+            {project.result}
+          </dd>
         </div>
       </dl>
 
       {(project.githubUrl || project.demoUrl) && (
-        <div className="flex gap-4 mt-6 pt-4 border-t border-border">
+        <div className="flex flex-wrap gap-4 mt-6 pt-4 border-t border-border">
           {project.githubUrl ? (
             <a
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm text-text-secondary hover:text-text-primary transition-colors"
+              className={cn(
+                textLinkClassName,
+                "inline-flex items-center gap-1.5 text-sm font-medium",
+              )}
             >
               <GitHubIcon className="w-4 h-4" />
               {githubLabel}
@@ -93,7 +115,7 @@ export function ProjectCard({
               href={project.demoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm text-text-secondary hover:text-text-primary transition-colors"
+              className={cn(textLinkClassName, "inline-flex text-sm font-medium")}
             >
               {demoLabel}
             </a>
@@ -106,9 +128,13 @@ export function ProjectCard({
 
 type ProjectGridProps = {
   projects: ProjectWithTechnologies[];
+  showFeaturedBadge?: boolean;
 };
 
-export async function ProjectGrid({ projects }: ProjectGridProps) {
+export async function ProjectGrid({
+  projects,
+  showFeaturedBadge = false,
+}: ProjectGridProps) {
   const t = await getTranslations("projects");
 
   if (projects.length === 0) {
@@ -121,6 +147,9 @@ export async function ProjectGrid({ projects }: ProjectGridProps) {
         <StaggerItem key={project.id}>
           <ProjectCard
             project={project}
+            featured={showFeaturedBadge && project.featured}
+            showFeaturedBadge={showFeaturedBadge}
+            featuredLabel={t("featured")}
             githubLabel={t("github")}
             demoLabel={t("demo")}
             problemLabel={t("problem")}
@@ -158,7 +187,7 @@ export async function FeaturedProjects({ projects }: FeaturedProjectsProps) {
       <h2 id="featured-projects-heading" className="sr-only">
         {t("projectsTitle")}
       </h2>
-      <ProjectGrid projects={projects} />
+      <ProjectGrid projects={projects} showFeaturedBadge />
     </section>
   );
 }

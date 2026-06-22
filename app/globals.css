@@ -1122,6 +1122,85 @@ body {
   outline-offset: 2px;
 }
 
+/* Project card media */
+.project-card-media {
+  width: 100%;
+}
+
+.project-card-media .project-carousel-static,
+.project-card-media .project-carousel {
+  margin-bottom: 0;
+}
+
+.project-card-media .project-carousel-track,
+.project-card-media .project-carousel-image,
+.project-card-media .project-carousel-static .project-carousel-image {
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+}
+
+.project-card-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-block: 1px solid var(--color-border);
+  background:
+    radial-gradient(
+      ellipse 70% 80% at 20% 20%,
+      color-mix(in srgb, var(--color-accent) 16%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 60% 70% at 80% 80%,
+      color-mix(in srgb, var(--color-metric-teal) 12%, transparent),
+      transparent 55%
+    ),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--color-surface-raised) 88%, transparent),
+      var(--color-surface)
+    );
+}
+
+.project-card-placeholder-category {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.project-card-placeholder-initials {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  color: color-mix(in srgb, var(--color-accent) 72%, var(--color-text-primary));
+}
+
+.project-card--featured {
+  border-color: var(--theme-card-accent-border);
+}
+
+.project-card-featured-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+  border: 1px solid var(--theme-accent-border-hover);
+  background: var(--theme-accent-subtle);
+  color: var(--color-accent);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 /* Ambient background */
 .ambient-bg {
   background: var(--color-bg);

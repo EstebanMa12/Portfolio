@@ -131,7 +131,10 @@
     "demo": "Demo",
     "carouselPrev": "Previous image",
     "carouselNext": "Next image",
-    "carouselSlideOf": "Image {current} of {total}"
+    "carouselSlideOf": "Image {current} of {total}",
+    "noPreview": "No preview available for {title}",
+    "featured": "Featured",
+    "withoutGallery": "Optional: gallery images for the listing. Without them, a placeholder is shown."
   },
   "experience": {
     "title": "Experience",

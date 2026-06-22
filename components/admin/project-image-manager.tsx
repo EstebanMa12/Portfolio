@@ -161,7 +161,8 @@ export function ProjectImageManager({
 
       {images.length === 0 ? (
         <p className="text-sm text-text-muted border border-dashed border-border rounded-lg p-6 text-center">
-          Sin imágenes. Sube al menos una para mostrar el carrusel en el front.
+          Opcional: imágenes para la galería del listado. Sin ellas se muestra un
+          placeholder.
         </p>
       ) : (
         <ul className="space-y-3">
