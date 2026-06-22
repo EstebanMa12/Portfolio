@@ -24,6 +24,9 @@ export default async function AdminDashboardPage() {
     { label: "Experiencia", href: "/admin/experience", count: experiences.length },
     { label: "Proyectos", href: "/admin/projects", count: projects.length },
     { label: "Artículos", href: "/admin/articles", count: articles.length },
+    { label: "Páginas", href: "/admin/pages", count: 3 },
+    { label: "Certificaciones", href: "/admin/certifications", count: null },
+    { label: "SEO", href: "/admin/seo", count: null },
   ] as const;
 
   return (
@@ -50,9 +53,13 @@ export default async function AdminDashboardPage() {
         {quickLinks.map((item) => (
           <Link key={item.label} href={item.href} className="card block no-underline">
             <h2 className="font-medium text-text-primary">{item.label}</h2>
-            <p className="mt-2 text-2xl font-display font-semibold text-accent">
-              {item.count}
-            </p>
+            {item.count != null ? (
+              <p className="mt-2 text-2xl font-display font-semibold text-accent">
+                {item.count}
+              </p>
+            ) : (
+              <p className="mt-2 text-sm text-text-muted">Configurar</p>
+            )}
           </Link>
         ))}
       </div>

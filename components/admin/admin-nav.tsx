@@ -10,6 +10,9 @@ const links = [
   { href: "/admin/experience", label: "Experiencia", exact: false },
   { href: "/admin/projects", label: "Proyectos", exact: false },
   { href: "/admin/articles", label: "Artículos", exact: false },
+  { href: "/admin/certifications", label: "Certificaciones", exact: false },
+  { href: "/admin/pages", label: "Páginas", exact: false },
+  { href: "/admin/seo", label: "SEO", exact: false },
 ] as const;
 
 export function AdminNav() {

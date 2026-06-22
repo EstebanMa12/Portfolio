@@ -105,7 +105,7 @@ S1          S2          S3          S4          S5          S6          S7      
 | **S3** | E3, E4, E5, E6 | Experience + Tech CRUD admin; auth login    |
 | **S4** | E5, E6         | Projects public + admin CRUD                |
 | **S5** | E5, E6         | Blog list/detail + article editor publish   |
-| **S6** | E6, E7         | SEO completo; pages editor; sitemap live    |
+| **S6** | E6, E7         | SEO completo; pages editor; certifications CRUD; sitemap live    |
 | **S7** | E4, E2, E6     | Auth hardened; a11y; admin dashboard        |
 | **S8** | E8             | Contenido real; QA; production launch       |
 
@@ -1150,8 +1150,8 @@ S1          S2          S3          S4          S5          S6          S7      
 
 ### E6 — Admin CMS
 
-**Descripción:** Back office CRUD, forms, publish flows, page editors.
-**Sprint:** S3–S7 · **Estimación total:** 11 d · **Prioridad:** P0
+**Descripción:** Back office CRUD, forms, publish flows, page editors y gestión de certificaciones.
+**Sprint:** S3–S7 · **Estimación total:** 12 d · **Prioridad:** P0
 
 ---
 
@@ -1170,7 +1170,7 @@ S1          S2          S3          S4          S5          S6          S7      
 
 | Campo            | Valor                                                                                                            |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------- |
-| **Descripción**  | `/admin/layout.tsx`: sidebar nav (Dashboard, Projects, Articles, Experience, Tech, Pages, SEO). shadcn/ui shell. |
+| **Descripción**  | `/admin/layout.tsx`: sidebar nav (Dashboard, Projects, Articles, Experience, Tech, Certifications, Pages, SEO). shadcn/ui shell. |
 | **Dependencias** | T4.1.3, shadcn init                                                                                              |
 | **Estimación**   | 0.75 d                                                                                                           |
 | **Prioridad**    | P0                                                                                                               |
@@ -1395,6 +1395,39 @@ S1          S2          S3          S4          S5          S6          S7      
 | ST6.7.1.2 | Snippet preview component |
 | ST6.7.1.3 | OG card preview           |
 | ST6.7.1.4 | revalidateTag `seo`       |
+
+
+---
+
+#### F6.8 — Certifications CRUD
+
+
+| Campo          | Valor |
+| -------------- | ----- |
+| **Sprint**     | S6    |
+| **Estimación** | 1 d   |
+| **Prioridad**  | P0    |
+
+
+##### T6.8.1 — Certifications admin
+
+
+| Campo            | Valor                                                                                                                                                              |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Descripción**  | `/admin/certifications`: CRUD de ítems en `page_content` id `achievements` (por locale). Campos: título, meta, badge enum, URL opcional, orden. Editor de cabecera (label + title). |
+| **Dependencias** | T6.1.1, T3.2.1, T5.1.1                                                                                                                                             |
+| **Estimación**   | 1 d                                                                                                                                                                |
+| **Prioridad**    | P0                                                                                                                                                                 |
+
+
+
+| ID        | Subtask                                                       |
+| --------- | ------------------------------------------------------------- |
+| ST6.8.1.1 | List table ordenada por posición en `items`                   |
+| ST6.8.1.2 | Create/Edit form (title, meta, badge, url) + Server Actions |
+| ST6.8.1.3 | Section header editor (label, title del bloque)             |
+| ST6.8.1.4 | Delete con confirmación                                       |
+| ST6.8.1.5 | revalidateTag `page-content` + `home`                         |
 
 
 ---
@@ -1723,10 +1756,10 @@ S1          S2          S3          S4          S5          S6          S7      
 | E3   | Data Layer & Domain Services | 4 d        | S2–S3         |
 | E4   | Authentication & Security    | 2.5 d      | S3, S7        |
 | E5   | Public Front Office          | 9 d        | S2–S5         |
-| E6   | Admin CMS                    | 11 d       | S3–S7         |
+| E6   | Admin CMS                    | 12 d       | S3–S7         |
 | E7   | SEO & Discoverability        | 2 d        | S6            |
 | E8   | Content Migration & Launch   | 4 d        | S8            |
-|      | **Total**                    | **~42 d**  | **8 semanas** |
+|      | **Total**                    | **~43 d**  | **8 semanas** |
 
 
 *Nota: trabajo paralelo intra-sprint y overlap reduce calendario a ~38 d efectivos.*
@@ -1741,7 +1774,7 @@ S1          S2          S3          S4          S5          S6          S7      
 | S3     | 5 d            | Auth, Technologies, Experience public + admin           |
 | S4     | 4.5 d          | Projects public + admin                                 |
 | S5     | 5 d            | Blog pipeline, list, detail, article editor, Contact    |
-| S6     | 4 d            | Pages editor, SEO admin, sitemap, JSON-LD, analytics    |
+| S6     | 4 d            | Pages editor, certifications CRUD, SEO admin, sitemap, JSON-LD, analytics |
 | S7     | 3 d            | Security audit, a11y, mobile fixes, dashboard           |
 | S8     | 4 d            | Content migration, QA, Lighthouse, launch               |
 
@@ -1796,6 +1829,7 @@ graph TD
 
     subgraph S6["Sprint 6 — SEO complete"]
         R[T6.6.1 Pages editor]
+        R2[T6.8.1 Certifications admin]
         S[T7.1.1 Sitemap]
         T[T7.2.1 JSON-LD]
     end
@@ -1825,9 +1859,13 @@ graph TD
     E --> Q
     P --> R
     G --> R
+    G --> R2
+    F --> R2
+    I --> R2
     Q --> S
     S --> T
     R --> U
+    R2 --> U
     N --> U
     Q --> U
     U --> V
@@ -1906,12 +1944,14 @@ graph TD
 | FO-07  | T5.6.1                 |
 | FO-08  | T2.2.2, T2.5.2         |
 | FO-09  | ST5.1.1.3, T8.1.1      |
+| FO-10  | T6.8.1, ST6.8.1.5      |
 | BO-01  | T4.1.1–T4.1.4          |
 | BO-02  | T6.4.1                 |
 | BO-03  | T6.5.1                 |
 | BO-04  | T6.3.1                 |
 | BO-05  | T6.2.1                 |
 | BO-06  | T6.7.1, T2.4.1         |
+| BO-07  | T6.8.1                 |
 | SEO-01 | T7.1.1                 |
 | SEO-02 | T7.1.2                 |
 | SEO-03 | T2.4.2, T6.7.1         |
