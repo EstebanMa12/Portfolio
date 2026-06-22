@@ -155,11 +155,67 @@
     "title": "Sobre mí",
     "description": "Conoce mi trayectoria, formación en Bioingeniería y enfoque en sistemas.",
     "interests": "Intereses",
+    "interestsRelated": "Ver proyectos",
+    "evolutionLabel": "Evolución profesional",
+    "evolutionFrom": "Bioingeniería",
+    "evolutionTo": "Software Engineering",
+    "evolutionFromDetail": "Modelado de sistemas biológicos, señales y rigor experimental.",
+    "evolutionToDetail": "Backend, platform engineering y arquitectura de sistemas distribuidos.",
+    "metricsAria": "Métricas de credibilidad profesional",
+    "metrics": {
+      "yearsCoding": "Años programando",
+      "projects": "Proyectos desarrollados",
+      "technologies": "Tecnologías dominadas",
+      "specializations": "Áreas de especialización"
+    },
+    "metricsValues": {
+      "yearsCoding": 5,
+      "yearsSuffix": "+"
+    },
+    "mindsetLabel": "Filosofía",
+    "mindsetTitle": "Cómo pienso como ingeniero",
+    "mindsetDescription": "Los mismos principios que aplicaba en el laboratorio guían cómo diseño, valido y opero software en producción.",
+    "mindsetBioLabel": "En ciencia",
+    "mindsetSoftwareLabel": "En software",
+    "mindsetItems": [
+      {
+        "title": "Pensamiento sistémico",
+        "bioContext": "Analizo interacciones entre variables, feedback loops y efectos emergentes en sistemas biológicos.",
+        "softwareContext": "Diseño servicios con límites claros, contratos explícitos y dependencias conscientes."
+      },
+      {
+        "title": "Modelado de sistemas complejos",
+        "bioContext": "Construyo modelos que simplifican la realidad sin perder las variables que importan.",
+        "softwareContext": "Traduzco dominios de negocio en arquitecturas modulares, event-driven y escalables."
+      },
+      {
+        "title": "Validación experimental",
+        "bioContext": "Formulo hipótesis, diseño experimentos controlados y mido resultados reproducibles.",
+        "softwareContext": "Automatizo tests, CI/CD y entornos reproducibles antes de cada deploy."
+      },
+      {
+        "title": "Diseño orientado a evidencia",
+        "bioContext": "Tomo decisiones basadas en datos, no en intuición — especialmente con señal ruidosa.",
+        "softwareContext": "Priorizo observabilidad, métricas de negocio y SLOs para guiar iteraciones."
+      }
+    ],
+    "interestDescriptions": {
+      "Inteligencia Artificial": "Exploración de modelos que amplifican capacidades humanas — desde ML aplicado hasta agentes.",
+      "Computación Cuántica": "Interés en algoritmos cuánticos y su impacto futuro en optimización y criptografía.",
+      "Neurociencia Computacional": "Puente natural entre señales biológicas y sistemas de procesamiento distribuido.",
+      "Fitness": "Disciplina medible: progreso incremental, consistencia y optimización de variables."
+    },
     "bioBridgeLabel": "Transferencia de skills",
     "bioBridgeTitle": "Bioingeniería ↔ Software",
     "bioBridgeDescription": "Mi formación científica se traduce directamente en cómo diseño, valido y opero sistemas de software en producción.",
     "bioBridgeFrom": "Bioingeniería",
-    "bioBridgeTo": "Software"
+    "bioBridgeTo": "Software",
+    "bioBridgeTooltips": [
+      "El rigor del procesamiento de señales biológicas se traduce en pipelines de datos robustos y event streams en tiempo real.",
+      "Modelar sistemas biológicos complejos es equivalente a diseñar microservicios con límites claros y acoplamiento bajo.",
+      "La validación experimental en laboratorio es el mismo mindset detrás de testing automatizado y CI/CD.",
+      "El análisis estadístico de datos ruidosos se convierte en observabilidad, métricas y análisis de rendimiento."
+    ]
   },
   "contact": {
     "title": "Contacto",

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html><head>
+  <meta charset="utf-8">
+  <meta name="kombai-design-canvas" content="true">
+  <base href="http://localhost:19666/">
+  
+  
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  
+  <style>html, body { margin: 0; padding: 0; } #root { display: contents; }</style>
+</head><body>
+  <div id="root"><style data-kid="0">
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:wght@400;500;600&display=swap');
+  @import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css');
+
+  /* Geist Font Simulation (assuming local or fallback to Inter) */
+  :root {
+    --font-display: 'Inter', system-ui, sans-serif; /* Geist fallback */
+    --font-serif: 'EB Garamond', serif;
+    --font-sans: 'Inter', sans-serif;
+    
+    --color-bg: #0a0a0b;
+    --color-surface: #141416;
+    --color-surface-raised: #1c1c1f;
+    --color-border: rgba(255, 255, 255, 0.08);
+    --color-accent: #c8bfff;
+    --color-vitality: #d9f99d;
+    --color-text-primary: #fafafa;
+    --color-text-secondary: #a1a1aa;
+    --color-text-muted: #71717a;
+    --spacing-section-gap: 96px;
+    --theme-card-hover-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    margin: 0;
+    overflow-x: hidden;
+  }
+
+  /* Portfolio Components Replicated */
+  .section-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.75rem;
+    display: inline-block;
+  }
+
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: border-color 200ms ease, transform 280ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .card-interactive:hover {
+    transform: translateY(-4px);
+    border-color: rgba(200, 191, 255, 0.22);
+    box-shadow: var(--theme-card-hover-shadow);
+  }
+
+  .vitality-glow-hover:hover {
+    border-color: rgba(217, 249, 157, 0.3);
+    box-shadow: 0 0 30px rgba(217, 249, 157, 0.08);
+  }
+
+  .font-display { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; }
+  .font-italic-serif { font-family: var(--font-serif); font-style: italic; }
+
+  /* Background Grid & Orbs (Harmonized with .about-page-grid) */
+  .about-page-grid {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 85% 65% at 50% 20%, black 15%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .about-page-orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(80px);
+    opacity: 0.1;
+    pointer-events: none;
+  }
+
+  /* Specific Helix Styling */
+  .helix-path {
+    stroke: var(--color-accent);
+    stroke-width: 2;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+  }
+
+  .bio-bridge-item.is-active .connector-path {
+    stroke: var(--color-vitality);
+    opacity: 1;
+    stroke-dasharray: 0;
+  }
+
+  .interest-pill {
+    padding: 0.625rem 1rem;
+    border-radius: 9999px;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    font-size: 0.8125rem;
+    color: var(--color-text-primary);
+    transition: all 0.3s ease;
+    cursor: default;
+  }
+
+  .interest-pill:hover {
+    border-color: var(--color-vitality);
+    color: var(--color-vitality);
+    background: rgba(217, 249, 157, 0.05);
+  }
+</style>
+
+<div class="relative min-h-screen" data-kid="1">
+  
+  <div class="fixed inset-0 z-0" data-kid="2">
+    <div class="about-page-grid" data-kid="3"></div>
+    <div class="about-page-orb w-[500px] h-[500px] bg-purple-500/20 top-[10%] -right-[10%]" data-kid="4"></div>
+    <div class="about-page-orb w-[400px] h-[400px] bg-teal-500/10 bottom-[10%] -left-[10%]" data-kid="5"></div>
+  </div>
+
+  <main class="relative z-10 max-w-6xl mx-auto px-6 py-[var(--spacing-section-gap)]" data-kid="6">
+    
+    
+    <header class="mb-32" data-kid="7">
+      <div class="max-w-3xl" data-kid="8">
+        <span class="section-label" data-kid="9">Redesign — Variant 3</span>
+        <h1 class="font-display text-5xl md:text-7xl leading-[1.1] mb-8" data-kid="10">
+          The <span class="font-italic-serif text-white" data-kid="11">Biological</span> Blueprint <br data-kid="12">
+          of Software Architecture.
+        </h1>
+        <p class="text-xl text-[var(--color-text-secondary)] leading-relaxed" data-kid="13">
+          Synthesizing scientific precision with cloud-native engineering. My background in <span class="font-italic-serif text-white" data-kid="14">Bioengineering</span> provides a unique vantage point on system resilience and homeostasis.
+        </p>
+      </div>
+    </header>
+
+    
+    <section class="mb-32" data-kid="15">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start" data-kid="16">
+        <div class="lg:col-span-6 space-y-12" data-kid="17">
+          <div data-kid="18">
+            <span class="section-label" data-kid="19">Evolution Path</span>
+            <h2 class="font-display text-4xl mb-6" data-kid="20">The Career Helix</h2>
+            <p class="text-lg text-[var(--color-text-secondary)] mb-8" data-kid="21">
+              A trajectory defined by the translation of biological complexity into technical architecture. Every step represents a mutation towards higher systemic abstraction.
+            </p>
+          </div>
+          
+          <div class="space-y-8 relative" data-kid="22">
+            
+            <div class="milestone-text opacity-50 transition-opacity duration-500" data-index="0" data-kid="23">
+              <h4 class="font-display text-xl text-white mb-2" data-kid="24">01. Physiological Foundations</h4>
+              <p class="text-sm text-[var(--color-text-muted)]" data-kid="25">Decoding bio-signals and modeling homeostatic feedback loops in clinical environments.</p>
+            </div>
+            <div class="milestone-text opacity-50 transition-opacity duration-500" data-index="1" data-kid="26">
+              <h4 class="font-display text-xl text-white mb-2" data-kid="27">02. Data Translation</h4>
+              <p class="text-sm text-[var(--color-text-muted)]" data-kid="28">Scaling clinical research pipelines and orchestrating medical datasets for signal analysis.</p>
+            </div>
+            <div class="milestone-text opacity-50 transition-opacity duration-500" data-index="2" data-kid="29">
+              <h4 class="font-display text-xl text-white mb-2" data-kid="30">03. Backend Evolution</h4>
+              <p class="text-sm text-[var(--color-text-muted)]" data-kid="31">Pivoting logic from biological cells to distributed software cells—transitioning to microservices.</p>
+            </div>
+            <div class="milestone-text opacity-50 transition-opacity duration-500" data-index="3" data-kid="32">
+              <h4 class="font-display text-xl text-white mb-2" data-kid="33">04. Platform Architecture</h4>
+              <p class="text-sm text-[var(--color-text-muted)]" data-kid="34">Building resilient, self-healing infrastructures that mimic biological adaptability at scale.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 sticky top-24 h-[600px] flex items-center justify-center" data-kid="35">
+          <div class="relative w-full h-full max-w-[400px]" data-kid="36">
+            <svg viewBox="0 0 200 600" class="w-full h-full overflow-visible" data-kid="37">
+              <path id="helix-path" class="helix-path" fill="none" d="M100,0 C150,100 50,200 100,300 C150,400 50,500 100,600" data-kid="38"></path>
+              
+              <g class="helix-node" data-index="0" data-kid="39">
+                <circle cx="100" cy="0" r="10" fill="var(--color-surface)" stroke="var(--color-accent)" stroke-width="2" data-kid="40"></circle>
+                <circle cx="100" cy="0" r="10" class="node-glow opacity-0" fill="var(--color-vitality)" filter="blur(8px)" data-kid="41"></circle>
+              </g>
+              <g class="helix-node" data-index="1" data-kid="42">
+                <circle cx="100" cy="150" r="10" fill="var(--color-surface)" stroke="var(--color-accent)" stroke-width="2" data-kid="43"></circle>
+              </g>
+              <g class="helix-node" data-index="2" data-kid="44">
+                <circle cx="100" cy="300" r="10" fill="var(--color-surface)" stroke="var(--color-accent)" stroke-width="2" data-kid="45"></circle>
+              </g>
+              <g class="helix-node" data-index="3" data-kid="46">
+                <circle cx="100" cy="450" r="10" fill="var(--color-surface)" stroke="var(--color-accent)" stroke-width="2" data-kid="47"></circle>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="mb-32" data-kid="48">
+      <span class="section-label" data-kid="49">Interdisciplinary Mapping</span>
+      <h2 class="font-display text-4xl mb-12" data-kid="50">The Bio Bridge</h2>
+      
+      <div class="card p-0 overflow-hidden" data-kid="51">
+        <div class="grid grid-cols-1 md:grid-cols-2" data-kid="52">
+          
+          <div class="p-8 border-r border-[var(--color-border)]" data-kid="53">
+            <h4 class="text-xs uppercase tracking-widest text-[var(--color-text-muted)] mb-8" data-kid="54">Concept Transfer</h4>
+            <div class="space-y-4" data-kid="55">
+              <div class="bio-bridge-item group flex items-center justify-between p-4 rounded-xl hover:bg-white/[0.03] transition-colors cursor-pointer" data-id="1" data-kid="56">
+                <div class="flex flex-col" data-kid="57">
+                  <span class="font-italic-serif text-white" data-kid="58">Signal Processing</span>
+                  <span class="text-xs text-[var(--color-text-muted)] mt-1" data-kid="59">Noise filtration & Sampling</span>
+                </div>
+                <i class="ti ti-arrow-right text-[var(--color-text-muted)] group-hover:text-[var(--color-vitality)] transition-colors" data-kid="60"></i>
+              </div>
+              <div class="bio-bridge-item group flex items-center justify-between p-4 rounded-xl hover:bg-white/[0.03] transition-colors cursor-pointer" data-id="2" data-kid="61">
+                <div class="flex flex-col" data-kid="62">
+                  <span class="font-italic-serif text-white" data-kid="63">Homeostasis</span>
+                  <span class="text-xs text-[var(--color-text-muted)] mt-1" data-kid="64">Self-regulation & Feedback</span>
+                </div>
+                <i class="ti ti-arrow-right text-[var(--color-text-muted)] group-hover:text-[var(--color-vitality)] transition-colors" data-kid="65"></i>
+              </div>
+              <div class="bio-bridge-item group flex items-center justify-between p-4 rounded-xl hover:bg-white/[0.03] transition-colors cursor-pointer" data-id="3" data-kid="66">
+                <div class="flex flex-col" data-kid="67">
+                  <span class="font-italic-serif text-white" data-kid="68">Metabolic Pathways</span>
+                  <span class="text-xs text-[var(--color-text-muted)] mt-1" data-kid="69">Energy & Resource Orchestration</span>
+                </div>
+                <i class="ti ti-arrow-right text-[var(--color-text-muted)] group-hover:text-[var(--color-vitality)] transition-colors" data-kid="70"></i>
+              </div>
+            </div>
+          </div>
+          
+          
+          <div class="p-8 bg-white/[0.01] flex items-center justify-center relative" data-kid="71">
+            <div class="relative w-full aspect-square max-w-[300px]" data-kid="72">
+              <div class="absolute inset-0 flex items-center justify-center" data-kid="73">
+                <div class="w-24 h-24 rounded-full border border-white/5 bg-white/[0.02] flex items-center justify-center" data-kid="74">
+                  <i class="ti ti-dna text-3xl text-[var(--color-accent)]" data-kid="75"></i>
+                </div>
+              </div>
+              
+              
+              <svg class="absolute inset-0 w-full h-full overflow-visible" viewBox="0 0 300 300" data-kid="76">
+                <path class="connector-path opacity-20 transition-all duration-500" data-id="1" fill="none" stroke="white" stroke-dasharray="4 4" d="M150,150 L250,50" data-kid="77"></path>
+                <path class="connector-path opacity-20 transition-all duration-500" data-id="2" fill="none" stroke="white" stroke-dasharray="4 4" d="M150,150 L250,150" data-kid="78"></path>
+                <path class="connector-path opacity-20 transition-all duration-500" data-id="3" fill="none" stroke="white" stroke-dasharray="4 4" d="M150,150 L250,250" data-kid="79"></path>
+              </svg>
+              
+              
+              <div class="absolute top-[35px] right-0 flex items-center gap-3" data-kid="80">
+                <div class="w-8 h-8 rounded-lg bg-surface-raised border border-white/10 flex items-center justify-center" data-kid="81"><i class="ti ti-wave-square text-xs" data-kid="82"></i></div>
+                <span class="text-xs font-display" data-kid="83">Event Streaming</span>
+              </div>
+              <div class="absolute top-[135px] right-0 flex items-center gap-3" data-kid="84">
+                <div class="w-8 h-8 rounded-lg bg-surface-raised border border-white/10 flex items-center justify-center" data-kid="85"><i class="ti ti-arrows-maximize text-xs" data-kid="86"></i></div>
+                <span class="text-xs font-display" data-kid="87">Autoscaling</span>
+              </div>
+              <div class="absolute bottom-[35px] right-0 flex items-center gap-3" data-kid="88">
+                <div class="w-8 h-8 rounded-lg bg-surface-raised border border-white/10 flex items-center justify-center" data-kid="89"><i class="ti ti-stack-2 text-xs" data-kid="90"></i></div>
+                <span class="text-xs font-display" data-kid="91">Data Pipelines</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="mb-32" data-kid="92">
+      <span class="section-label" data-kid="93">Core Engineering Mindset</span>
+      <h2 class="font-display text-4xl mb-12" data-kid="94">Core Principles</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-kid="95">
+        <div class="card card-interactive vitality-glow-hover flex flex-col items-start h-full" data-kid="96">
+          <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-8 border border-accent/20" data-kid="97">
+            <i class="ti ti-microscope text-xl text-[var(--color-accent)]" data-kid="98"></i>
+          </div>
+          <h4 class="font-display text-2xl text-white mb-4" data-kid="99">Precision-First</h4>
+          <p class="text-[var(--color-text-secondary)] leading-relaxed" data-kid="100">Applying clinical-grade attention to detail in every line of code and infrastructure configuration.</p>
+        </div>
+        
+        <div class="card card-interactive vitality-glow-hover flex flex-col items-start h-full" data-kid="101">
+          <div class="w-12 h-12 rounded-xl bg-vitality/10 flex items-center justify-center mb-8 border border-vitality/20" data-kid="102">
+            <i class="ti ti-refresh text-xl text-[var(--color-vitality)]" data-kid="103"></i>
+          </div>
+          <h4 class="font-display text-2xl text-white mb-4" data-kid="104">Adaptive Design</h4>
+          <p class="text-[var(--color-text-secondary)] leading-relaxed" data-kid="105">Building systems that embrace failure as a signal for self-correction, much like biological organisms.</p>
+        </div>
+        
+        <div class="card card-interactive vitality-glow-hover flex flex-col items-start h-full" data-kid="106">
+          <div class="w-12 h-12 rounded-xl bg-teal-400/10 flex items-center justify-center mb-8 border border-teal-400/20" data-kid="107">
+            <i class="ti ti-server text-xl text-teal-400" data-kid="108"></i>
+          </div>
+          <h4 class="font-display text-2xl text-white mb-4" data-kid="109">Systemic Scalability</h4>
+          <p class="text-[var(--color-text-secondary)] leading-relaxed" data-kid="110">Understanding the interconnected nature of services to ensure growth doesn't compromise stability.</p>
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="mb-32" data-kid="111">
+      <div class="text-center" data-kid="112">
+        <span class="section-label" data-kid="113">Curiosities & Explorations</span>
+        <h2 class="font-italic-serif text-4xl text-white mb-12" data-kid="114">Interests</h2>
+        
+        <div class="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto" data-kid="115">
+          <div class="interest-pill" data-kid="116">Machine Learning</div>
+          <div class="interest-pill" data-kid="117">Genomics</div>
+          <div class="interest-pill" data-kid="118">Distributed Systems</div>
+          <div class="interest-pill" data-kid="119">Analog Synthesis</div>
+          <div class="interest-pill" data-kid="120">Computational Biology</div>
+          <div class="interest-pill" data-kid="121">Platform Engineering</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="max-w-6xl mx-auto px-6 py-12 border-t border-[var(--color-border)] flex justify-between items-center text-[10px] tracking-widest text-[var(--color-text-muted)] uppercase font-display" data-kid="122">
+    <div data-kid="123">&copy; 2026 Esteban</div>
+    <div class="flex gap-8" data-kid="124">
+      <a href="#" class="hover:text-white transition-colors" data-kid="125">GitHub</a>
+      <a href="#" class="hover:text-white transition-colors" data-kid="126">LinkedIn</a>
+    </div>
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js" data-kid="127"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js" data-kid="128"></script>
+<script data-kid="129">
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Helix Scroll Animation
+  gsap.to('#helix-path', {
+    strokeDashoffset: 0,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '#helix-path',
+      start: 'top 60%',
+      end: 'bottom 40%',
+      scrub: 0.5
+    }
+  });
+
+  // Milestone Text Highlighting
+  const milestones = document.querySelectorAll('.milestone-text');
+  milestones.forEach((el, i) => {
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 70%',
+      end: 'bottom 70%',
+      onEnter: () => gsap.to(el, { opacity: 1, duration: 0.3 }),
+      onLeave: () => gsap.to(el, { opacity: 0.5, duration: 0.3 }),
+      onEnterBack: () => gsap.to(el, { opacity: 1, duration: 0.3 }),
+      onLeaveBack: () => gsap.to(el, { opacity: 0.5, duration: 0.3 })
+    });
+  });
+
+  // Bio Bridge Interaction
+  document.querySelectorAll('.bio-bridge-item').forEach(item => {
+    item.addEventListener('mouseenter', () => {
+      const id = item.dataset.id;
+      document.querySelector(`.connector-path[data-id="${id}"]`).classList.add('is-active');
+      gsap.to(`.connector-path[data-id="${id}"]`, { stroke: '#d9f99d', opacity: 1, duration: 0.3 });
+    });
+    
+    item.addEventListener('mouseleave', () => {
+      const id = item.dataset.id;
+      document.querySelector(`.connector-path[data-id="${id}"]`).classList.remove('is-active');
+      gsap.to(`.connector-path[data-id="${id}"]`, { stroke: 'white', opacity: 0.2, duration: 0.3 });
+    });
+  });
+</script></div>
+  
+  
+</body></html>

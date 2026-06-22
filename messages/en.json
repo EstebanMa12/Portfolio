@@ -155,11 +155,67 @@
     "title": "About",
     "description": "Learn about my background in Bioengineering and systems-focused engineering.",
     "interests": "Interests",
+    "interestsRelated": "View projects",
+    "evolutionLabel": "Professional evolution",
+    "evolutionFrom": "Bioengineering",
+    "evolutionTo": "Software Engineering",
+    "evolutionFromDetail": "Biological system modeling, signal processing, and experimental rigor.",
+    "evolutionToDetail": "Backend, platform engineering, and distributed systems architecture.",
+    "metricsAria": "Professional credibility metrics",
+    "metrics": {
+      "yearsCoding": "Years coding",
+      "projects": "Projects built",
+      "technologies": "Technologies mastered",
+      "specializations": "Specialization areas"
+    },
+    "metricsValues": {
+      "yearsCoding": 5,
+      "yearsSuffix": "+"
+    },
+    "mindsetLabel": "Philosophy",
+    "mindsetTitle": "How I think as an engineer",
+    "mindsetDescription": "The same principles I applied in the lab guide how I design, validate, and operate software in production.",
+    "mindsetBioLabel": "In science",
+    "mindsetSoftwareLabel": "In software",
+    "mindsetItems": [
+      {
+        "title": "Systems thinking",
+        "bioContext": "I analyze interactions between variables, feedback loops, and emergent effects in biological systems.",
+        "softwareContext": "I design services with clear boundaries, explicit contracts, and conscious dependencies."
+      },
+      {
+        "title": "Complex system modeling",
+        "bioContext": "I build models that simplify reality without losing the variables that matter.",
+        "softwareContext": "I translate business domains into modular, event-driven, scalable architectures."
+      },
+      {
+        "title": "Experimental validation",
+        "bioContext": "I formulate hypotheses, design controlled experiments, and measure reproducible results.",
+        "softwareContext": "I automate tests, CI/CD, and reproducible environments before every deploy."
+      },
+      {
+        "title": "Evidence-driven design",
+        "bioContext": "I make decisions based on data, not intuition — especially with noisy signals.",
+        "softwareContext": "I prioritize observability, business metrics, and SLOs to guide iterations."
+      }
+    ],
+    "interestDescriptions": {
+      "Artificial Intelligence": "Exploring models that amplify human capabilities — from applied ML to agents.",
+      "Quantum Computing": "Interest in quantum algorithms and their future impact on optimization and cryptography.",
+      "Computational Neuroscience": "A natural bridge between biological signals and distributed processing systems.",
+      "Fitness": "Measurable discipline: incremental progress, consistency, and variable optimization."
+    },
     "bioBridgeLabel": "Skill transfer",
     "bioBridgeTitle": "Bioengineering ↔ Software",
     "bioBridgeDescription": "My scientific background directly shapes how I design, validate, and operate software systems in production.",
     "bioBridgeFrom": "Bioengineering",
-    "bioBridgeTo": "Software"
+    "bioBridgeTo": "Software",
+    "bioBridgeTooltips": [
+      "The rigor of biological signal processing translates into robust data pipelines and real-time event streams.",
+      "Modeling complex biological systems is equivalent to designing microservices with clear boundaries and low coupling.",
+      "Experimental validation in the lab is the same mindset behind automated testing and CI/CD.",
+      "Statistical analysis of noisy data becomes observability, metrics, and performance analysis."
+    ]
   },
   "contact": {
     "title": "Contact",
