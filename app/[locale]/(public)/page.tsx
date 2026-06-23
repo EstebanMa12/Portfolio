@@ -20,6 +20,7 @@ import {
   getLatestArticles,
 } from "@/lib/cache/public-queries";
 import { createPageMetadata } from "@/lib/domain/seo/create-page-metadata";
+import { buildHomeJsonLd } from "@/lib/domain/seo/json-ld-builders";
 import { localizedPath } from "@/lib/i18n/paths";
 import type { Locale } from "@/lib/i18n/config";
 import { getSettings } from "@/lib/repositories/seo-repo";
@@ -63,29 +64,18 @@ export default async function HomePage() {
   }
 
   const siteUrl = settings.siteUrl;
+  const pageUrl = `${siteUrl}${localizedPath("/", locale)}`;
 
   return (
     <>
       <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@graph": [
-            {
-              "@type": "Person",
-              name: hero.name,
-              url: `${siteUrl}${localizedPath("/", locale)}`,
-              jobTitle: hero.headline,
-              sameAs: [hero.socialLinks.github, hero.socialLinks.linkedin],
-              inLanguage: locale,
-            },
-            {
-              "@type": "WebSite",
-              name: settings.siteName,
-              url: `${siteUrl}${localizedPath("/", locale)}`,
-              inLanguage: locale,
-            },
-          ],
-        }}
+        data={buildHomeJsonLd({
+          hero,
+          siteName: settings.siteName,
+          siteUrl,
+          pageUrl,
+          locale,
+        })}
       />
       <HeroSection hero={hero} />
       <FeaturedProjects projects={featuredProjects} />

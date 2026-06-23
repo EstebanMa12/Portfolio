@@ -16,6 +16,7 @@ import {
   resolvePageMeta,
   toMetadata,
 } from "@/lib/domain/seo/seo-service";
+import { buildBlogPostingJsonLd } from "@/lib/domain/seo/json-ld-builders";
 import { localizedPath } from "@/lib/i18n/paths";
 import type { Locale } from "@/lib/i18n/config";
 import { routing } from "@/lib/i18n/routing";
@@ -99,20 +100,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   return (
     <article className="py-8">
       <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "BlogPosting",
-          headline: article.title,
-          description: article.excerpt,
-          datePublished: article.publishedAt,
-          dateModified: article.updatedAt,
-          inLanguage: locale,
-          author: {
-            "@type": "Person",
-            name: hero?.name ?? settings.siteName,
-          },
-          url: `${settings.siteUrl}${articlePath}`,
-        }}
+        data={buildBlogPostingJsonLd({
+          article,
+          authorName: hero?.name ?? settings.siteName,
+          pageUrl: `${settings.siteUrl}${articlePath}`,
+          locale,
+        })}
       />
 
       <RevealOnScroll direction="none">

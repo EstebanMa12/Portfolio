@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getArticleSlugs } from "@/lib/cache/public-queries";
+import { getArticleSlugs, getProjectSlugs } from "@/lib/cache/public-queries";
 import { localizedPath } from "@/lib/i18n/paths";
 import { routing } from "@/lib/i18n/routing";
 import { getSettings } from "@/lib/repositories/seo-repo";
@@ -13,6 +13,15 @@ const STATIC_PATHS = [
   "/contact",
 ] as const;
 
+function buildAlternates(path: string, siteUrl: string) {
+  return {
+    languages: {
+      es: `${siteUrl}${localizedPath(path, "es")}`,
+      en: `${siteUrl}${localizedPath(path, "en")}`,
+    },
+  };
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = (await getSettings("es")).siteUrl.replace(/\/$/, "");
   const entries: MetadataRoute.Sitemap = [];
@@ -23,29 +32,34 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         url: `${siteUrl}${localizedPath(path, locale)}`,
         changeFrequency: path === "/" ? "weekly" : "monthly",
         priority: path === "/" ? 1 : 0.8,
-        alternates: {
-          languages: {
-            es: `${siteUrl}${localizedPath(path, "es")}`,
-            en: `${siteUrl}${localizedPath(path, "en")}`,
-          },
-        },
+        alternates: buildAlternates(path, siteUrl),
       });
     }
 
-    const slugs = await getArticleSlugs(locale);
-    for (const { slug, updatedAt } of slugs) {
+    const [projectSlugs, articleSlugs] = await Promise.all([
+      getProjectSlugs(locale),
+      getArticleSlugs(locale),
+    ]);
+
+    for (const { slug, updatedAt } of projectSlugs) {
+      const path = `/projects/${slug}`;
+      entries.push({
+        url: `${siteUrl}${localizedPath(path, locale)}`,
+        lastModified: updatedAt,
+        changeFrequency: "monthly",
+        priority: 0.8,
+        alternates: buildAlternates(path, siteUrl),
+      });
+    }
+
+    for (const { slug, updatedAt } of articleSlugs) {
       const path = `/blog/${slug}`;
       entries.push({
         url: `${siteUrl}${localizedPath(path, locale)}`,
         lastModified: updatedAt,
         changeFrequency: "monthly",
         priority: 0.6,
-        alternates: {
-          languages: {
-            es: `${siteUrl}${localizedPath(path, "es")}`,
-            en: `${siteUrl}${localizedPath(path, "en")}`,
-          },
-        },
+        alternates: buildAlternates(path, siteUrl),
       });
     }
   }

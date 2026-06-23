@@ -1,11 +1,11 @@
 "use client";
 
-import { track } from "@vercel/analytics";
 import { Link, usePathname } from "@/lib/i18n/navigation";
+import { trackCtaClick, type CtaEventType } from "@/lib/analytics/track";
 import { cn } from "@/lib/utils/cn";
 
 type CtaButtonProps = {
-  eventType: string;
+  eventType: CtaEventType;
   href: string;
   variant?: "primary" | "secondary";
   className?: string;
@@ -26,10 +26,7 @@ export function CtaButton({
   );
 
   const handleClick = () => {
-    track("cta_click", {
-      type: eventType,
-      page: pathname ?? "/",
-    });
+    trackCtaClick(eventType, pathname ?? "/");
   };
 
   const isExternal = href.startsWith("http") || href.startsWith("mailto:");

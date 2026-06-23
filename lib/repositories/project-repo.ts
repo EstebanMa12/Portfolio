@@ -125,15 +125,16 @@ export async function getById(
   return fetchById(id, admin);
 }
 
-export async function getPublishedSlugs(): Promise<
-  Array<{ slug: string; updatedAt: string }>
-> {
-  const supabase = await createClient();
+export async function getPublishedSlugs(
+  locale: Locale = defaultLocale,
+): Promise<Array<{ slug: string; updatedAt: string }>> {
+  const supabase = createStaticClient();
   const rows = unwrap(
     await supabase
       .from("projects")
       .select("slug, updated_at")
       .eq("status", "published")
+      .eq("locale", locale)
       .order("sort_order", { ascending: true }),
   );
 

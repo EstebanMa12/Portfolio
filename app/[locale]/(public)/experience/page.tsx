@@ -9,6 +9,7 @@ import {
   getHeroContent,
 } from "@/lib/cache/public-queries";
 import { createPageMetadata } from "@/lib/domain/seo/create-page-metadata";
+import { buildProfilePageJsonLd } from "@/lib/domain/seo/json-ld-builders";
 import { localizedPath } from "@/lib/i18n/paths";
 import type { Locale } from "@/lib/i18n/config";
 import { getSettings } from "@/lib/repositories/seo-repo";
@@ -37,28 +38,12 @@ export default async function ExperiencePage() {
     <>
       {hero && experiences.length > 0 ? (
         <JsonLd
-          data={{
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "Person",
-                name: hero.name,
-                url: experienceUrl,
-                jobTitle: hero.headline,
-                inLanguage: locale,
-              },
-              ...experiences.map((experience) => ({
-                "@type": "OrganizationRole",
-                roleName: experience.role,
-                memberOf: {
-                  "@type": "Organization",
-                  name: experience.company,
-                },
-                startDate: experience.startDate,
-                ...(experience.endDate ? { endDate: experience.endDate } : {}),
-              })),
-            ],
-          }}
+          data={buildProfilePageJsonLd({
+            hero,
+            experiences,
+            pageUrl: experienceUrl,
+            locale,
+          })}
         />
       ) : null}
 

@@ -134,3 +134,14 @@ export function getArticleSlugs(locale: Locale = defaultLocale) {
     },
   )();
 }
+
+export function getProjectSlugs(locale: Locale = defaultLocale) {
+  return unstable_cache(
+    () => projectRepo.getPublishedSlugs(locale),
+    ["public-project-slugs", locale],
+    {
+      tags: [CACHE_TAGS.projects],
+      revalidate: REVALIDATE_SECONDS,
+    },
+  )();
+}

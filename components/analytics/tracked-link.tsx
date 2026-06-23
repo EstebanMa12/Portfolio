@@ -1,11 +1,11 @@
 "use client";
 
-import { track } from "@vercel/analytics";
 import { Link, usePathname } from "@/lib/i18n/navigation";
+import { trackCtaClick, type CtaEventType } from "@/lib/analytics/track";
 import { cn } from "@/lib/utils/cn";
 
 type TrackedLinkProps = React.ComponentProps<typeof Link> & {
-  eventType: string;
+  eventType: CtaEventType;
 };
 
 export function TrackedLink({
@@ -21,10 +21,7 @@ export function TrackedLink({
       {...props}
       className={cn(className)}
       onClick={(event) => {
-        track("cta_click", {
-          type: eventType,
-          page: pathname ?? "/",
-        });
+        trackCtaClick(eventType, pathname ?? "/");
         onClick?.(event);
       }}
     />

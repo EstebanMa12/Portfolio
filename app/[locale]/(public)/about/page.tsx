@@ -16,6 +16,7 @@ import {
 } from "@/lib/cache/public-queries";
 import { getInterestDescriptionKey } from "@/lib/domain/about/interest-slugs";
 import { createPageMetadata } from "@/lib/domain/seo/create-page-metadata";
+import { buildAboutPersonJsonLd } from "@/lib/domain/seo/json-ld-builders";
 import { localizedPath } from "@/lib/i18n/paths";
 import type { Locale } from "@/lib/i18n/config";
 import { getSettings } from "@/lib/repositories/seo-repo";
@@ -136,15 +137,13 @@ export default async function AboutPage() {
   return (
     <>
       <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "Person",
-          name: hero?.name ?? settings.siteName,
-          description: about.paragraphs.join(" "),
-          knowsAbout: about.interests,
-          url: `${settings.siteUrl}${localizedPath("/about", locale)}`,
-          inLanguage: locale,
-        }}
+        data={buildAboutPersonJsonLd({
+          hero,
+          about,
+          siteName: settings.siteName,
+          pageUrl: `${settings.siteUrl}${localizedPath("/about", locale)}`,
+          locale,
+        })}
       />
 
       <div className="about-page relative">
