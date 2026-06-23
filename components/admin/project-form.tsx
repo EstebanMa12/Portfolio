@@ -6,6 +6,7 @@ import {
   createProject,
   deleteProject,
   publishProjectAction,
+  unpublishProjectAction,
   suggestProjectSlug,
   updateProject,
   type ActionState,
@@ -334,7 +335,7 @@ export function ProjectForm({ project, technologies }: ProjectFormProps) {
 
     {isEdit && project ? (
       <div className="flex flex-wrap items-center gap-3 mt-4">
-        <PublishButton projectId={project.id} />
+        <PublishStatusButton projectId={project.id} status={project.status} />
         <DeleteProjectButton projectId={project.id} />
       </div>
     ) : null}
@@ -360,11 +361,19 @@ function DeleteProjectButton({ projectId }: { projectId: string }) {
   );
 }
 
-function PublishButton({ projectId }: { projectId: string }) {
-  const [state, action, pending] = useActionState(publishProjectAction, initialState);
+function PublishStatusButton({
+  projectId,
+  status,
+}: {
+  projectId: string;
+  status: "draft" | "published";
+}) {
+  const isPublished = status === "published";
+  const action = isPublished ? unpublishProjectAction : publishProjectAction;
+  const [state, formAction, pending] = useActionState(action, initialState);
 
   return (
-    <form action={action}>
+    <form action={formAction}>
       <input type="hidden" name="projectId" value={projectId} />
       {state.error ? (
         <p className="sr-only" role="alert">
@@ -381,7 +390,13 @@ function PublishButton({ projectId }: { projectId: string }) {
         className="btn-secondary text-sm px-5 min-h-10"
         disabled={pending}
       >
-        {pending ? "Publicando…" : "Publicar"}
+        {pending
+          ? isPublished
+            ? "Despublicando…"
+            : "Publicando…"
+          : isPublished
+            ? "Despublicar"
+            : "Publicar"}
       </button>
     </form>
   );

@@ -7,6 +7,7 @@ import { requireAdmin } from "@/lib/auth/require-admin";
 import {
   generateSlug,
   publishArticle as publishArticleService,
+  unpublishArticle as unpublishArticleService,
 } from "@/lib/domain/content/content-service";
 import { markdownToHtml } from "@/lib/markdown/render";
 import { uploadImage, MediaValidationError } from "@/lib/domain/media/media-service";
@@ -160,6 +161,25 @@ export async function publishArticleAction(
     return {
       error:
         error instanceof Error ? error.message : "No se pudo publicar.",
+    };
+  }
+}
+
+export async function unpublishArticleAction(
+  _prev: ActionState,
+  formData: FormData,
+): Promise<ActionState> {
+  await requireAdmin();
+  const id = String(formData.get("articleId") ?? "");
+
+  try {
+    await unpublishArticleService(id);
+    revalidatePath(`/admin/articles/${id}`);
+    return { success: "Artículo despublicado." };
+  } catch (error) {
+    return {
+      error:
+        error instanceof Error ? error.message : "No se pudo despublicar.",
     };
   }
 }

@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { requireAdmin } from "@/lib/auth/require-admin";
-import { publishProject as publishProjectService } from "@/lib/domain/content/content-service";
+import { publishProject as publishProjectService, unpublishProject as unpublishProjectService } from "@/lib/domain/content/content-service";
 import { uploadImage, MediaValidationError } from "@/lib/domain/media/media-service";
 import { projectInsertSchema } from "@/lib/schemas/project";
 import { seoFieldsSchema } from "@/lib/schemas/common";
@@ -179,6 +179,25 @@ export async function publishProjectAction(
     return {
       error:
         error instanceof Error ? error.message : "No se pudo publicar.",
+    };
+  }
+}
+
+export async function unpublishProjectAction(
+  _prev: ActionState,
+  formData: FormData,
+): Promise<ActionState> {
+  await requireAdmin();
+  const id = String(formData.get("projectId") ?? "");
+
+  try {
+    await unpublishProjectService(id);
+    revalidatePath(`/admin/projects/${id}`);
+    return { success: "Proyecto despublicado." };
+  } catch (error) {
+    return {
+      error:
+        error instanceof Error ? error.message : "No se pudo despublicar.",
     };
   }
 }

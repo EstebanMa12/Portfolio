@@ -7,6 +7,7 @@ import {
   createArticle,
   deleteArticle,
   publishArticleAction,
+  unpublishArticleAction,
   suggestArticleSlug,
   updateArticle,
   uploadArticleCover,
@@ -125,6 +126,7 @@ export function ArticleForm({ article }: ArticleFormProps) {
             <input
               name="title"
               required
+              data-testid="article-title"
               defaultValue={article?.title}
               className="mt-1 w-full rounded-lg border border-border bg-surface px-3 py-2 text-text-primary"
               onBlur={(event) => {
@@ -143,6 +145,7 @@ export function ArticleForm({ article }: ArticleFormProps) {
             <input
               name="slug"
               required
+              data-testid="article-slug"
               defaultValue={article?.slug}
               className="mt-1 w-full rounded-lg border border-border bg-surface px-3 py-2 font-mono text-sm text-text-primary"
               onBlur={(event) => {
@@ -186,6 +189,7 @@ export function ArticleForm({ article }: ArticleFormProps) {
               name="excerpt"
               required
               rows={3}
+              data-testid="article-excerpt"
               value={excerpt}
               onChange={(event) => setExcerpt(event.target.value)}
               className="mt-1 w-full rounded-lg border border-border bg-surface px-3 py-2 text-text-primary"
@@ -267,6 +271,7 @@ export function ArticleForm({ article }: ArticleFormProps) {
               name="content"
               required
               rows={18}
+              data-testid="article-content"
               value={content}
               onChange={(event) => setContent(event.target.value)}
               className="mt-1 w-full rounded-lg border border-border bg-surface px-3 py-2 font-mono text-sm text-text-primary"
@@ -340,6 +345,7 @@ export function ArticleForm({ article }: ArticleFormProps) {
         <div className="flex flex-wrap items-center gap-3 pt-2 border-t border-border">
           <button
             type="submit"
+            data-testid="article-submit"
             className="btn-primary text-sm px-5 min-h-10"
             disabled={pending || !excerptValid}
           >
@@ -356,7 +362,7 @@ export function ArticleForm({ article }: ArticleFormProps) {
 
       {isEdit && article ? (
         <div className="flex flex-wrap items-center gap-3 mt-4">
-          <PublishButton articleId={article.id} />
+          <PublishStatusButton articleId={article.id} status={article.status} />
           <DeleteArticleButton articleId={article.id} />
         </div>
       ) : null}
@@ -382,11 +388,19 @@ function DeleteArticleButton({ articleId }: { articleId: string }) {
   );
 }
 
-function PublishButton({ articleId }: { articleId: string }) {
-  const [state, action, pending] = useActionState(publishArticleAction, initialState);
+function PublishStatusButton({
+  articleId,
+  status,
+}: {
+  articleId: string;
+  status: "draft" | "published";
+}) {
+  const isPublished = status === "published";
+  const action = isPublished ? unpublishArticleAction : publishArticleAction;
+  const [state, formAction, pending] = useActionState(action, initialState);
 
   return (
-    <form action={action}>
+    <form action={formAction}>
       <input type="hidden" name="articleId" value={articleId} />
       {state.error ? (
         <p className="sr-only" role="alert">
@@ -400,10 +414,17 @@ function PublishButton({ articleId }: { articleId: string }) {
       ) : null}
       <button
         type="submit"
+        data-testid="article-publish"
         className="btn-secondary text-sm px-5 min-h-10"
         disabled={pending}
       >
-        {pending ? "Publicando…" : "Publicar"}
+        {pending
+          ? isPublished
+            ? "Despublicando…"
+            : "Publicando…"
+          : isPublished
+            ? "Despublicar"
+            : "Publicar"}
       </button>
     </form>
   );

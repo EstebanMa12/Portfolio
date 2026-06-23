@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SectionLabel } from "@/components/public/section-label";
 import { requireAdmin } from "@/lib/auth/require-admin";
+import { buildRecentActivity } from "@/lib/admin/recent-activity";
 import * as articleRepo from "@/lib/repositories/article-repo";
 import * as experienceRepo from "@/lib/repositories/experience-repo";
 import * as projectRepo from "@/lib/repositories/project-repo";
@@ -18,6 +19,7 @@ export default async function AdminDashboardPage() {
 
   const draftProjects = projects.filter((project) => project.status === "draft").length;
   const draftArticles = articles.filter((article) => article.status === "draft").length;
+  const recentActivity = buildRecentActivity({ projects, articles, experiences });
 
   const quickLinks = [
     { label: "Tecnologías", href: "/admin/technologies", count: technologies.length },
@@ -63,6 +65,63 @@ export default async function AdminDashboardPage() {
           </Link>
         ))}
       </div>
+
+      <section className="mt-10" aria-labelledby="recent-activity-heading">
+        <h2
+          id="recent-activity-heading"
+          className="font-display text-xl font-semibold text-text-primary mb-4"
+        >
+          Actividad reciente
+        </h2>
+
+        {recentActivity.length === 0 ? (
+          <p className="text-sm text-text-muted">No hay contenido editado todavía.</p>
+        ) : (
+          <div className="overflow-x-auto rounded-xl border border-border">
+            <table className="min-w-full text-sm">
+              <thead className="bg-surface/80 text-left text-text-muted">
+                <tr>
+                  <th className="px-4 py-3 font-medium">Entidad</th>
+                  <th className="px-4 py-3 font-medium">Título</th>
+                  <th className="px-4 py-3 font-medium">Estado</th>
+                  <th className="px-4 py-3 font-medium">Última edición</th>
+                </tr>
+              </thead>
+              <tbody>
+                {recentActivity.map((item) => (
+                  <tr key={`${item.entityType}-${item.id}`} className="border-t border-border">
+                    <td className="px-4 py-3 text-text-secondary">{item.entityLabel}</td>
+                    <td className="px-4 py-3">
+                      <Link
+                        href={item.href}
+                        className="font-medium text-text-primary hover:text-accent"
+                      >
+                        {item.title}
+                      </Link>
+                    </td>
+                    <td className="px-4 py-3 text-text-secondary">
+                      {item.status ? (
+                        <span
+                          className={
+                            item.status === "published" ? "text-accent" : "text-text-muted"
+                          }
+                        >
+                          {item.status === "published" ? "Publicado" : "Borrador"}
+                        </span>
+                      ) : (
+                        "—"
+                      )}
+                    </td>
+                    <td className="px-4 py-3 text-text-secondary whitespace-nowrap">
+                      {formatRelativeDate(item.updatedAt)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
     </section>
   );
 }
@@ -74,4 +133,24 @@ function StatCard({ label, value }: { label: string; value: number }) {
       <p className="mt-2 text-2xl font-display font-semibold text-text-primary">{value}</p>
     </div>
   );
+}
+
+function formatRelativeDate(iso: string): string {
+  const date = new Date(iso);
+  const now = Date.now();
+  const diffMs = now - date.getTime();
+  const diffMinutes = Math.floor(diffMs / 60_000);
+  const diffHours = Math.floor(diffMs / 3_600_000);
+  const diffDays = Math.floor(diffMs / 86_400_000);
+
+  if (diffMinutes < 1) return "Hace un momento";
+  if (diffMinutes < 60) return `Hace ${diffMinutes} min`;
+  if (diffHours < 24) return `Hace ${diffHours} h`;
+  if (diffDays < 7) return `Hace ${diffDays} d`;
+
+  return date.toLocaleDateString("es-ES", {
+    day: "numeric",
+    month: "short",
+    year: date.getFullYear() !== new Date().getFullYear() ? "numeric" : undefined,
+  });
 }

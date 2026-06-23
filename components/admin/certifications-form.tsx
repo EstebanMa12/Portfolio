@@ -261,7 +261,16 @@ export function CertificationsForm({ content, locale }: CertificationsFormProps)
               </button>
               <button
                 type="button"
-                onClick={() => setItems((current) => current.filter((_, i) => i !== index))}
+                onClick={() => {
+                  if (
+                    !window.confirm(
+                      "¿Eliminar esta certificación de la lista?",
+                    )
+                  ) {
+                    return;
+                  }
+                  setItems((current) => current.filter((_, i) => i !== index));
+                }}
                 className="btn-secondary text-sm px-3 min-h-9 text-red-400"
                 disabled={items.length === 1}
               >

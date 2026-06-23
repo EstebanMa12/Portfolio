@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useCallback, useRef, useState, useTransition } from "react";
+import { TechnologyTable } from "@/components/admin/technology-table";
 import { TechnologyIcon } from "@/components/ui/technology-icon";
 import {
   Sheet,
@@ -113,62 +114,13 @@ export function TechnologyAdminPanel({ technologies }: TechnologyAdminPanelProps
         </button>
       </div>
 
-      <div className="overflow-x-auto rounded-xl border border-border">
-        <table className="min-w-full text-sm">
-          <thead className="bg-surface/80 text-left text-text-muted">
-            <tr>
-              <th className="px-4 py-3 font-medium">Nombre</th>
-              <th className="px-4 py-3 font-medium">Slug</th>
-              <th className="px-4 py-3 font-medium">Categoría</th>
-              <th className="px-4 py-3 font-medium">Icono</th>
-              <th className="px-4 py-3 font-medium">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {technologies.length === 0 ? (
-              <tr>
-                <td colSpan={5} className="px-4 py-8 text-center text-text-muted">
-                  No hay tecnologías registradas.
-                </td>
-              </tr>
-            ) : (
-              technologies.map((tech) => (
-                <tr key={tech.id} className="border-t border-border">
-                  <td className="px-4 py-3 font-medium text-text-primary">{tech.name}</td>
-                  <td className="px-4 py-3 font-mono text-text-secondary">{tech.slug}</td>
-                  <td className="px-4 py-3 text-text-secondary">
-                    {TECH_CATEGORY_LABELS[tech.category]}
-                  </td>
-                  <td className="px-4 py-3 text-text-secondary">
-                    {tech.iconUrl ? (
-                      <TechnologyIcon
-                        src={tech.iconUrl}
-                        width={24}
-                        height={24}
-                        className="h-6 w-6"
-                      />
-                    ) : (
-                      "—"
-                    )}
-                  </td>
-                  <td className="px-4 py-3">
-                    <div className="flex flex-wrap gap-3">
-                      <button
-                        type="button"
-                        onClick={() => openEdit(tech)}
-                        className="text-accent hover:underline"
-                      >
-                        Editar
-                      </button>
-                      <DeleteTechnologyButton id={tech.id} name={tech.name} />
-                    </div>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
+      <TechnologyTable
+        technologies={technologies}
+        onEdit={openEdit}
+        renderDeleteButton={(tech) => (
+          <DeleteTechnologyButton id={tech.id} name={tech.name} />
+        )}
+      />
 
       <Sheet open={sheetOpen} onOpenChange={handleSheetOpenChange}>
         <SheetContent
