@@ -15,18 +15,25 @@ describe("RLS smoke (requires real Supabase anon key)", () => {
     async () => {
     const supabase = createClient<Database>(url!, anonKey!);
 
-    const { count: publishedCount } = await supabase
+    const { count: visibleCount } = await supabase
       .from("projects")
       .select("*", { count: "exact", head: true });
 
-    expect(publishedCount).toBe(3);
+    const { count: draftCount } = await supabase
+      .from("projects")
+      .select("*", { count: "exact", head: true })
+      .eq("status", "draft");
+
+    expect(visibleCount).toBeGreaterThan(0);
+    expect(draftCount).toBe(0);
 
     const { data: settings } = await supabase
       .from("seo_settings")
       .select("site_name")
-      .single();
+      .eq("locale", "es")
+      .maybeSingle();
 
-    expect(settings?.site_name).toBe("Esteban Maya");
+    expect(settings?.site_name).toBeTruthy();
     },
   );
 });

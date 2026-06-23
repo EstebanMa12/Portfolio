@@ -28,7 +28,32 @@ async function fetchById<T extends PageContentId>(
   return pageContentSchemas[id].parse(row.data) as PageContentMap[T];
 }
 
+async function fetchByIdAdmin<T extends PageContentId>(
+  id: T,
+  locale: Locale = defaultLocale,
+): Promise<PageContentMap[T] | null> {
+  const supabase = await createClient();
+  const result = await supabase
+    .from("page_content")
+    .select("data")
+    .eq("id", id)
+    .eq("locale", locale)
+    .maybeSingle();
+
+  const row = unwrapOptional(result);
+  if (!row) return null;
+
+  return pageContentSchemas[id].parse(row.data) as PageContentMap[T];
+}
+
 export const getById = cache(fetchById);
+
+export async function getByIdAdmin<T extends PageContentId>(
+  id: T,
+  locale: Locale = defaultLocale,
+): Promise<PageContentMap[T] | null> {
+  return fetchByIdAdmin(id, locale);
+}
 
 export async function getByIdOrThrow<T extends PageContentId>(
   id: T,

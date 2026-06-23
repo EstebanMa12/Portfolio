@@ -70,6 +70,7 @@ export const achievementItemSchema = z.object({
   meta: z.string().min(1),
   badge: achievementBadgeSchema,
   url: optionalHttpUrlSchema,
+  imageUrl: optionalHttpUrlSchema,
 });
 
 export const achievementsContentSchema = z.object({

@@ -33,6 +33,10 @@
     "switchToEs": "Español",
     "label": "Language"
   },
+  "common": {
+    "loading": "Loading",
+    "loadingCaption": "Syncing"
+  },
   "a11y": {
     "skipToContent": "Skip to main content",
     "mainNav": "Main",

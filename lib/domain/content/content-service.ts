@@ -12,7 +12,7 @@ const slugCheckers: Record<
   (slug: string, excludeId?: string) => Promise<boolean>
 > = {
   project: (slug, excludeId) => projectRepo.slugExists(slug, { excludeId }),
-  article: articleRepo.slugExists,
+  article: (slug, excludeId) => articleRepo.slugExists(slug, { excludeId }),
   technology: technologyRepo.slugExists,
 };
 
@@ -65,6 +65,34 @@ export async function publishArticle(id: string) {
     status: "published",
     publishedAt: article.publishedAt ?? new Date().toISOString(),
     readingTimeMin,
+  });
+
+  await revalidateEntity("article", { slug: updated.slug });
+  return updated;
+}
+
+export async function unpublishProject(id: string) {
+  const project = await projectRepo.getById(id, true);
+  if (!project) {
+    throw new Error("Project not found");
+  }
+
+  const updated = await projectRepo.update(id, {
+    status: "draft",
+  });
+
+  await revalidateEntity("project", { slug: updated.slug });
+  return updated;
+}
+
+export async function unpublishArticle(id: string) {
+  const article = await articleRepo.getById(id, true);
+  if (!article) {
+    throw new Error("Article not found");
+  }
+
+  const updated = await articleRepo.update(id, {
+    status: "draft",
   });
 
   await revalidateEntity("article", { slug: updated.slug });

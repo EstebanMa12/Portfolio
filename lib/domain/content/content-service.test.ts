@@ -4,6 +4,8 @@ import {
   generateSlug,
   publishArticle,
   publishProject,
+  unpublishArticle,
+  unpublishProject,
 } from "./content-service";
 import { computeReadingTime } from "@/lib/utils/reading-time";
 
@@ -135,5 +137,55 @@ describe("publishArticle", () => {
     );
     expect(revalidateEntity).toHaveBeenCalledWith("article", { slug: "post" });
     expect(result.status).toBe("published");
+  });
+});
+
+describe("unpublishProject", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("sets status to draft and revalidates tags", async () => {
+    vi.mocked(projectRepo.getById).mockResolvedValue({
+      id: "1",
+      slug: "demo",
+      status: "published",
+    } as never);
+    vi.mocked(projectRepo.update).mockResolvedValue({
+      id: "1",
+      slug: "demo",
+      status: "draft",
+    } as never);
+
+    const result = await unpublishProject("1");
+
+    expect(projectRepo.update).toHaveBeenCalledWith("1", { status: "draft" });
+    expect(revalidateEntity).toHaveBeenCalledWith("project", { slug: "demo" });
+    expect(result.status).toBe("draft");
+  });
+});
+
+describe("unpublishArticle", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("sets status to draft and revalidates tags", async () => {
+    vi.mocked(articleRepo.getById).mockResolvedValue({
+      id: "1",
+      slug: "post",
+      status: "published",
+    } as never);
+    vi.mocked(articleRepo.update).mockResolvedValue({
+      id: "1",
+      slug: "post",
+      status: "draft",
+    } as never);
+
+    const result = await unpublishArticle("1");
+
+    expect(articleRepo.update).toHaveBeenCalledWith("1", { status: "draft" });
+    expect(revalidateEntity).toHaveBeenCalledWith("article", { slug: "post" });
+    expect(result.status).toBe("draft");
   });
 });

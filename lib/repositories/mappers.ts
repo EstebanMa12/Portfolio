@@ -90,6 +90,7 @@ export function mapArticle(row: ArticleRow): Article {
     id: row.id,
     title: row.title,
     slug: row.slug,
+    locale: row.locale as Article["locale"],
     excerpt: row.excerpt,
     content: row.content,
     tags: row.tags,
