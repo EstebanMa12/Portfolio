@@ -156,6 +156,9 @@ export async function publishArticleAction(
   try {
     await publishArticleService(id);
     revalidatePath(`/admin/articles/${id}`);
+    revalidatePath("/blog");
+    revalidatePath("/es/blog");
+    revalidatePath("/en/blog");
     return { success: "Artículo publicado." };
   } catch (error) {
     return {

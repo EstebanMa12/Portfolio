@@ -8,8 +8,6 @@ const E2E_EXCERPT =
 test.describe("Admin publish article", () => {
   test.skip(!isE2EConfigured(), "E2E credentials not configured");
 
-  test.use({ storageState: "e2e/.auth/admin.json" });
-
   const slug = `e2e-publish-${Date.now()}`;
   const title = `E2E Publish ${Date.now()}`;
 
@@ -33,7 +31,7 @@ test.describe("Admin publish article", () => {
     await page.getByTestId("article-publish").click();
     await expect(page.getByTestId("article-publish")).toHaveText("Despublicar");
 
-    await page.goto("/blog");
+    await page.goto("/es/blog");
     await expect(page.getByRole("link", { name: title })).toBeVisible();
   });
 });
